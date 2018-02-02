@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>mybatis-1 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="[TOC]   idea mybatis 学习路径别人的博客 好的博客springbootgit地址 mybatis中几个基本的组件 SqlSessionFactoryBuilder这是一个SqlSessionFactory的构造器，它根据我们的xml配置文件或者Java代码来生成SqlSessionFactory SqlSessionFactory这个有点类似于我们在JDBC中使用的Connec">
+<meta name="keywords" content="java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mybatis-1">
+<meta property="og:url" content="http://yoursite.com/2018/01/19/mybatis-1/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="[TOC]   idea mybatis 学习路径别人的博客 好的博客springbootgit地址 mybatis中几个基本的组件 SqlSessionFactoryBuilder这是一个SqlSessionFactory的构造器，它根据我们的xml配置文件或者Java代码来生成SqlSessionFactory SqlSessionFactory这个有点类似于我们在JDBC中使用的Connec">
+<meta property="og:updated_time" content="2018-01-19T07:32:37.604Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mybatis-1">
+<meta name="twitter:description" content="[TOC]   idea mybatis 学习路径别人的博客 好的博客springbootgit地址 mybatis中几个基本的组件 SqlSessionFactoryBuilder这是一个SqlSessionFactory的构造器，它根据我们的xml配置文件或者Java代码来生成SqlSessionFactory SqlSessionFactory这个有点类似于我们在JDBC中使用的Connec">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-mybatis-1" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/01/19/mybatis-1/" class="article-date">
+  <time datetime="2018-01-19T02:41:38.000Z" itemprop="datePublished">2018-01-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      mybatis-1
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]  </p>
+<p><a href="http://blog.csdn.net/u012702547/article/details/54425130" target="_blank" rel="noopener">idea mybatis 学习路径</a><br><a href="https://github.com/lenve/JavaEETest" target="_blank" rel="noopener">别人的博客</a></p>
+<p>好的博客<br><a href="http://www.ityouknow.com/spring-boot.html" target="_blank" rel="noopener">springboot</a><br><a href="https://github.com/ityouknow/spring-boot-examples" target="_blank" rel="noopener">git地址</a></p>
+<h2 id="mybatis中几个基本的组件"><a href="#mybatis中几个基本的组件" class="headerlink" title="mybatis中几个基本的组件"></a>mybatis中几个基本的组件</h2><ol>
+<li>SqlSessionFactoryBuilder<br>这是一个SqlSessionFactory的构造器，它根据我们的xml配置文件或者Java代码来生成SqlSessionFactory</li>
+<li>SqlSessionFactory<br>这个有点类似于我们在JDBC中使用的Connection，我们到时候要根据SqlSessionFactory来生成是一个会话，也就是SqlSession。</li>
+<li>SqlSession<br>它可以发送一条SQL语句去执行，并返回结果，从这个角度来说，它有点类似于PrepareStatement，当然，我们也可以利用SqlSession获取Mapper的接口，这个算是SqlSession的一个核心用法了。</li>
+<li>Mapper<br>Mapper也可以发送一条SQL语句并返回执行结果，Mapper由两部分组成，一部分是Java接口，另一部分是XML配置文件或者注解。</li>
+</ol>
+<h2 id="idea-控制台应用程序-mybatis"><a href="#idea-控制台应用程序-mybatis" class="headerlink" title="idea 控制台应用程序  mybatis"></a>idea 控制台应用程序  mybatis</h2><ol>
+<li>File 》New》Project,左边选择java,右边选择Java EE,Next,勾选Create project from template,选择Command Line App，Next</li>
+<li>选择项目，右键选择 Add FrameWork Support,勾选Maven</li>
+</ol>
+<p>在pom.xml 添加依赖<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependencies&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.mybatis&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;mybatis&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;3.4.2&lt;/version&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;junit&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;junit&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;4.12&lt;/version&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;mysql&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;5.1.40&lt;/version&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">    &lt;/dependencies&gt;</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>配置信息<br>所有的配置文件我们都放在resources文件夹下</li>
+</ol>
+<ul>
+<li><p>创建数据库信息 db.propertie</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">driver=com.mysql.jdbc.Driver</span><br><span class="line">url=jdbc:mysql://localhost:3306/mybatis</span><br><span class="line">username=root</span><br><span class="line">password=sang</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>mybatis的配置文件 mybatis-conf.xml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span><br><span class="line">&lt;!DOCTYPE configuration</span><br><span class="line">        PUBLIC &quot;-//mybatis.org//DTD Config 3.0//EN&quot;</span><br><span class="line">        &quot;http://mybatis.org/dtd/mybatis-3-config.dtd&quot;&gt;</span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;properties resource=&quot;db.properties&quot;/&gt;</span><br><span class="line">    &lt;typeAliases&gt;</span><br><span class="line">        &lt;typeAlias type=&quot;org.sang.bean.User&quot; alias=&quot;user&quot;/&gt;</span><br><span class="line">    &lt;/typeAliases&gt;</span><br><span class="line">    &lt;environments default=&quot;development&quot;&gt;</span><br><span class="line">        &lt;environment id=&quot;development&quot;&gt;</span><br><span class="line">            &lt;transactionManager type=&quot;JDBC&quot;/&gt;</span><br><span class="line">            &lt;dataSource type=&quot;POOLED&quot;&gt;</span><br><span class="line">                &lt;property name=&quot;driver&quot; value=&quot;$&#123;driver&#125;&quot;/&gt;</span><br><span class="line">                &lt;property name=&quot;url&quot; value=&quot;$&#123;url&#125;&quot;/&gt;</span><br><span class="line">                &lt;property name=&quot;username&quot; value=&quot;$&#123;username&#125;&quot;/&gt;</span><br><span class="line">                &lt;property name=&quot;password&quot; value=&quot;$&#123;password&#125;&quot;/&gt;</span><br><span class="line">            &lt;/dataSource&gt;</span><br><span class="line">        &lt;/environment&gt;</span><br><span class="line">    &lt;/environments&gt;</span><br><span class="line">    &lt;mappers&gt;</span><br><span class="line">        &lt;mapper resource=&quot;userMapper.xml&quot;/&gt;</span><br><span class="line">    &lt;/mappers&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>说明：<br>我们引入刚刚创建的db.properties文件，方便我们在配置数据库的时候通过${XXX}来直接引用其中的值</p>
+<p>起别名：<br>bean包下有许多实体类，一个一个的取别名显然太麻烦<br>注册一个包下所有的实体类<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;typeAliases&gt;</span><br><span class="line">    &lt;package name=&quot;org.sang.bean&quot;/&gt;</span><br><span class="line">&lt;/typeAliases&gt;</span><br></pre></td></tr></table></figure></p>
+<p>默认的别名即类名，只不过首字母变为小写</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/01/19/mybatis-1/" data-id="cjd5pv1cm000exonvcnxn87ct" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/01/23/MyBatis入门/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          MyBatis入门
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/01/18/spring-boot-mybaits-annotation-注解版本/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">spring-boot-mybaits-annotation-注解版本</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Kategorien</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/">blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring-boot/">spring-boot</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/spring-boot/" style="font-size: 10px;">spring-boot</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/02/02/Sortable-js拖拽排序使用方法/">Sortable.js拖拽排序使用方法</a>
+          </li>
+        
+          <li>
+            <a href="/2018/02/01/fiddler试用/">fiddler试用</a>
+          </li>
+        
+          <li>
+            <a href="/2018/02/01/知乎登录/">知乎登录</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/24/spring-boot-mybaits-xml-xml版本/">spring-boot-mybaits-xml-xml版本</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/23/MyBatis入门/">MyBatis入门</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

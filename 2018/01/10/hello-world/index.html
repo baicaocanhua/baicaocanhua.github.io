@@ -13,7 +13,7 @@
 <meta property="og:url" content="http://yoursite.com/2018/01/10/hello-world/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
-<meta property="og:updated_time" content="2018-01-10T08:23:41.040Z">
+<meta property="og:updated_time" content="2018-01-29T07:12:21.664Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hello World">
 <meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
@@ -54,7 +54,7 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -94,11 +94,60 @@
 <p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
 <h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+<table>
+<thead>
+<tr>
+<th>WebClient</th>
+<th>HttpClient</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>在.net的旧版本中可用</td>
+<td>.NET 4.5 only、Web API REST</td>
+</tr>
+<tr>
+<td>不支持WinRT</td>
+<td>支持WinRT</td>
+</tr>
+<tr>
+<td>提供下载进度</td>
+<td>没有下载进度</td>
+</tr>
+<tr>
+<td>不重用已解析的  DNS，已配置的Cookie</td>
+<td>可以重新使用解析的  DNS，cookie配置和其他身份验证。</td>
+</tr>
+<tr>
+<td>您需要新建一个WebClient来发出并发请求。</td>
+<td>单个HttpClient可以发出并发请求。</td>
+</tr>
+<tr>
+<td>WebRequest和WebResponse</td>
+<td>通过HttpWebRequest和HttpWebResponse</td>
+</tr>
+<tr>
+<td>模拟和测试WebClient是困难的</td>
+<td>模拟和测试HttpClient很简单</td>
+</tr>
+<tr>
+<td>支持  FTP。</td>
+<td>不支持  FTP。</td>
+</tr>
+<tr>
+<td>同步和异步方法都可用于  IO  绑定请求。</td>
+<td>HTTPClient中的 所有  IO绑定方法都是异步的。</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>WebApiClient是开源在github上的一个httpClient客户端库，内部基于HttpClient开发，<br><a href="http://www.cnblogs.com/kewei/p/8295261.html" target="_blank" rel="noopener">.net的retrofit–WebApiClient库</a></p>
+</blockquote>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/10/hello-world/" data-id="cjckayc1r000bmsnv3jhon3wh" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/01/10/hello-world/" data-id="cjd5pv1c30005xonv7nhkokst" class="article-share-link">Teilen</a>
       
       
     </footer>
@@ -108,7 +157,7 @@
 <nav id="article-nav">
   
     <a href="/2018/01/10/Hello-World-0/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
+      <strong class="article-nav-caption">Neuer</strong>
       <div class="article-nav-title">
         
           Hello World
@@ -128,7 +177,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
+    <h3 class="widget-title">Kategorien</h3>
     <div class="widget">
       <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a></li></ul>
     </div>
@@ -150,16 +199,16 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/spring-boot/" style="font-size: 10px;">spring-boot</a>
+      <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/spring-boot/" style="font-size: 10px;">spring-boot</a>
     </div>
   </div>
 
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
+    <h3 class="widget-title">Archiv</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li></ul>
     </div>
   </div>
 
@@ -167,24 +216,28 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">letzter Beitrag</h3>
     <div class="widget">
       <ul>
         
           <li>
-            <a href="/2018/01/18/spring-boot-mybaits-annotation-注解版本/">spring-boot-mybaits-annotation-注解版本</a>
+            <a href="/2018/02/02/Sortable-js拖拽排序使用方法/">Sortable.js拖拽排序使用方法</a>
           </li>
         
           <li>
-            <a href="/2018/01/12/SpringBoot/">学习SpringBoot</a>
+            <a href="/2018/02/01/fiddler试用/">fiddler试用</a>
           </li>
         
           <li>
-            <a href="/2018/01/10/Hello-World-0/">Hello World</a>
+            <a href="/2018/02/01/知乎登录/">知乎登录</a>
           </li>
         
           <li>
-            <a href="/2018/01/10/hello-world/">Hello World</a>
+            <a href="/2018/01/24/spring-boot-mybaits-xml-xml版本/">spring-boot-mybaits-xml-xml版本</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/23/MyBatis入门/">MyBatis入门</a>
           </li>
         
       </ul>

@@ -50,7 +50,7 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -60,6 +60,293 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-Sortable-js拖拽排序使用方法" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/02/02/Sortable-js拖拽排序使用方法/" class="article-date">
+  <time datetime="2018-02-02T08:16:05.000Z" itemprop="datePublished">2018-02-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/02/02/Sortable-js拖拽排序使用方法/">Sortable.js拖拽排序使用方法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Sortable-使用"><a href="#Sortable-使用" class="headerlink" title="Sortable 使用"></a>Sortable 使用</h1><h2 id="单列表拖拽"><a href="#单列表拖拽" class="headerlink" title="单列表拖拽"></a>单列表拖拽</h2><blockquote>
+<p>1.引入js<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=&quot;Sortable.js&quot; type=&quot;text/javascript&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
+<p>2.css问题<br>不需要css，不会写的可以参考官网的app.css,<br>拖拽的时候有阴影效果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.sortable-ghost &#123;</span><br><span class="line"> opacity: 0.4;</span><br><span class="line"> background-color: #F4E2C9;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
+<p>3.html代码<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;ul id=&quot;foo&quot; &gt;</span><br><span class="line">&lt;li&gt;1&lt;/li&gt;</span><br><span class="line">&lt;li&gt;2&lt;/li&gt;</span><br><span class="line">&lt;li&gt;3&lt;/li&gt;</span><br><span class="line">&lt;li&gt;4&lt;/li&gt;</span><br><span class="line">&lt;li&gt;5&lt;/li&gt;</span><br><span class="line">&lt;li&gt;6&lt;/li&gt;</span><br><span class="line">&lt;li&gt;7&lt;/li&gt;</span><br><span class="line">&lt;li&gt;8&lt;/li&gt;</span><br><span class="line">&lt;/ul&gt;</span><br></pre></td></tr></table></figure></p>
+<p>4.script代码<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line"> Sortable.create(document.getElementById(&apos;foo&apos;), &#123;&#125;);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>事件<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">		Sortable.create(document.getElementById(&apos;foo&apos;), &#123;</span><br><span class="line">			animation: 150, //动画参数</span><br><span class="line">			onAdd: function(evt) &#123; //拖拽时候添加有新的节点的时候发生该事件</span><br><span class="line">				console.log(&apos;onAdd.foo:&apos;, [evt.item, evt.from]);</span><br><span class="line">			&#125;,</span><br><span class="line">			onRemove: function(evt) &#123; //删除拖拽节点的时候促发该事件</span><br><span class="line">				console.log(&apos;onRemove.foo:&apos;, [evt.item, evt.from]);</span><br><span class="line">			&#125;,</span><br><span class="line">			onStart: function(evt) &#123; //开始拖拽出发该函数</span><br><span class="line">				console.log(&apos;onStart.foo1:&apos;, [evt.item, evt.from]);</span><br><span class="line">			&#125;,</span><br><span class="line">			onUpdate: function(evt) &#123; //拖拽更新节点位置发生该事件</span><br><span class="line">				console.log(&apos;onUpdate.foo2:&apos;, [evt.item, evt.from]);</span><br><span class="line">			&#125;,</span><br><span class="line">			onSort: function(evt) &#123; //发生排序发生该事件</span><br><span class="line">				console.log(&apos;onSort.foo3:&apos;, [evt.item, evt.from]);</span><br><span class="line">			&#125;,</span><br><span class="line">			onEnd: function(evt) &#123; //拖拽完毕之后发生该事件</span><br><span class="line">				console.log(&apos;onEnd.foo4:&apos;, [evt.item, evt.from]);</span><br><span class="line">				var arr = [];</span><br><span class="line">				for(var i = 0, len = evt.from.children.length; i &lt; len; i++) &#123;</span><br><span class="line">					arr.push(evt.from.children[i].getAttribute(&apos;drag-id&apos;));</span><br><span class="line">				&#125;</span><br><span class="line">				//然后请求后台ajax 这样就完成了拖拽排序</span><br><span class="line">				console.log(arr.join(&apos;,&apos;));</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">		&#125;);</span><br><span class="line">	&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+</blockquote>
+<h2 id="多列表拖拽"><a href="#多列表拖拽" class="headerlink" title="多列表拖拽"></a>多列表拖拽</h2><h4 id="主要参数是-group"><a href="#主要参数是-group" class="headerlink" title="主要参数是 group"></a>主要参数是 group</h4><p>group{<br>        name:”words”,name要相同才能互相拖拽<br>         pull:true,  则可以拖拽到其他列表 否则反之<br>         put:true,  则可以从其他列表中放数据到改列表，false则反之<br>    }<br> pull: ‘clone’, 还有一个作用是克隆，就是当这个列表拖拽到其他列表的时候不会删除改列表的节点。</p>
+<h4 id="a和b可以相互拖拽-group的name要相同才能互相拖拽"><a href="#a和b可以相互拖拽-group的name要相同才能互相拖拽" class="headerlink" title="a和b可以相互拖拽,group的name要相同才能互相拖拽"></a>a和b可以相互拖拽,group的name要相同才能互相拖拽</h4> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Sortable.create(document.getElementById(&apos;a&apos;), &#123;</span><br><span class="line"> group:&quot;words&quot;,</span><br><span class="line"> animation: 150, //动画参数</span><br><span class="line">&#125;)</span><br><span class="line"> Sortable.create(document.getElementById(&apos;b&apos;), &#123;</span><br><span class="line"> group:&quot;words&quot;,</span><br><span class="line"> animation: 150, //动画参数</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="只能从a列表拖拽到b列表"><a href="#只能从a列表拖拽到b列表" class="headerlink" title="只能从a列表拖拽到b列表"></a>只能从a列表拖拽到b列表</h4> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Sortable.create(document.getElementById(&apos;a&apos;), &#123;</span><br><span class="line"> group: &#123;</span><br><span class="line">  name:&quot;words&quot;,</span><br><span class="line">  pull: true,</span><br><span class="line">  put: true </span><br><span class="line">  &#125;,</span><br><span class="line"> animation: 150, //动画参数</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  Sortable.create(document.getElementById(&apos;b&apos;), &#123;</span><br><span class="line">  group: &#123;</span><br><span class="line">  name:&quot;words&quot;,</span><br><span class="line">  pull: false,</span><br><span class="line">  put: true </span><br><span class="line">  &#125;,</span><br><span class="line"> animation: 150, //动画参数</span><br><span class="line">  &#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="克隆"><a href="#克隆" class="headerlink" title="克隆"></a>克隆</h4> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Sortable.create(document.getElementById(&apos;foo&apos;), &#123;</span><br><span class="line"> group: &#123;</span><br><span class="line">  name:&quot;words&quot;,</span><br><span class="line">  pull: &apos;clone&apos;,</span><br><span class="line">  put: true </span><br><span class="line">  &#125;,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>参考地址<br><a href="https://www.cnblogs.com/hao123456/p/6025015.html" target="_blank" rel="noopener">html5 Sortable.js 拖拽排序源码分析</a><br><a href="http://rubaxa.github.io/Sortable/" target="_blank" rel="noopener">demo</a><br><a href="https://github.com/RubaXa/Sortable/" target="_blank" rel="noopener">github</a></p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/02/02/Sortable-js拖拽排序使用方法/" data-id="cjd5pv1c20004xonvfjrt8nv7" class="article-share-link">Teilen</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-fiddler试用" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/02/01/fiddler试用/" class="article-date">
+  <time datetime="2018-02-01T03:38:16.000Z" itemprop="datePublished">2018-02-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/02/01/fiddler试用/">fiddler试用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="http://www.cnblogs.com/TankXiao/archive/2012/02/06/2337728.html" target="_blank" rel="noopener">http://www.cnblogs.com/TankXiao/archive/2012/02/06/2337728.html</a></p>
+<p>拦截请求<br>bpu 要连接的网址，然后回车,如： bpu <a href="http://baidu.com" target="_blank" rel="noopener">http://baidu.com</a><br>拦截响应<br> bpafter www.baidu.com<br>命令框输入“select script”</p>
+<p>接着把这个请求拖动到“AutoResponder”面板.</p>
+<p>拖动之前记得先勾上 “Enable automatic responses”和 “Permit passthrough for unmatched requests”.</p>
+<p>Fiddler (四) 实现手机的抓包 - 小坦克<br>1：配置Fiddler,  允许”远程连接”<br>打开Fiddler,   Tools-&gt; Fiddler Options 。  （配置完后记得要重启Fiddler）.</p>
+<ol>
+<li>在HTTPS，选中”Decrpt HTTPS traffic”,    Fiddler就可以截获HTTPS请求  </li>
+<li>在connectios，选中”Allow remote computers to connect”.  是允许别的机器把HTTP/HTTPS请求发送到Fiddler上来</li>
+</ol>
+<p>本机ip，192.168.20.58<br>打开iphone的浏览器，打开192.168.20.58:8888,点”FiddlerRoot certificate” 然后安装证书</p>
+<p>Phone上配置Fiddler为代理<br>配置代理，手动<br>服务器 192.168.20.58<br>端口 8888</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/02/01/fiddler试用/" data-id="cjd5pv1c9000axonv97tqtfmv" class="article-share-link">Teilen</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-知乎登录" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/02/01/知乎登录/" class="article-date">
+  <time datetime="2018-02-01T03:18:10.000Z" itemprop="datePublished">2018-02-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/02/01/知乎登录/">知乎登录</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>1.找到header<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">accept:application/json, text/plain, */*</span><br><span class="line">Accept-Encoding:gzip, deflate, br</span><br><span class="line">Accept-Language:zh-CN,zh;q=0.9</span><br><span class="line">authorization:oauth c3cef7c66a1843f8b3a9e6a1e3160e20</span><br><span class="line">Connection:keep-alive</span><br><span class="line">Content-Length:1234</span><br><span class="line">Content-Type:multipart/form-data; boundary=----WebKitFormBoundarysb9OkKceBnwatObN</span><br><span class="line">Cookie:aliyungf_tc=AQAAAAbrBFEkNAMAB5tydRIHGKpf3Y8i; d_c0=&quot;AAAtAcHkEw2PTvvqvsmx7PXyZrCTY2he-Pw=|1517453334&quot;; _xsrf=d17f5e9d-0abd-4488-a2cb-a36ace177a9c; q_c1=ecf80c69aa564c8e802cfc61d104db10|1517453334000|1517453334000; _zap=0786fb99-927a-4f08-a939-9c77f5c10ef5; capsion_ticket=&quot;2|1:0|10:1517453428|14:capsion_ticket|44:ODkzYjQ0OGQ0M2QwNDkwOWFhYmNlYTllMjE4YjM0YmM=|83ad98f45adf416d046efcaffced35b109b2cc8db6b4f73a669484ed96ac4564&quot;</span><br><span class="line">Host:www.zhihu.com</span><br><span class="line">Origin:https://www.zhihu.com</span><br><span class="line">Referer:https://www.zhihu.com/signup?next=%2F</span><br><span class="line">User-Agent:Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.119 Safari/537.36</span><br><span class="line">X-UDID:AAAtAcHkEw2PTvvqvsmx7PXyZrCTY2he-Pw=</span><br><span class="line">X-Xsrftoken:d17f5e9d-0abd-4488-a2cb-a36ace177a9c</span><br></pre></td></tr></table></figure></p>
+<p>2.找到data<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">------WebKitFormBoundarysb9OkKceBnwatObN</span><br><span class="line">Content-Disposition: form-data; name=&quot;client_id&quot;</span><br><span class="line"></span><br><span class="line">c3cef7c66a1843f8b3a9e6a1e3160e20</span><br><span class="line">------WebKitFormBoundarysb9OkKceBnwatObN</span><br><span class="line">Content-Disposition: form-data; name=&quot;grant_type&quot;</span><br><span class="line"></span><br><span class="line">password</span><br><span class="line">------WebKitFormBoundarysb9OkKceBnwatObN</span><br><span class="line">Content-Disposition: form-data; name=&quot;timestamp&quot;</span><br><span class="line"></span><br><span class="line">1517453479552</span><br><span class="line">------WebKitFormBoundarysb9OkKceBnwatObN</span><br><span class="line">Content-Disposition: form-data; name=&quot;source&quot;</span><br><span class="line"></span><br><span class="line">com.zhihu.web</span><br><span class="line">------WebKitFormBoundarysb9OkKceBnwatObN</span><br><span class="line">Content-Disposition: form-data; name=&quot;signature&quot;</span><br><span class="line"></span><br><span class="line">c12a2eb4cba06ba1637f3262bc3bb144d33b3e2c</span><br><span class="line">------WebKitFormBoundarysb9OkKceBnwatObN</span><br><span class="line">Content-Disposition: form-data; name=&quot;username&quot;</span><br><span class="line"></span><br><span class="line">330557864@qq.com</span><br><span class="line">------WebKitFormBoundarysb9OkKceBnwatObN</span><br><span class="line">Content-Disposition: form-data; name=&quot;password&quot;</span><br><span class="line"></span><br><span class="line">maimai55661</span><br><span class="line">------WebKitFormBoundarysb9OkKceBnwatObN</span><br><span class="line">Content-Disposition: form-data; name=&quot;captcha&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">------WebKitFormBoundarysb9OkKceBnwatObN</span><br><span class="line">Content-Disposition: form-data; name=&quot;lang&quot;</span><br><span class="line"></span><br><span class="line">en</span><br><span class="line">------WebKitFormBoundarysb9OkKceBnwatObN</span><br><span class="line">Content-Disposition: form-data; name=&quot;ref_source&quot;</span><br><span class="line"></span><br><span class="line">homepage</span><br><span class="line">------WebKitFormBoundarysb9OkKceBnwatObN</span><br><span class="line">Content-Disposition: form-data; name=&quot;utm_source&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">------WebKitFormBoundarysb9OkKceBnwatObN--</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/02/01/知乎登录/" data-id="cjd5pv1cb000bxonvx0tjllz6" class="article-share-link">Teilen</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-spring-boot-mybaits-xml-xml版本" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/01/24/spring-boot-mybaits-xml-xml版本/" class="article-date">
+  <time datetime="2018-01-24T03:06:11.000Z" itemprop="datePublished">2018-01-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/01/24/spring-boot-mybaits-xml-xml版本/">spring-boot-mybaits-xml-xml版本</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>mybatis.type-aliases-package=com.neo.entity</p>
+<p>mybatis.config-locations=classpath:mybatis/mybatis-config.xml<br>mybatis.mapper-locations=classpath:mybatis/mapper/*.xml</p>
+<p>in check_header_validity<br> if not pat.match(value):<br> TypeError: expected string or bytes-like object</p>
+<p> 爬虫的header里面不能有数字<br> ‘Upgrade-Insecure-Requests’: 1,<br> 改为<br> ‘Upgrade-Insecure-Requests’: str(1),</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/01/24/spring-boot-mybaits-xml-xml版本/" data-id="cjd5pv1c60007xonvq89w1zxo" class="article-share-link">Teilen</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-MyBatis入门" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/01/23/MyBatis入门/" class="article-date">
+  <time datetime="2018-01-23T05:57:36.000Z" itemprop="datePublished">2018-01-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/01/23/MyBatis入门/">MyBatis入门</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<h2 id="别名"><a href="#别名" class="headerlink" title="别名"></a>别名</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;typeAliases&gt;</span><br><span class="line">  &lt;package name=&quot;domain.blog&quot;/&gt;</span><br><span class="line">&lt;/typeAliases&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>别名：包中的JavaBean会使用首字母小写类名作为别名，<br>domain.blog.Author 的别名为 author；<br>若有注解，则别名为其注解值。看下面的例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@Alias(&quot;author&quot;)</span><br><span class="line">public class Author &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<h2 id="映射器（mappers）"><a href="#映射器（mappers）" class="headerlink" title="映射器（mappers）"></a>映射器（mappers）</h2></blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;mappers&gt;</span><br><span class="line">  &lt;package name=&quot;org.mybatis.builder&quot;/&gt;</span><br><span class="line">&lt;/mappers&gt;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/01/23/MyBatis入门/" data-id="cjd5pv1ap0001xonvzpgip8lf" class="article-share-link">Teilen</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-mybatis-1" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/01/19/mybatis-1/" class="article-date">
+  <time datetime="2018-01-19T02:41:38.000Z" itemprop="datePublished">2018-01-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/01/19/mybatis-1/">mybatis-1</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]  </p>
+<p><a href="http://blog.csdn.net/u012702547/article/details/54425130" target="_blank" rel="noopener">idea mybatis 学习路径</a><br><a href="https://github.com/lenve/JavaEETest" target="_blank" rel="noopener">别人的博客</a></p>
+<p>好的博客<br><a href="http://www.ityouknow.com/spring-boot.html" target="_blank" rel="noopener">springboot</a><br><a href="https://github.com/ityouknow/spring-boot-examples" target="_blank" rel="noopener">git地址</a></p>
+<h2 id="mybatis中几个基本的组件"><a href="#mybatis中几个基本的组件" class="headerlink" title="mybatis中几个基本的组件"></a>mybatis中几个基本的组件</h2><ol>
+<li>SqlSessionFactoryBuilder<br>这是一个SqlSessionFactory的构造器，它根据我们的xml配置文件或者Java代码来生成SqlSessionFactory</li>
+<li>SqlSessionFactory<br>这个有点类似于我们在JDBC中使用的Connection，我们到时候要根据SqlSessionFactory来生成是一个会话，也就是SqlSession。</li>
+<li>SqlSession<br>它可以发送一条SQL语句去执行，并返回结果，从这个角度来说，它有点类似于PrepareStatement，当然，我们也可以利用SqlSession获取Mapper的接口，这个算是SqlSession的一个核心用法了。</li>
+<li>Mapper<br>Mapper也可以发送一条SQL语句并返回执行结果，Mapper由两部分组成，一部分是Java接口，另一部分是XML配置文件或者注解。</li>
+</ol>
+<h2 id="idea-控制台应用程序-mybatis"><a href="#idea-控制台应用程序-mybatis" class="headerlink" title="idea 控制台应用程序  mybatis"></a>idea 控制台应用程序  mybatis</h2><ol>
+<li>File 》New》Project,左边选择java,右边选择Java EE,Next,勾选Create project from template,选择Command Line App，Next</li>
+<li>选择项目，右键选择 Add FrameWork Support,勾选Maven</li>
+</ol>
+<p>在pom.xml 添加依赖<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependencies&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.mybatis&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;mybatis&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;3.4.2&lt;/version&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;junit&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;junit&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;4.12&lt;/version&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;mysql&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;5.1.40&lt;/version&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">    &lt;/dependencies&gt;</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>配置信息<br>所有的配置文件我们都放在resources文件夹下</li>
+</ol>
+<ul>
+<li><p>创建数据库信息 db.propertie</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">driver=com.mysql.jdbc.Driver</span><br><span class="line">url=jdbc:mysql://localhost:3306/mybatis</span><br><span class="line">username=root</span><br><span class="line">password=sang</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>mybatis的配置文件 mybatis-conf.xml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span><br><span class="line">&lt;!DOCTYPE configuration</span><br><span class="line">        PUBLIC &quot;-//mybatis.org//DTD Config 3.0//EN&quot;</span><br><span class="line">        &quot;http://mybatis.org/dtd/mybatis-3-config.dtd&quot;&gt;</span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;properties resource=&quot;db.properties&quot;/&gt;</span><br><span class="line">    &lt;typeAliases&gt;</span><br><span class="line">        &lt;typeAlias type=&quot;org.sang.bean.User&quot; alias=&quot;user&quot;/&gt;</span><br><span class="line">    &lt;/typeAliases&gt;</span><br><span class="line">    &lt;environments default=&quot;development&quot;&gt;</span><br><span class="line">        &lt;environment id=&quot;development&quot;&gt;</span><br><span class="line">            &lt;transactionManager type=&quot;JDBC&quot;/&gt;</span><br><span class="line">            &lt;dataSource type=&quot;POOLED&quot;&gt;</span><br><span class="line">                &lt;property name=&quot;driver&quot; value=&quot;$&#123;driver&#125;&quot;/&gt;</span><br><span class="line">                &lt;property name=&quot;url&quot; value=&quot;$&#123;url&#125;&quot;/&gt;</span><br><span class="line">                &lt;property name=&quot;username&quot; value=&quot;$&#123;username&#125;&quot;/&gt;</span><br><span class="line">                &lt;property name=&quot;password&quot; value=&quot;$&#123;password&#125;&quot;/&gt;</span><br><span class="line">            &lt;/dataSource&gt;</span><br><span class="line">        &lt;/environment&gt;</span><br><span class="line">    &lt;/environments&gt;</span><br><span class="line">    &lt;mappers&gt;</span><br><span class="line">        &lt;mapper resource=&quot;userMapper.xml&quot;/&gt;</span><br><span class="line">    &lt;/mappers&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>说明：<br>我们引入刚刚创建的db.properties文件，方便我们在配置数据库的时候通过${XXX}来直接引用其中的值</p>
+<p>起别名：<br>bean包下有许多实体类，一个一个的取别名显然太麻烦<br>注册一个包下所有的实体类<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;typeAliases&gt;</span><br><span class="line">    &lt;package name=&quot;org.sang.bean&quot;/&gt;</span><br><span class="line">&lt;/typeAliases&gt;</span><br></pre></td></tr></table></figure></p>
+<p>默认的别名即类名，只不过首字母变为小写</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/01/19/mybatis-1/" data-id="cjd5pv1cm000exonvcnxn87ct" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-spring-boot-mybaits-annotation-注解版本" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -93,6 +380,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">	xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;</span><br><span class="line">	&lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;</span><br><span class="line"></span><br><span class="line">	&lt;groupId&gt;com.maimai&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;SpringBootWeb&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;</span><br><span class="line">	&lt;packaging&gt;jar&lt;/packaging&gt;</span><br><span class="line"></span><br><span class="line">	&lt;name&gt;SpringBootWeb&lt;/name&gt;</span><br><span class="line">	&lt;description&gt;Demo project for Spring Boot&lt;/description&gt;</span><br><span class="line"></span><br><span class="line">	&lt;parent&gt;</span><br><span class="line">		&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">		&lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;</span><br><span class="line">		&lt;version&gt;1.5.9.RELEASE&lt;/version&gt;</span><br><span class="line">		&lt;relativePath/&gt; &lt;!-- lookup parent from repository --&gt;</span><br><span class="line">	&lt;/parent&gt;</span><br><span class="line"></span><br><span class="line">	&lt;properties&gt;</span><br><span class="line">		&lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;</span><br><span class="line">		&lt;project.reporting.outputEncoding&gt;UTF-8&lt;/project.reporting.outputEncoding&gt;</span><br><span class="line">		&lt;java.version&gt;1.7&lt;/java.version&gt;</span><br><span class="line">	&lt;/properties&gt;</span><br><span class="line"></span><br><span class="line">	&lt;dependencies&gt;</span><br><span class="line">		&lt;dependency&gt;</span><br><span class="line">			&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">			&lt;artifactId&gt;spring-boot-starter-thymeleaf&lt;/artifactId&gt;</span><br><span class="line">		&lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">		&lt;dependency&gt;</span><br><span class="line">			&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">			&lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;</span><br><span class="line">			&lt;scope&gt;test&lt;/scope&gt;</span><br><span class="line">		&lt;/dependency&gt;</span><br><span class="line">		&lt;!-- mysql依赖 --&gt;</span><br><span class="line">		&lt;dependency&gt;</span><br><span class="line">			&lt;groupId&gt;mysql&lt;/groupId&gt;</span><br><span class="line">			&lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;</span><br><span class="line">			&lt;version&gt;5.1.42&lt;/version&gt;</span><br><span class="line">		&lt;/dependency&gt;</span><br><span class="line">		&lt;dependency&gt;</span><br><span class="line">			&lt;groupId&gt;org.mybatis.spring.boot&lt;/groupId&gt;</span><br><span class="line">			&lt;artifactId&gt;mybatis-spring-boot-starter&lt;/artifactId&gt;</span><br><span class="line">			&lt;version&gt;1.1.1&lt;/version&gt;</span><br><span class="line">		&lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">		&lt;!-- 引入spring boot自带的pagehelper插件 --&gt;</span><br><span class="line">		&lt;dependency&gt;</span><br><span class="line">			&lt;groupId&gt;com.github.pagehelper&lt;/groupId&gt;</span><br><span class="line">			&lt;artifactId&gt;pagehelper-spring-boot-starter&lt;/artifactId&gt;</span><br><span class="line">			&lt;version&gt;1.1.1&lt;/version&gt;</span><br><span class="line">		&lt;/dependency&gt;</span><br><span class="line">	&lt;/dependencies&gt;</span><br><span class="line"></span><br><span class="line">	&lt;build&gt;</span><br><span class="line">		&lt;plugins&gt;</span><br><span class="line">			&lt;plugin&gt;</span><br><span class="line">				&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">				&lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">			&lt;/plugin&gt;</span><br><span class="line">		&lt;/plugins&gt;</span><br><span class="line">	&lt;/build&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;/project&gt;</span><br></pre></td></tr></table></figure>
 <h4 id="2、mysql数据库配置"><a href="#2、mysql数据库配置" class="headerlink" title="2、mysql数据库配置"></a>2、mysql数据库配置</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">spring.datasource.url=jdbc:mysql://127.0.0.1:3306/mybatis</span><br><span class="line">spring.datasource.username=root</span><br><span class="line">spring.datasource.password=123456</span><br><span class="line">spring.datasource.driver-class-name=com.mysql.jdbc.Driver</span><br></pre></td></tr></table></figure>
 <h4 id="3-写dao层的mapper"><a href="#3-写dao层的mapper" class="headerlink" title="3.写dao层的mapper"></a>3.写dao层的mapper</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">package com.maimai.SpringBootWeb.dao;</span><br><span class="line">import com.maimai.SpringBootWeb.Bean.Grade;</span><br><span class="line">import org.apache.ibatis.annotations.*;</span><br><span class="line">import java.util.List;</span><br><span class="line">/**</span><br><span class="line"> * Created by maimai on 2018-01-17.</span><br><span class="line"> */</span><br><span class="line">public interface GradeMapper &#123;</span><br><span class="line">    @Select(&quot;select * from grade where grade_nm=#&#123;name&#125;&quot;)</span><br><span class="line">    @Results(&#123;</span><br><span class="line">            @Result(column=&quot;id&quot;, property=&quot;id&quot;),</span><br><span class="line">            @Result(column=&quot;grade_nm&quot;, property=&quot;gradeNm&quot;),</span><br><span class="line">            @Result(column=&quot;teacher_id&quot;, property=&quot;teacherId&quot;)</span><br><span class="line">    &#125;)</span><br><span class="line">    public List&lt;Grade&gt; getByGradeNm(String name);</span><br><span class="line"></span><br><span class="line">    @Insert(&quot;insert into grade(grade_nm,teacher_id) values(#&#123;gradeNm&#125;,#&#123;teacherId&#125;)&quot;)</span><br><span class="line">    @Options(useGeneratedKeys = true, keyColumn = &quot;id&quot;, keyProperty = &quot;id&quot;)//设置id自增长</span><br><span class="line">    public void save(Grade grade);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>@Select(“Select <em> from teacher where name = #{name}”)<br>@Select(“Select </em> from teacher where name = ‘${name}’”)<br>注意：$符号需要加引号</p>
 <h4 id="4-写controller"><a href="#4-写controller" class="headerlink" title="4.写controller"></a>4.写controller</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">package com.maimai.SpringBootWeb;</span><br><span class="line"></span><br><span class="line">import com.github.pagehelper.PageHelper;</span><br><span class="line">import com.maimai.SpringBootWeb.Bean.Grade;</span><br><span class="line">import com.maimai.SpringBootWeb.service.GradeService;</span><br><span class="line">import org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line">import org.springframework.web.bind.annotation.RestController;</span><br><span class="line"></span><br><span class="line">import javax.annotation.Resource;</span><br><span class="line">import java.util.List;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * Created by maimai on 2018-01-17.</span><br><span class="line"> */</span><br><span class="line">@RestController</span><br><span class="line">public class GradeController &#123;</span><br><span class="line">    @Resource</span><br><span class="line">    private GradeService gradeService;</span><br><span class="line"></span><br><span class="line">    @RequestMapping(&quot;/getByGradeNm&quot;)</span><br><span class="line">    public List&lt;Grade&gt; getByGradeNm(String name)&#123;</span><br><span class="line">        return gradeService.getByGradeNm(name);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @RequestMapping(&quot;/getByGradeNm2&quot;)</span><br><span class="line">    public List&lt;Grade&gt; getByGradeNm2(String name,int pageIndex,int pageSize)&#123;</span><br><span class="line">        PageHelper.startPage(pageIndex,pageSize);  //显示第一页2条数据</span><br><span class="line">        return gradeService.getByGradeNm(name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">package com.maimai.SpringBootWeb;</span><br><span class="line"></span><br><span class="line">import com.maimai.SpringBootWeb.Bean.Person;</span><br><span class="line">import org.springframework.stereotype.Controller;</span><br><span class="line">import org.springframework.ui.Model;</span><br><span class="line">import org.springframework.web.bind.annotation.GetMapping;</span><br><span class="line">import org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"></span><br><span class="line">import java.util.ArrayList;</span><br><span class="line">import java.util.List;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * Created by maimai on 2018-01-17.</span><br><span class="line"> */</span><br><span class="line">@Controller</span><br><span class="line">public class IndexController &#123;</span><br><span class="line"></span><br><span class="line">    @GetMapping(&quot;/&quot;)</span><br><span class="line">    public String Index() &#123;</span><br><span class="line">        return &quot;TETETET&quot;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @RequestMapping(&quot;/index&quot;)</span><br><span class="line">    public String index2(Model model) &#123;</span><br><span class="line">        Person single = new Person(&quot;aa&quot;, 11);</span><br><span class="line">        List&lt;Person&gt; people = new ArrayList&lt;&gt;();</span><br><span class="line">        Person p1 = new Person(&quot;zhangsan&quot;, 11);</span><br><span class="line">        Person p2 = new Person(&quot;lisi&quot;, 22);</span><br><span class="line">        Person p3 = new Person(&quot;wangwu&quot;, 33);</span><br><span class="line">        people.add(p1);</span><br><span class="line">        people.add(p2);</span><br><span class="line">        people.add(p3);</span><br><span class="line">        model.addAttribute(&quot;singlePerson&quot;, single);</span><br><span class="line">        model.addAttribute(&quot;people&quot;, people);</span><br><span class="line">        return &quot;index&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="5-写view"><a href="#5-写view" class="headerlink" title="5.写view"></a>5.写view</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">&lt;html lang=&quot;en&quot; xmlns:th=&quot;http://www.thymeleaf.org&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot; /&gt;</span><br><span class="line">    &lt;title&gt;Test20&lt;/title&gt;</span><br><span class="line">    &lt;link th:href=&quot;@&#123;bootstrap/css/bootstrap.min.css&#125;&quot; rel=&quot;stylesheet&quot; /&gt;</span><br><span class="line">    &lt;link th:href=&quot;@&#123;bootstrap/css/bootstrap-theme.min.css&#125;&quot; rel=&quot;stylesheet&quot; /&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;div class=&quot;panel panel-primary&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;panel-heading&quot;&gt;</span><br><span class="line">        &lt;h3 class=&quot;panel-title&quot;&gt;访问Model&lt;/h3&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;panel-body&quot;&gt;</span><br><span class="line">        &lt;span th:text=&quot;$&#123;singlePerson.name&#125;&quot;&gt;&lt;/span&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;div th:if=&quot;$&#123;not #lists.isEmpty(people)&#125;&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;panel panel-primary&quot;&gt;</span><br><span class="line">        &lt;div class=&quot;panel-heading&quot;&gt;</span><br><span class="line">            &lt;h3 class=&quot;panel-title&quot;&gt;列表&lt;/h3&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">        &lt;div class=&quot;panel-body&quot;&gt;</span><br><span class="line">            &lt;ul class=&quot;list-group&quot;&gt;</span><br><span class="line">                &lt;li class=&quot;list-group-item&quot; th:each=&quot;person:$&#123;people&#125;&quot;&gt;</span><br><span class="line">                    &lt;span th:text=&quot;$&#123;person.name&#125;&quot;&gt;&lt;/span&gt;</span><br><span class="line">                    &lt;span th:text=&quot;$&#123;person.age&#125;&quot;&gt;&lt;/span&gt;</span><br><span class="line">                    &lt;button class=&quot;btn&quot; th:onclick=&quot;&apos;getName(\&apos;&apos;+$&#123;person.name&#125;+&apos;\&apos;);&apos;&quot;&gt;获得名字&lt;/button&gt;</span><br><span class="line">                &lt;/li&gt;</span><br><span class="line">            &lt;/ul&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;script th:src=&quot;@&#123;jquery-3.2.1.min.js&#125;&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;script th:src=&quot;@&#123;bootstrap/js/bootstrap.min.js&#125;&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;script th:inline=&quot;javascript&quot;&gt;</span><br><span class="line">    var single = [[$&#123;singlePerson&#125;]];</span><br><span class="line">    console.log(single.name+&quot;/&quot;+single.age);</span><br><span class="line">    var people=[[$&#123;people&#125;]];</span><br><span class="line">    console.log(people);</span><br><span class="line">    function getName(name) &#123;</span><br><span class="line">        console.log(name);</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
@@ -100,7 +388,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/18/spring-boot-mybaits-annotation-注解版本/" data-id="cjckayc150001msnv101hxk95" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/01/18/spring-boot-mybaits-annotation-注解版本/" data-id="cjd5pv1co000fxonv3zptxrey" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spring-boot/">spring-boot</a></li></ul>
@@ -147,7 +435,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/12/SpringBoot/" data-id="cjckayc190003msnv53pe5zeq" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/01/12/SpringBoot/" data-id="cjd5pv1c50006xonvxgfgu7ro" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
@@ -214,11 +502,29 @@ hexo new&quot;postName&quot; #新建文章
 <p>hexo deploy #将.deploy目录部署到GitHub</p>
 <p>hexo help # 查看帮助</p>
 <p>hexo version #查看Hexo的版本</p>
+<p>@(示例笔记本)[马克飞象|帮助|Markdown]</p>
+<p><strong>马克飞象</strong></p>
+<p>脚注[^demo]</p>
+<p>npm install hexo-cli -g<br>hexo init blog<br>cd blog<br>npm install<br>hexo server</p>
+<p>npm install hexo-cli -g</p>
+<p>手把手教你使用Hexo快速地搭建博客<br><a href="https://www.jianshu.com/p/b8dd1e3e0255" target="_blank" rel="noopener">https://www.jianshu.com/p/b8dd1e3e0255</a></p>
+<p>HEXO+Github,搭建属于自己的博客<br><a href="https://www.jianshu.com/p/465830080ea9" target="_blank" rel="noopener">https://www.jianshu.com/p/465830080ea9</a></p>
+<p>hexo从零开始到搭建完整<br><a href="https://www.cnblogs.com/visugar/p/6821777.html" target="_blank" rel="noopener">https://www.cnblogs.com/visugar/p/6821777.html</a></p>
+<p>使用hexo，如果换了电脑怎么更新博客？<br><a href="https://www.zhihu.com/question/21193762" target="_blank" rel="noopener">https://www.zhihu.com/question/21193762</a></p>
+<p>ssh-keygen -t rsa -C “youremail@example.com</p>
+<p>git config –global user.name “baicaocanhua”<br>git config –global user.email “330557864@qq.com”<br>ssh-keygen -t rsa -C “330557864@qq.com”</p>
+<p>git@github.com:baicaocanhua/baicaocanhua.github.io.git</p>
+<p>用MarDown编辑器打开就可以编辑文章了。文章编辑好之后，运行生成、部署命令：</p>
+<p>hexo g   // 生成<br>hexo d   // 部署<br>1<br>2<br>当然你也可以执行下面的命令，相当于上面两条命令的效果</p>
+<p>hexo d -g #在部署前先生成</p>
+<p><a href="http://rj.baidu.com/soft/detail/23493.html?ald" target="_blank" rel="noopener">http://rj.baidu.com/soft/detail/23493.html?ald</a>   PHPnow</p>
+<p><a href="http://www.qqzhtx.com/article/10/2015/201505313605.html" target="_blank" rel="noopener">http://www.qqzhtx.com/article/10/2015/201505313605.html</a></p>
+<p>源码<br><a href="https://pan.lanzou.com/737331" target="_blank" rel="noopener">https://pan.lanzou.com/737331</a><br><a href="http://www.lwg8.cn/post-492.html" target="_blank" rel="noopener">http://www.lwg8.cn/post-492.html</a><br><a href="http://www.lwg8.cn/download.php?id=492" target="_blank" rel="noopener">http://www.lwg8.cn/download.php?id=492</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/10/Hello-World-0/" data-id="cjckayc0z0000msnvf3y3ow8e" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/01/10/Hello-World-0/" data-id="cjd5pv18q0000xonv9u0f93r8" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li></ul>
@@ -261,11 +567,60 @@ hexo new&quot;postName&quot; #新建文章
 <p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
 <h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+<table>
+<thead>
+<tr>
+<th>WebClient</th>
+<th>HttpClient</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>在.net的旧版本中可用</td>
+<td>.NET 4.5 only、Web API REST</td>
+</tr>
+<tr>
+<td>不支持WinRT</td>
+<td>支持WinRT</td>
+</tr>
+<tr>
+<td>提供下载进度</td>
+<td>没有下载进度</td>
+</tr>
+<tr>
+<td>不重用已解析的  DNS，已配置的Cookie</td>
+<td>可以重新使用解析的  DNS，cookie配置和其他身份验证。</td>
+</tr>
+<tr>
+<td>您需要新建一个WebClient来发出并发请求。</td>
+<td>单个HttpClient可以发出并发请求。</td>
+</tr>
+<tr>
+<td>WebRequest和WebResponse</td>
+<td>通过HttpWebRequest和HttpWebResponse</td>
+</tr>
+<tr>
+<td>模拟和测试WebClient是困难的</td>
+<td>模拟和测试HttpClient很简单</td>
+</tr>
+<tr>
+<td>支持  FTP。</td>
+<td>不支持  FTP。</td>
+</tr>
+<tr>
+<td>同步和异步方法都可用于  IO  绑定请求。</td>
+<td>HTTPClient中的 所有  IO绑定方法都是异步的。</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>WebApiClient是开源在github上的一个httpClient客户端库，内部基于HttpClient开发，<br><a href="http://www.cnblogs.com/kewei/p/8295261.html" target="_blank" rel="noopener">.net的retrofit–WebApiClient库</a></p>
+</blockquote>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/10/hello-world/" data-id="cjckayc1r000bmsnv3jhon3wh" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/01/10/hello-world/" data-id="cjd5pv1c30005xonv7nhkokst" class="article-share-link">Teilen</a>
       
       
     </footer>
@@ -283,7 +638,7 @@ hexo new&quot;postName&quot; #新建文章
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
+    <h3 class="widget-title">Kategorien</h3>
     <div class="widget">
       <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a></li></ul>
     </div>
@@ -305,16 +660,16 @@ hexo new&quot;postName&quot; #新建文章
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/spring-boot/" style="font-size: 10px;">spring-boot</a>
+      <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/spring-boot/" style="font-size: 10px;">spring-boot</a>
     </div>
   </div>
 
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
+    <h3 class="widget-title">Archiv</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li></ul>
     </div>
   </div>
 
@@ -322,24 +677,28 @@ hexo new&quot;postName&quot; #新建文章
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">letzter Beitrag</h3>
     <div class="widget">
       <ul>
         
           <li>
-            <a href="/2018/01/18/spring-boot-mybaits-annotation-注解版本/">spring-boot-mybaits-annotation-注解版本</a>
+            <a href="/2018/02/02/Sortable-js拖拽排序使用方法/">Sortable.js拖拽排序使用方法</a>
           </li>
         
           <li>
-            <a href="/2018/01/12/SpringBoot/">学习SpringBoot</a>
+            <a href="/2018/02/01/fiddler试用/">fiddler试用</a>
           </li>
         
           <li>
-            <a href="/2018/01/10/Hello-World-0/">Hello World</a>
+            <a href="/2018/02/01/知乎登录/">知乎登录</a>
           </li>
         
           <li>
-            <a href="/2018/01/10/hello-world/">Hello World</a>
+            <a href="/2018/01/24/spring-boot-mybaits-xml-xml版本/">spring-boot-mybaits-xml-xml版本</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/23/MyBatis入门/">MyBatis入门</a>
           </li>
         
       </ul>

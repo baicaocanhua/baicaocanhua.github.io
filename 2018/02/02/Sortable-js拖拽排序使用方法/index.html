@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Sortable.js拖拽排序使用方法 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Sortable 使用单列表拖拽 1.引入js1&amp;lt;script src=&amp;quot;Sortable.js&amp;quot; type=&amp;quot;text/javascript&amp;quot; charset=&amp;quot;utf-8&amp;quot;&amp;gt;&amp;lt;/script&amp;gt; 2.css问题不需要css，不会写的可以参考官网的app.css,拖拽的时候有阴影效果1234.sortable-gh">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Sortable.js拖拽排序使用方法">
+<meta property="og:url" content="http://yoursite.com/2018/02/02/Sortable-js拖拽排序使用方法/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Sortable 使用单列表拖拽 1.引入js1&amp;lt;script src=&amp;quot;Sortable.js&amp;quot; type=&amp;quot;text/javascript&amp;quot; charset=&amp;quot;utf-8&amp;quot;&amp;gt;&amp;lt;/script&amp;gt; 2.css问题不需要css，不会写的可以参考官网的app.css,拖拽的时候有阴影效果1234.sortable-gh">
+<meta property="og:updated_time" content="2018-02-02T09:16:43.340Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Sortable.js拖拽排序使用方法">
+<meta name="twitter:description" content="Sortable 使用单列表拖拽 1.引入js1&amp;lt;script src=&amp;quot;Sortable.js&amp;quot; type=&amp;quot;text/javascript&amp;quot; charset=&amp;quot;utf-8&amp;quot;&amp;gt;&amp;lt;/script&amp;gt; 2.css问题不需要css，不会写的可以参考官网的app.css,拖拽的时候有阴影效果1234.sortable-gh">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Sortable-js拖拽排序使用方法" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/02/02/Sortable-js拖拽排序使用方法/" class="article-date">
+  <time datetime="2018-02-02T08:16:05.000Z" itemprop="datePublished">2018-02-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Sortable.js拖拽排序使用方法
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Sortable-使用"><a href="#Sortable-使用" class="headerlink" title="Sortable 使用"></a>Sortable 使用</h1><h2 id="单列表拖拽"><a href="#单列表拖拽" class="headerlink" title="单列表拖拽"></a>单列表拖拽</h2><blockquote>
+<p>1.引入js<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=&quot;Sortable.js&quot; type=&quot;text/javascript&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
+<p>2.css问题<br>不需要css，不会写的可以参考官网的app.css,<br>拖拽的时候有阴影效果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.sortable-ghost &#123;</span><br><span class="line"> opacity: 0.4;</span><br><span class="line"> background-color: #F4E2C9;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
+<p>3.html代码<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;ul id=&quot;foo&quot; &gt;</span><br><span class="line">&lt;li&gt;1&lt;/li&gt;</span><br><span class="line">&lt;li&gt;2&lt;/li&gt;</span><br><span class="line">&lt;li&gt;3&lt;/li&gt;</span><br><span class="line">&lt;li&gt;4&lt;/li&gt;</span><br><span class="line">&lt;li&gt;5&lt;/li&gt;</span><br><span class="line">&lt;li&gt;6&lt;/li&gt;</span><br><span class="line">&lt;li&gt;7&lt;/li&gt;</span><br><span class="line">&lt;li&gt;8&lt;/li&gt;</span><br><span class="line">&lt;/ul&gt;</span><br></pre></td></tr></table></figure></p>
+<p>4.script代码<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line"> Sortable.create(document.getElementById(&apos;foo&apos;), &#123;&#125;);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>事件<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">		Sortable.create(document.getElementById(&apos;foo&apos;), &#123;</span><br><span class="line">			animation: 150, //动画参数</span><br><span class="line">			onAdd: function(evt) &#123; //拖拽时候添加有新的节点的时候发生该事件</span><br><span class="line">				console.log(&apos;onAdd.foo:&apos;, [evt.item, evt.from]);</span><br><span class="line">			&#125;,</span><br><span class="line">			onRemove: function(evt) &#123; //删除拖拽节点的时候促发该事件</span><br><span class="line">				console.log(&apos;onRemove.foo:&apos;, [evt.item, evt.from]);</span><br><span class="line">			&#125;,</span><br><span class="line">			onStart: function(evt) &#123; //开始拖拽出发该函数</span><br><span class="line">				console.log(&apos;onStart.foo1:&apos;, [evt.item, evt.from]);</span><br><span class="line">			&#125;,</span><br><span class="line">			onUpdate: function(evt) &#123; //拖拽更新节点位置发生该事件</span><br><span class="line">				console.log(&apos;onUpdate.foo2:&apos;, [evt.item, evt.from]);</span><br><span class="line">			&#125;,</span><br><span class="line">			onSort: function(evt) &#123; //发生排序发生该事件</span><br><span class="line">				console.log(&apos;onSort.foo3:&apos;, [evt.item, evt.from]);</span><br><span class="line">			&#125;,</span><br><span class="line">			onEnd: function(evt) &#123; //拖拽完毕之后发生该事件</span><br><span class="line">				console.log(&apos;onEnd.foo4:&apos;, [evt.item, evt.from]);</span><br><span class="line">				var arr = [];</span><br><span class="line">				for(var i = 0, len = evt.from.children.length; i &lt; len; i++) &#123;</span><br><span class="line">					arr.push(evt.from.children[i].getAttribute(&apos;drag-id&apos;));</span><br><span class="line">				&#125;</span><br><span class="line">				//然后请求后台ajax 这样就完成了拖拽排序</span><br><span class="line">				console.log(arr.join(&apos;,&apos;));</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">		&#125;);</span><br><span class="line">	&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+</blockquote>
+<h2 id="多列表拖拽"><a href="#多列表拖拽" class="headerlink" title="多列表拖拽"></a>多列表拖拽</h2><h4 id="主要参数是-group"><a href="#主要参数是-group" class="headerlink" title="主要参数是 group"></a>主要参数是 group</h4><p>group{<br>        name:”words”,name要相同才能互相拖拽<br>         pull:true,  则可以拖拽到其他列表 否则反之<br>         put:true,  则可以从其他列表中放数据到改列表，false则反之<br>    }<br> pull: ‘clone’, 还有一个作用是克隆，就是当这个列表拖拽到其他列表的时候不会删除改列表的节点。</p>
+<h4 id="a和b可以相互拖拽-group的name要相同才能互相拖拽"><a href="#a和b可以相互拖拽-group的name要相同才能互相拖拽" class="headerlink" title="a和b可以相互拖拽,group的name要相同才能互相拖拽"></a>a和b可以相互拖拽,group的name要相同才能互相拖拽</h4> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Sortable.create(document.getElementById(&apos;a&apos;), &#123;</span><br><span class="line"> group:&quot;words&quot;,</span><br><span class="line"> animation: 150, //动画参数</span><br><span class="line">&#125;)</span><br><span class="line"> Sortable.create(document.getElementById(&apos;b&apos;), &#123;</span><br><span class="line"> group:&quot;words&quot;,</span><br><span class="line"> animation: 150, //动画参数</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="只能从a列表拖拽到b列表"><a href="#只能从a列表拖拽到b列表" class="headerlink" title="只能从a列表拖拽到b列表"></a>只能从a列表拖拽到b列表</h4> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Sortable.create(document.getElementById(&apos;a&apos;), &#123;</span><br><span class="line"> group: &#123;</span><br><span class="line">  name:&quot;words&quot;,</span><br><span class="line">  pull: true,</span><br><span class="line">  put: true </span><br><span class="line">  &#125;,</span><br><span class="line"> animation: 150, //动画参数</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  Sortable.create(document.getElementById(&apos;b&apos;), &#123;</span><br><span class="line">  group: &#123;</span><br><span class="line">  name:&quot;words&quot;,</span><br><span class="line">  pull: false,</span><br><span class="line">  put: true </span><br><span class="line">  &#125;,</span><br><span class="line"> animation: 150, //动画参数</span><br><span class="line">  &#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="克隆"><a href="#克隆" class="headerlink" title="克隆"></a>克隆</h4> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Sortable.create(document.getElementById(&apos;foo&apos;), &#123;</span><br><span class="line"> group: &#123;</span><br><span class="line">  name:&quot;words&quot;,</span><br><span class="line">  pull: &apos;clone&apos;,</span><br><span class="line">  put: true </span><br><span class="line">  &#125;,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>参考地址<br><a href="https://www.cnblogs.com/hao123456/p/6025015.html" target="_blank" rel="noopener">html5 Sortable.js 拖拽排序源码分析</a><br><a href="http://rubaxa.github.io/Sortable/" target="_blank" rel="noopener">demo</a><br><a href="https://github.com/RubaXa/Sortable/" target="_blank" rel="noopener">github</a></p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/02/02/Sortable-js拖拽排序使用方法/" data-id="cjd5pv1c20004xonvfjrt8nv7" class="article-share-link">Teilen</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/02/01/fiddler试用/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">fiddler试用</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Kategorien</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/">blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring-boot/">spring-boot</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/spring-boot/" style="font-size: 10px;">spring-boot</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/02/02/Sortable-js拖拽排序使用方法/">Sortable.js拖拽排序使用方法</a>
+          </li>
+        
+          <li>
+            <a href="/2018/02/01/fiddler试用/">fiddler试用</a>
+          </li>
+        
+          <li>
+            <a href="/2018/02/01/知乎登录/">知乎登录</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/24/spring-boot-mybaits-xml-xml版本/">spring-boot-mybaits-xml-xml版本</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/23/MyBatis入门/">MyBatis入门</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

@@ -14,7 +14,7 @@
 <meta property="og:url" content="http://yoursite.com/2018/01/19/mybatis-1/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="[TOC]   idea mybatis 学习路径别人的博客 好的博客springbootgit地址 mybatis中几个基本的组件 SqlSessionFactoryBuilder这是一个SqlSessionFactory的构造器，它根据我们的xml配置文件或者Java代码来生成SqlSessionFactory SqlSessionFactory这个有点类似于我们在JDBC中使用的Connec">
-<meta property="og:updated_time" content="2018-01-19T07:32:37.604Z">
+<meta property="og:updated_time" content="2018-02-05T10:28:13.438Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mybatis-1">
 <meta name="twitter:description" content="[TOC]   idea mybatis 学习路径别人的博客 好的博客springbootgit地址 mybatis中几个基本的组件 SqlSessionFactoryBuilder这是一个SqlSessionFactory的构造器，它根据我们的xml配置文件或者Java代码来生成SqlSessionFactory SqlSessionFactory这个有点类似于我们在JDBC中使用的Connec">
@@ -114,11 +114,19 @@
 <p>说明：<br>我们引入刚刚创建的db.properties文件，方便我们在配置数据库的时候通过${XXX}来直接引用其中的值</p>
 <p>起别名：<br>bean包下有许多实体类，一个一个的取别名显然太麻烦<br>注册一个包下所有的实体类<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;typeAliases&gt;</span><br><span class="line">    &lt;package name=&quot;org.sang.bean&quot;/&gt;</span><br><span class="line">&lt;/typeAliases&gt;</span><br></pre></td></tr></table></figure></p>
 <p>默认的别名即类名，只不过首字母变为小写</p>
+<p>引入映射器的方法</p>
+<blockquote>
+<p>使用文件路径引入映射器<br>路径为xml映射文件的路径包名+文件名<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;mappers&gt;</span><br><span class="line">    &lt;mapper resource=&quot;com/test/model/LoginLogMapper.xml&quot;&gt;&lt;/mapper&gt;</span><br><span class="line">&lt;/mappers&gt;</span><br></pre></td></tr></table></figure></p>
+<p>使用包名引入映射器<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;mappers&gt;</span><br><span class="line">    &lt;package name=&quot;com.test.model&quot;/&gt;</span><br><span class="line">&lt;/mappers&gt;</span><br></pre></td></tr></table></figure></p>
+<p>使用扫描方式引入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- mybatis的Mapper的扫描器 MapperScannerConfigure  会自动扫描</span><br><span class="line">         mapper包下的所有接口自动生成代理对象: 对象名字为Mapper接口类名(首字母小写)</span><br><span class="line">     --&gt;</span><br><span class="line">    &lt;bean id=&quot;mapperScanConfig&quot; class=&quot;org.mybatis.spring.mapper.MapperScannerConfigurer&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;sqlSessionFactoryBeanName&quot; value=&quot;sqlSessionFactory&quot;/&gt;</span><br><span class="line">        &lt;property name=&quot;basePackage&quot; value=&quot;com.huitong.dao&quot;/&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br></pre></td></tr></table></figure></p>
+<p>用类注册引入映射器<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;mappers&gt;</span><br><span class="line">    &lt;mapper class=&quot;com.test.model.LoginLogMapper&quot;/&gt;</span><br><span class="line">&lt;/mappers&gt;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p>用userMapper引入映射器<br>路径对应的是网络上了某个文件，注意file:// 前缀 +路径+文件名<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;mappers&gt; </span><br><span class="line">&lt;mapper url=&quot;file://001.Mybatis环境搭建/src/com/test/model/LoginLogMapper.xml&quot;/&gt; </span><br><span class="line">&lt;/mappers&gt;</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/19/mybatis-1/" data-id="cjd5pv1cm000exonvcnxn87ct" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/01/19/mybatis-1/" data-id="cjda2qdr10008kcnv9s1xf2ky" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>

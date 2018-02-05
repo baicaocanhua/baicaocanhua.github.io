@@ -7,16 +7,16 @@
   
   <title>spring-boot-mybaits-xml-xml版本 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="mybatis.type-aliases-package=com.neo.entity mybatis.config-locations=classpath:mybatis/mybatis-config.xmlmybatis.mapper-locations=classpath:mybatis/mapper/*.xml in check_header_validity if not pat.mat">
+  <meta name="description" content="编写Dao层的代码123456789101112131415package com.maimai.mybatisApp.dao;import com.maimai.mybatisApp.Bean.Grade;import org.apache.ibatis.annotations.Mapper;import java.util.List;/** * Created by maimai on 201">
 <meta property="og:type" content="article">
 <meta property="og:title" content="spring-boot-mybaits-xml-xml版本">
 <meta property="og:url" content="http://yoursite.com/2018/01/24/spring-boot-mybaits-xml-xml版本/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="mybatis.type-aliases-package=com.neo.entity mybatis.config-locations=classpath:mybatis/mybatis-config.xmlmybatis.mapper-locations=classpath:mybatis/mapper/*.xml in check_header_validity if not pat.mat">
-<meta property="og:updated_time" content="2018-02-02T09:17:11.694Z">
+<meta property="og:description" content="编写Dao层的代码123456789101112131415package com.maimai.mybatisApp.dao;import com.maimai.mybatisApp.Bean.Grade;import org.apache.ibatis.annotations.Mapper;import java.util.List;/** * Created by maimai on 201">
+<meta property="og:updated_time" content="2018-02-05T10:05:30.623Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="spring-boot-mybaits-xml-xml版本">
-<meta name="twitter:description" content="mybatis.type-aliases-package=com.neo.entity mybatis.config-locations=classpath:mybatis/mybatis-config.xmlmybatis.mapper-locations=classpath:mybatis/mapper/*.xml in check_header_validity if not pat.mat">
+<meta name="twitter:description" content="编写Dao层的代码123456789101112131415package com.maimai.mybatisApp.dao;import com.maimai.mybatisApp.Bean.Grade;import org.apache.ibatis.annotations.Mapper;import java.util.List;/** * Created by maimai on 201">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -85,15 +85,23 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>mybatis.type-aliases-package=com.neo.entity</p>
+        <h3 id="编写Dao层的代码"><a href="#编写Dao层的代码" class="headerlink" title="编写Dao层的代码"></a>编写Dao层的代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">package com.maimai.mybatisApp.dao;</span><br><span class="line"></span><br><span class="line">import com.maimai.mybatisApp.Bean.Grade;</span><br><span class="line">import org.apache.ibatis.annotations.Mapper;</span><br><span class="line"></span><br><span class="line">import java.util.List;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * Created by maimai on 2018-02-05.</span><br><span class="line"> */</span><br><span class="line">@Mapper</span><br><span class="line">public class xmlGradeController &#123;</span><br><span class="line">    public List&lt;Grade&gt; getByGradeNm(String name);</span><br><span class="line">    public void save(Grade grade);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="修改application-properties-配置文件"><a href="#修改application-properties-配置文件" class="headerlink" title="修改application.properties 配置文件"></a>修改application.properties 配置文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mybatis.type-aliases-package=com.maimai.mybatisApp.Bean</span><br><span class="line">mybatis.mapper-locations=classpath:mapper/*.xml</span><br></pre></td></tr></table></figure>
+<h3 id="在resources里面-创建mapper文件夹，再创建-GradeMapper-xml"><a href="#在resources里面-创建mapper文件夹，再创建-GradeMapper-xml" class="headerlink" title="在resources里面 创建mapper文件夹，再创建 GradeMapper.xml"></a>在resources里面 创建mapper文件夹，再创建 GradeMapper.xml</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span><br><span class="line">&lt;!DOCTYPE mapper</span><br><span class="line">        PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;</span><br><span class="line">        &quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;</span><br><span class="line">&lt;mapper namespace=&quot;com.maimai.mybatisApp.dao.GradeMapper&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;resultMap type=&quot;Grade&quot; id=&quot;resultListUser&quot;&gt;</span><br><span class="line">        &lt;id column=&quot;id&quot; property=&quot;id&quot; /&gt;</span><br><span class="line">        &lt;result column=&quot;grade_nm&quot; property=&quot;gradeNm&quot; /&gt;</span><br><span class="line">        &lt;result column=&quot;teacher_id&quot; property=&quot;teacherId&quot; /&gt;</span><br><span class="line"></span><br><span class="line">    &lt;/resultMap&gt;</span><br><span class="line"></span><br><span class="line">    &lt;select id=&quot;getByGradeNm&quot; resultType=&quot;Grade&quot; parameterType=&quot;String&quot;&gt;</span><br><span class="line">        select * from grade where grade_nm=#&#123;name&#125;</span><br><span class="line">    &lt;/select&gt;</span><br><span class="line">    &lt;insert id=&quot;save&quot; parameterType=&quot;grade&quot;&gt;</span><br><span class="line">        INSERT INTO user(username,password,address) VALUES (#&#123;username&#125;,#&#123;password&#125;,#&#123;address&#125;)</span><br><span class="line">    &lt;/insert&gt;</span><br><span class="line"></span><br><span class="line">&lt;/mapper&gt;</span><br></pre></td></tr></table></figure>
 <p>mybatis.config-locations=classpath:mybatis/mybatis-config.xml<br>mybatis.mapper-locations=classpath:mybatis/mapper/*.xml</p>
 <p>in check_header_validity<br> if not pat.match(value):<br> TypeError: expected string or bytes-like object</p>
 <p> 爬虫的header里面不能有数字<br> ‘Upgrade-Insecure-Requests’: 1,<br> 改为<br> ‘Upgrade-Insecure-Requests’: str(1),</p>
+<p>mybatis.type-aliases-package:com.chinac.ccs.mirror.pojo<br>mybatis.mapper-locations:classpath:/com/chinac/ccs/mirror/mapper/mapper*.xml</p>
+<p>或者：</p>
+<p>#mybatis配置</p>
+<p>#Mapper.xml所在的位置<br>mybatis.mapper-locations=classpath<em>:mappers/</em>Mapper.xml</p>
+<p>#entity扫描的包名<br>mybatis.type-aliases-package=com.example.entity</p>
+<p>SpringBoot_集成MyBatis（XML方式）<br><a href="https://www.jianshu.com/p/a811a89d1b28" target="_blank" rel="noopener">https://www.jianshu.com/p/a811a89d1b28</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/24/spring-boot-mybaits-xml-xml版本/" data-id="cjd5pv1c60007xonvq89w1zxo" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/01/24/spring-boot-mybaits-xml-xml版本/" data-id="cjda2qdr5000bkcnvghj6k8xf" class="article-share-link">Teilen</a>
       
       
     </footer>

@@ -61,6 +61,89 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-java学习" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/02/07/java学习/" class="article-date">
+  <time datetime="2018-02-07T09:33:05.000Z" itemprop="datePublished">2018-02-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/02/07/java学习/">java学习</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/02/07/java学习/" data-id="cjdcvn5ug0005c0nvyrifazan" class="article-share-link">Teilen</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Python爬虫技巧之设置代理IP" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/02/07/Python爬虫技巧之设置代理IP/" class="article-date">
+  <time datetime="2018-02-07T06:20:48.000Z" itemprop="datePublished">2018-02-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/02/07/Python爬虫技巧之设置代理IP/">Python爬虫技巧之设置代理IP</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在学习Python爬虫的时候，经常会遇见所要爬取的网站采取了反爬取技术，高强度、高效率地爬取网页信息常常会给网站服务器带来巨大压力，所以同一个IP反复爬取同一个网页，就很可能被封，这里讲述一个爬虫技巧，设置代理IP。</p>
+<p>（一）配置环境<br>安装requests库<br>安装bs4库<br>安装lxml库<br>（二）代码展示</p>
+<h1 id="IP地址取自国内髙匿代理IP网站：http-www-xicidaili-com-nn"><a href="#IP地址取自国内髙匿代理IP网站：http-www-xicidaili-com-nn" class="headerlink" title="IP地址取自国内髙匿代理IP网站：http://www.xicidaili.com/nn/"></a>IP地址取自国内髙匿代理IP网站：<a href="http://www.xicidaili.com/nn/" target="_blank" rel="noopener">http://www.xicidaili.com/nn/</a></h1><h1 id="仅仅爬取首页IP地址就足够一般使用"><a href="#仅仅爬取首页IP地址就足够一般使用" class="headerlink" title="仅仅爬取首页IP地址就足够一般使用"></a>仅仅爬取首页IP地址就足够一般使用</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">from bs4 import BeautifulSoup</span><br><span class="line">import requests</span><br><span class="line">import random</span><br><span class="line"></span><br><span class="line">def get_ip_list(url, headers):</span><br><span class="line">    web_data = requests.get(url, headers=headers)</span><br><span class="line">    soup = BeautifulSoup(web_data.text, &apos;lxml&apos;)</span><br><span class="line">    ips = soup.find_all(&apos;tr&apos;)</span><br><span class="line">    ip_list = []</span><br><span class="line">    for i in range(1, len(ips)):</span><br><span class="line">        ip_info = ips[i]</span><br><span class="line">        tds = ip_info.find_all(&apos;td&apos;)</span><br><span class="line">        ip_list.append(tds[1].text + &apos;:&apos; + tds[2].text)</span><br><span class="line">    return ip_list</span><br><span class="line"></span><br><span class="line">def get_random_ip(ip_list):</span><br><span class="line">    proxy_list = []</span><br><span class="line">    for ip in ip_list:</span><br><span class="line">        proxy_list.append(&apos;http://&apos; + ip)</span><br><span class="line">    proxy_ip = random.choice(proxy_list)</span><br><span class="line">    proxies = &#123;&apos;http&apos;: proxy_ip&#125;</span><br><span class="line">    return proxies</span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    url = &apos;http://www.xicidaili.com/nn/&apos;</span><br><span class="line">    headers = &#123;</span><br><span class="line">        &apos;User-Agent&apos;: &apos;Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36&apos;</span><br><span class="line">    &#125;</span><br><span class="line">    ip_list = get_ip_list(url, headers=headers)</span><br><span class="line">    proxies = get_random_ip(ip_list)</span><br><span class="line">    print(proxies)</span><br></pre></td></tr></table></figure>
+<p>函数get_ip_list(url, headers)传入url和headers，最后返回一个IP列表，列表的元素类似42.84.226.65:8888格式，这个列表包括国内髙匿代理IP网站首页所有IP地址和端口。<br>函数get_random_ip(ip_list)传入第一个函数得到的列表，返回一个随机的proxies，这个proxies可以传入到requests的get方法中，这样就可以做到每次运行都使用不同的IP访问被爬取的网站，有效地避免了真实IP被封的风险。proxies的格式是一个字典：{‘http’: ‘<a href="http://42.84.226.65:8888‘}。" target="_blank" rel="noopener">http://42.84.226.65:8888‘}。</a><br>（三）代理IP的使用<br>运行上面的代码会得到一个随机的proxies，把它直接传入requests的get方法中即可。</p>
+<p>web_data = requests.get(url, headers=headers, proxies=proxies)</p>
+<p>转载 <a href="http://blog.csdn.net/lammonpeter/article/details/52917264" target="_blank" rel="noopener">http://blog.csdn.net/lammonpeter/article/details/52917264</a></p>
+<p>python3获取免费代理IP<br><a href="http://blog.csdn.net/yixianfeng41/article/details/53045704" target="_blank" rel="noopener">http://blog.csdn.net/yixianfeng41/article/details/53045704</a></p>
+<p>proxy_support = urllib2.ProxyHandler({“http”:”101.53.101.172:9999”})<br>opener = urllib2.build_opener(proxy_support)<br>urllib2.install_opener(opener)<br>html=urllib2.urlopen(url)   </p>
+<p>proxy_support = urllib.request.ProxyHandler({“http”: proxy})<br>                opener = urllib.request.build_opener(proxy_support)<br>                urllib.request.install_opener(opener)<br>                req = urllib.request.Request(self.url, headers=self.header)</p>
+<pre><code># 访问
+resp = urllib.request.urlopen(req, timeout=5)
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">from lxml import etree</span><br><span class="line">#https://mp.weixin.qq.com/s?__biz=MzUxOTMyMzE2Mg==&amp;mid=2247495351&amp;idx=1&amp;sn=08e9376ca995095ed2543d05a0b8debf&amp;chksm=f9f9c5c2ce8e4cd458caabeeed698a2fd8a41268f535127efba9e41432a66b1ae6eee6d2efd6&amp;mpshare=1&amp;scene=23&amp;srcid=0207lkoJrdoBppvnRDzl8vkC#rd</span><br><span class="line"></span><br><span class="line">def getUrl():</span><br><span class="line">    for i in range(33):</span><br><span class="line">        url = &apos;http://task.zbj.com/t-ppsj/p&#123;&#125;s5.html&apos;.format(i + 1)</span><br><span class="line">        spiderPage(url)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def spiderPage(url):</span><br><span class="line">    if url is None:</span><br><span class="line">        return None</span><br><span class="line">    # htmlText = requests.get(url).text</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    # 代理和请求头</span><br><span class="line">    proxies = &#123;</span><br><span class="line">        &apos;http&apos;: &apos;http://221.202.248.52:80&apos;,</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    user_agent = &apos;Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.104 Safari/537.36 Core/1.53.4295.400&apos;</span><br><span class="line"></span><br><span class="line">    headers = &#123;&apos;User-Agent&apos;: user_agent&#125;</span><br><span class="line">    htmlText = requests.get(url, headers=headers, proxies=proxies).text</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">selector = etree.HTML(htmlText)</span><br><span class="line">tds = selector.xpath(&apos;//*[@class=&quot;tab-switch tab-progress&quot;]/table/tr&apos;)</span><br><span class="line">try:</span><br><span class="line">    for td in tds:</span><br><span class="line">        price = td.xpath(&apos;./td/p/em/text()&apos;)</span><br><span class="line">        href = td.xpath(&apos;./td/p/a/@href&apos;)</span><br><span class="line">        title = td.xpath(&apos;./td/p/a/text()&apos;)</span><br><span class="line">        subTitle = td.xpath(&apos;./td/p/text()&apos;)</span><br><span class="line">        deadline = td.xpath(&apos;./td/span/text()&apos;)</span><br><span class="line">        price = price[0] if len(price) &gt; 0 else &apos;&apos;  # python的三目运算 :为真时的结果 if 判定条件 else 为假时的结果</span><br><span class="line">        title = title[0] if len(title) &gt; 0 else &apos;&apos;</span><br><span class="line">        href = href[0] if len(href) &gt; 0 else &apos;&apos;</span><br><span class="line">        subTitle = subTitle[0] if len(subTitle) &gt; 0 else &apos;&apos;</span><br><span class="line">        deadline = deadline[0] if len(deadline) &gt; 0 else &apos;&apos;</span><br><span class="line">        print(price, title, href, subTitle, deadline)</span><br><span class="line">        print(&apos;---------------------------------------------------------------------------------------&apos;)</span><br><span class="line">        spiderDetail(href)</span><br><span class="line">except:</span><br><span class="line">    print(&apos;出错&apos;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def spiderDetail(url):</span><br><span class="line">    if url is None:</span><br><span class="line">        return None</span><br><span class="line"></span><br><span class="line">    try:</span><br><span class="line">        htmlText = requests.get(url).text</span><br><span class="line">        selector = etree.HTML(htmlText)</span><br><span class="line">        aboutHref = selector.xpath(&apos;//*[@id=&quot;utopia_widget_10&quot;]/div[1]/div/div/div/p[1]/a/@href&apos;)</span><br><span class="line">        price = selector.xpath(&apos;//*[@id=&quot;utopia_widget_10&quot;]/div[1]/div/div/div/p[1]/text()&apos;)</span><br><span class="line">        title = selector.xpath(&apos;//*[@id=&quot;utopia_widget_10&quot;]/div[1]/div/div/h2/text()&apos;)</span><br><span class="line">        contentDetail = selector.xpath(&apos;//*[@id=&quot;utopia_widget_10&quot;]/div[2]/div/div[1]/div[1]/text()&apos;)</span><br><span class="line">        publishDate = selector.xpath(&apos;//*[@id=&quot;utopia_widget_10&quot;]/div[2]/div/div[1]/p/text()&apos;)</span><br><span class="line">        aboutHref = aboutHref[0] if len(aboutHref) &gt; 0 else &apos;&apos;  # python的三目运算 :为真时的结果 if 判定条件 else 为假时的结果</span><br><span class="line">        price = price[0] if len(price) &gt; 0 else &apos;&apos;</span><br><span class="line">        title = title[0] if len(title) &gt; 0 else &apos;&apos;</span><br><span class="line">        contentDetail = contentDetail[0] if len(contentDetail) &gt; 0 else &apos;&apos;</span><br><span class="line">        publishDate = publishDate[0] if len(publishDate) &gt; 0 else &apos;&apos;</span><br><span class="line">        print(aboutHref, price, title, contentDetail, publishDate)</span><br><span class="line">    except:</span><br><span class="line">        print(&apos;出错&apos;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if &apos;_main_&apos;:</span><br><span class="line">    getUrl()</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/02/07/Python爬虫技巧之设置代理IP/" data-id="cjdcvn5w7000lc0nvsa94v13m" class="article-share-link">Teilen</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Sortable-js拖拽排序使用方法" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/02/02/Sortable-js拖拽排序使用方法/" class="article-date">
@@ -103,7 +186,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/02/02/Sortable-js拖拽排序使用方法/" data-id="cjda2qdq40001kcnv4pbfb7u1" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/02/02/Sortable-js拖拽排序使用方法/" data-id="cjdcvn5ug000ac0nvzkbbxvu7" class="article-share-link">Teilen</a>
       
       
     </footer>
@@ -150,7 +233,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/02/01/fiddler试用/" data-id="cjda2qdqx0007kcnvtfe01kvo" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/02/01/fiddler试用/" data-id="cjdcvn5ug0009c0nvhtrkc38d" class="article-share-link">Teilen</a>
       
       
     </footer>
@@ -190,7 +273,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/02/01/知乎登录/" data-id="cjda2qdrm000hkcnv8j2bli89" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/02/01/知乎登录/" data-id="cjdcvn5uw000ic0nvskp4bemd" class="article-share-link">Teilen</a>
       
       
     </footer>
@@ -238,7 +321,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/24/spring-boot-mybaits-xml-xml版本/" data-id="cjda2qdr5000bkcnvghj6k8xf" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/01/24/spring-boot-mybaits-xml-xml版本/" data-id="cjdcvn5uw000gc0nvvi7xbnwx" class="article-share-link">Teilen</a>
       
       
     </footer>
@@ -280,7 +363,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/23/MyBatis入门/" data-id="cjda2qdos0000kcnvl6hxfv28" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/01/23/MyBatis入门/" data-id="cjdcvn5u10001c0nvo75lf6z3" class="article-share-link">Teilen</a>
       
       
     </footer>
@@ -348,11 +431,26 @@
 <p>用类注册引入映射器<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;mappers&gt;</span><br><span class="line">    &lt;mapper class=&quot;com.test.model.LoginLogMapper&quot;/&gt;</span><br><span class="line">&lt;/mappers&gt;</span><br></pre></td></tr></table></figure></p>
 </blockquote>
 <p>用userMapper引入映射器<br>路径对应的是网络上了某个文件，注意file:// 前缀 +路径+文件名<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;mappers&gt; </span><br><span class="line">&lt;mapper url=&quot;file://001.Mybatis环境搭建/src/com/test/model/LoginLogMapper.xml&quot;/&gt; </span><br><span class="line">&lt;/mappers&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="返回列表"><a href="#返回列表" class="headerlink" title="返回列表"></a>返回列表</h2><!-- 为了返回list 类型而定义的returnMap -->
+<pre><code>&lt;resultMap type=&quot;User&quot; id=&quot;resultListUser&quot;&gt;
+    &lt;id column=&quot;id&quot; property=&quot;id&quot; /&gt;
+    &lt;result column=&quot;userName&quot; property=&quot;userName&quot; /&gt;
+    &lt;result column=&quot;userAge&quot; property=&quot;userAge&quot; /&gt;
+    &lt;result column=&quot;userAddress&quot; property=&quot;userAddress&quot; /&gt;
+&lt;/resultMap&gt;
+
+&lt;!-- 返回list 的select 语句，注意 resultMap 的值是指向前面定义好的 --&gt;
+&lt;select id=&quot;selectUsers&quot; parameterType=&quot;string&quot; resultMap=&quot;resultListUser&quot;&gt;
+    select * from user where userName like #{userName}
+&lt;/select&gt;
+</code></pre><h2 id="用mybatis-增加数据"><a href="#用mybatis-增加数据" class="headerlink" title="用mybatis 增加数据"></a>用mybatis 增加数据</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--执行增加操作的SQL语句。</span><br><span class="line">       id和parameterType分别与IUserOperation接口中的addUser方法的名字和参数类型一致。</span><br><span class="line">       以#&#123;name&#125;的形式引用Student参数的name属性，MyBatis将使用反射读取Student参数的此属性。</span><br><span class="line">       #&#123;name&#125;中name大小写敏感。引用其他 的gender等属性与此一致。</span><br><span class="line">       useGeneratedKeys设置 为&quot;true&quot;表明要MyBatis获取由数据库自动生成的主 键；</span><br><span class="line">       keyProperty=&quot;id&quot;指定把获取到的主键值注入 到Student的id属性--&gt; </span><br><span class="line">    &lt;insert id=&quot;addUser&quot; parameterType=&quot;User&quot; </span><br><span class="line">        useGeneratedKeys=&quot;true&quot; keyProperty=&quot;id&quot;&gt; </span><br><span class="line">        insert into user(userName,userAge,userAddress)  </span><br><span class="line">             values(#&#123;userName&#125;,#&#123;userAge&#125;,#&#123;userAddress&#125;)  </span><br><span class="line">    &lt;/insert&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="用mybatis-更新数据"><a href="#用mybatis-更新数据" class="headerlink" title="用mybatis 更新数据"></a>用mybatis 更新数据</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;update id=&quot;updateUser&quot; parameterType=&quot;User&quot; &gt;</span><br><span class="line">        update user set userName=#&#123;userName&#125;,userAge=#&#123;userAge&#125;,userAddress=#&#123;userAddress&#125; where id=#&#123;id&#125;</span><br><span class="line">    &lt;/update&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="用mybatis-删除数据"><a href="#用mybatis-删除数据" class="headerlink" title="用mybatis 删除数据"></a>用mybatis 删除数据</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;delete id=&quot;deleteUser&quot; parameterType=&quot;int&quot;&gt;</span><br><span class="line">        delete from user where id=#&#123;id&#125;</span><br><span class="line">    &lt;/delete&gt;</span><br></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/19/mybatis-1/" data-id="cjda2qdr10008kcnv9s1xf2ky" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/01/19/mybatis-1/" data-id="cjdcvn5uw000ec0nvscggvh6b" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
@@ -407,7 +505,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/18/spring-boot-mybaits-annotation-注解版本/" data-id="cjda2qdr30009kcnvzc33glgz" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/01/18/spring-boot-mybaits-annotation-注解版本/" data-id="cjdcvn5uw000dc0nvazbs4j03" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spring-boot/">spring-boot</a></li></ul>
@@ -445,7 +543,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="学习SpringBoot学习SpringBoot学习SpringBoot学习SpringBoot学习SpringBoot学习SpringBoot学习SpringBoot学习SpringBoot学习SpringBoot学习SpringBoot学习SpringBoot学习SpringBoot学习SpringBoot学习SpringBoot学习SpringBoot学习SpringBoot学习SpringBoot学习SpringBoot学习"><a href="#学习SpringBoot学习SpringBoot学习SpringBoot学习SpringBoot学习SpringBoot学习SpringBoot学习SpringBoot学习SpringBoot学习SpringBoot学习SpringBoot学习SpringBoot学习SpringBoot学习SpringBoot学习SpringBoot学习SpringBoot学习SpringBoot学习SpringBoot学习SpringBoot学习" class="headerlink" title="学习SpringBoot学习SpringBoot学习SpringBoot学习SpringBoot学习SpringBoot学习SpringBoot学习SpringBoot学习SpringBoot学习SpringBoot学习SpringBoot学习SpringBoot学习SpringBoot学习SpringBoot学习SpringBoot学习SpringBoot学习SpringBoot学习SpringBoot学习SpringBoot学习"></a>学习SpringBoot学习SpringBoot学习SpringBoot学习SpringBoot学习SpringBoot学习SpringBoot学习SpringBoot学习SpringBoot学习SpringBoot学习SpringBoot学习SpringBoot学习SpringBoot学习SpringBoot学习SpringBoot学习SpringBoot学习SpringBoot学习SpringBoot学习SpringBoot学习</h1>
+        <h1 id="配置Spring-boot-的哪一个main方法去执行"><a href="#配置Spring-boot-的哪一个main方法去执行" class="headerlink" title="配置Spring-boot 的哪一个main方法去执行"></a>配置Spring-boot 的哪一个main方法去执行</h1><p>修改pom.xml</p>
+<p><properties><br>    <!-- The main class to start by executing java -jar --><br>    <start-class>com.yihaomen.SpringBootWebApplication</start-class><br></properties><br>Spring-boot-maven插件中配置</p>
+<p><build><br>    <plugins><br>        <plugin><br>            <groupid>org.springframework.boot</groupid><br>            <artifactid>spring-boot-maven-plugin</artifactid><br>            <configuration><br>                <mainclass>com.yihaomen.SpringBootWebApplication</mainclass><br>            </configuration><br>        </plugin><br>    </plugins><br></build><br>
         
           <p class="article-more-link">
             <a href="/2018/01/12/SpringBoot/#more">Read More</a>
@@ -454,7 +554,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/12/SpringBoot/" data-id="cjda2qdq90002kcnv18ik5qq2" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/01/12/SpringBoot/" data-id="cjdcvn5ug0004c0nvzyd0sw8m" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
@@ -466,190 +566,12 @@
 
 
   
-    <article id="post-Hello-World-0" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/01/10/Hello-World-0/" class="article-date">
-  <time datetime="2018-01-10T09:31:16.000Z" itemprop="datePublished">2018-01-10</time>
-</a>
+
+
+  <nav id="page-nav">
     
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/01/10/Hello-World-0/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="MarkDown–从入门到精髓"><a href="#MarkDown–从入门到精髓" class="headerlink" title="MarkDown–从入门到精髓"></a>MarkDown–从入门到精髓</h1><p>####导语：</p>
-<blockquote>
-<p><a href="https://www.appinn.com/markdown/" target="_blank" rel="noopener">MarkDown</a> 是一种轻量级的「标记语言」，它的优点很多，目前也被越来越多的写作爱好者，撰稿者广泛使用。看到这里请不要被「标记」、「语言」所迷惑，Markdown 的语法十分简单。常用的标记符号也不超过十个，这种相对于更为复杂的 HTML 标记语言来说，Markdown 可谓是十分轻量的，学习成本也不需要太多，且一旦熟悉这种语法规则，会有一劳永逸的效果。</p>
-<h2 id="一，认识-Markdown"><a href="#一，认识-Markdown" class="headerlink" title="一，认识 Markdown"></a>一，认识 Markdown</h2><p>在刚才的导语里提到，Markdown 是一种用来写作的轻量级「标记语言」，它用简洁的语法代替排版，而不像一般我们用的字处理软件 Word 或 Pages 有大量的排版、字体设置。它使我们专心于码字，用「标记」语法，来代替常见的排版格式。例如此文从内容到格式，甚至插图，键盘就可以通通搞定了。目前来看，支持 Markdown 语法的编辑器有很多，包括很多网站（例如简书）也支持了 Markdown 的文字录入。Markdown 从写作到完成，导出格式随心所欲，你可以导出 HTML 格式的文件用来网站发布，也可以十分方便的导出 PDF 格式，这种格式写出的简历更能得到 HR 的好感。甚至可以利用 CloudApp 这种云服务工具直接上传至网页用来分享你的文章，全球最大的轻博客平台 Tumblr，也支持 Mou 这类 Markdown 工具的直接上传。<br>这里可以看到官方的 Markdown 语法规则文档，当然，后文我也会用自己的方式阐述这些语法的具体用法。</p>
-<ul>
-<li><a href="https://link.jianshu.com/?t=http://daringfireball.net/projects/markdown/syntax" target="_blank" rel="noopener"><em>创始人 John Gruber 的 Markdown 语法说明</em></a></li>
-<li><a href="https://link.jianshu.com/?t=http://wowubuntu.com/markdown/#list" target="_blank" rel="noopener"><em>Markdown 中文版语法说明</em></a></li>
-</ul>
-</blockquote>
-<p>通过GitHub和Hexo来搭建自己的个人博客<br><a href="http://blog.csdn.net/u011976726/article/details/78217467" target="_blank" rel="noopener">http://blog.csdn.net/u011976726/article/details/78217467</a></p>
-<p><a href="https://hexo.io/zh-cn/docs/commands.html" target="_blank" rel="noopener">https://hexo.io/zh-cn/docs/commands.html</a></p>
-<p>手把手教你用Hexo+Github 搭建属于自己的博客<br><a href="http://blog.csdn.net/gdutxiaoxu/article/details/53576018" target="_blank" rel="noopener">http://blog.csdn.net/gdutxiaoxu/article/details/53576018</a><br>hexo从零开始到搭建完整<br><a href="http://visugar.com/2017/05/04/20170504SetUpHexoBlog/" target="_blank" rel="noopener">http://visugar.com/2017/05/04/20170504SetUpHexoBlog/</a><br>hexo干货系列<br><a href="http://tengj.top/categories/hexo%E5%B9%B2%E8%B4%A7%E7%B3%BB%E5%88%97/" target="_blank" rel="noopener">http://tengj.top/categories/hexo%E5%B9%B2%E8%B4%A7%E7%B3%BB%E5%88%97/</a><br>Markdown——入门指南<br><a href="https://www.jianshu.com/p/1e402922ee32/" target="_blank" rel="noopener">https://www.jianshu.com/p/1e402922ee32/</a></p>
-<p>@ConfigurationProperties(prefix = “book”,locations = “classpath:book.properties”)<br>1.5版本后location属性被换掉了<br>非常好。<br>只是需要注意@ConfigurationProperties的locations已废弃了。<br>现改为：<br>@ConfigurationProperties(prefix=”book”)<br>@PropertySource(“classpath:book.properties”)</p>
-<p>@ComponentScan(basePackages = {“com.maimai.dao”,”com.maimai.service”})</p>
-<p>关于spring boot自动注入出现Consider defining a bean of type ‘xxx’ in your configuration问题解决方案<br><a href="http://blog.csdn.net/a532672728/article/details/77702772" target="_blank" rel="noopener">http://blog.csdn.net/a532672728/article/details/77702772</a></p>
-<p>启动项和类的文件结构在同一级</p>
-<p>hexo new “Hello World”</p>
-<p>hexo generate</p>
-<p>hexo server</p>
-<p>每次部署的步骤，可按以下三步来进行。</p>
-<pre><code>hexo clean
-
-hexo generate
-
-hexo deploy
-
-hexo new&quot;postName&quot; #新建文章
-</code></pre><p>hexo new page”pageName” #新建页面</p>
-<p>hexo generate #生成静态页面至public目录</p>
-<p>hexo server #开启预览访问端口（默认端口4000，’ctrl + c’关闭server）</p>
-<p>hexo deploy #将.deploy目录部署到GitHub</p>
-<p>hexo help # 查看帮助</p>
-<p>hexo version #查看Hexo的版本</p>
-<p>@(示例笔记本)[马克飞象|帮助|Markdown]</p>
-<p><strong>马克飞象</strong></p>
-<p>脚注[^demo]</p>
-<p>npm install hexo-cli -g<br>hexo init blog<br>cd blog<br>npm install<br>hexo server</p>
-<p>npm install hexo-cli -g</p>
-<p>手把手教你使用Hexo快速地搭建博客<br><a href="https://www.jianshu.com/p/b8dd1e3e0255" target="_blank" rel="noopener">https://www.jianshu.com/p/b8dd1e3e0255</a></p>
-<p>HEXO+Github,搭建属于自己的博客<br><a href="https://www.jianshu.com/p/465830080ea9" target="_blank" rel="noopener">https://www.jianshu.com/p/465830080ea9</a></p>
-<p>hexo从零开始到搭建完整<br><a href="https://www.cnblogs.com/visugar/p/6821777.html" target="_blank" rel="noopener">https://www.cnblogs.com/visugar/p/6821777.html</a></p>
-<p>使用hexo，如果换了电脑怎么更新博客？<br><a href="https://www.zhihu.com/question/21193762" target="_blank" rel="noopener">https://www.zhihu.com/question/21193762</a></p>
-<p>ssh-keygen -t rsa -C “youremail@example.com</p>
-<p>git config –global user.name “baicaocanhua”<br>git config –global user.email “330557864@qq.com”<br>ssh-keygen -t rsa -C “330557864@qq.com”</p>
-<p>git@github.com:baicaocanhua/baicaocanhua.github.io.git</p>
-<p>用MarDown编辑器打开就可以编辑文章了。文章编辑好之后，运行生成、部署命令：</p>
-<p>hexo g   // 生成<br>hexo d   // 部署<br>1<br>2<br>当然你也可以执行下面的命令，相当于上面两条命令的效果</p>
-<p>hexo d -g #在部署前先生成</p>
-<p><a href="http://rj.baidu.com/soft/detail/23493.html?ald" target="_blank" rel="noopener">http://rj.baidu.com/soft/detail/23493.html?ald</a>   PHPnow</p>
-<p><a href="http://www.qqzhtx.com/article/10/2015/201505313605.html" target="_blank" rel="noopener">http://www.qqzhtx.com/article/10/2015/201505313605.html</a></p>
-<p>源码<br><a href="https://pan.lanzou.com/737331" target="_blank" rel="noopener">https://pan.lanzou.com/737331</a><br><a href="http://www.lwg8.cn/post-492.html" target="_blank" rel="noopener">http://www.lwg8.cn/post-492.html</a><br><a href="http://www.lwg8.cn/download.php?id=492" target="_blank" rel="noopener">http://www.lwg8.cn/download.php?id=492</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/10/Hello-World-0/" data-id="cjda2qdr7000dkcnvur371mqu" class="article-share-link">Teilen</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/01/10/hello-world/" class="article-date">
-  <time datetime="2018-01-10T08:23:41.040Z" itemprop="datePublished">2018-01-10</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/01/10/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-<table>
-<thead>
-<tr>
-<th>WebClient</th>
-<th>HttpClient</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>在.net的旧版本中可用</td>
-<td>.NET 4.5 only、Web API REST</td>
-</tr>
-<tr>
-<td>不支持WinRT</td>
-<td>支持WinRT</td>
-</tr>
-<tr>
-<td>提供下载进度</td>
-<td>没有下载进度</td>
-</tr>
-<tr>
-<td>不重用已解析的  DNS，已配置的Cookie</td>
-<td>可以重新使用解析的  DNS，cookie配置和其他身份验证。</td>
-</tr>
-<tr>
-<td>您需要新建一个WebClient来发出并发请求。</td>
-<td>单个HttpClient可以发出并发请求。</td>
-</tr>
-<tr>
-<td>WebRequest和WebResponse</td>
-<td>通过HttpWebRequest和HttpWebResponse</td>
-</tr>
-<tr>
-<td>模拟和测试WebClient是困难的</td>
-<td>模拟和测试HttpClient很简单</td>
-</tr>
-<tr>
-<td>支持  FTP。</td>
-<td>不支持  FTP。</td>
-</tr>
-<tr>
-<td>同步和异步方法都可用于  IO  绑定请求。</td>
-<td>HTTPClient中的 所有  IO绑定方法都是异步的。</td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p>WebApiClient是开源在github上的一个httpClient客户端库，内部基于HttpClient开发，<br><a href="http://www.cnblogs.com/kewei/p/8295261.html" target="_blank" rel="noopener">.net的retrofit–WebApiClient库</a></p>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/10/hello-world/" data-id="cjda2qdrp000ikcnvp7967eom" class="article-share-link">Teilen</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">weiter &raquo;</a>
+  </nav>
 
 </section>
         
@@ -701,6 +623,14 @@ hexo new&quot;postName&quot; #新建文章
       <ul>
         
           <li>
+            <a href="/2018/02/07/java学习/">java学习</a>
+          </li>
+        
+          <li>
+            <a href="/2018/02/07/Python爬虫技巧之设置代理IP/">Python爬虫技巧之设置代理IP</a>
+          </li>
+        
+          <li>
             <a href="/2018/02/02/Sortable-js拖拽排序使用方法/">Sortable.js拖拽排序使用方法</a>
           </li>
         
@@ -710,14 +640,6 @@ hexo new&quot;postName&quot; #新建文章
         
           <li>
             <a href="/2018/02/01/知乎登录/">知乎登录</a>
-          </li>
-        
-          <li>
-            <a href="/2018/01/24/spring-boot-mybaits-xml-xml版本/">spring-boot-mybaits-xml-xml版本</a>
-          </li>
-        
-          <li>
-            <a href="/2018/01/23/MyBatis入门/">MyBatis入门</a>
           </li>
         
       </ul>

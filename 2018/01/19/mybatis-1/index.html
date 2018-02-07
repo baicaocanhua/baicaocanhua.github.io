@@ -14,7 +14,7 @@
 <meta property="og:url" content="http://yoursite.com/2018/01/19/mybatis-1/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="[TOC]   idea mybatis 学习路径别人的博客 好的博客springbootgit地址 mybatis中几个基本的组件 SqlSessionFactoryBuilder这是一个SqlSessionFactory的构造器，它根据我们的xml配置文件或者Java代码来生成SqlSessionFactory SqlSessionFactory这个有点类似于我们在JDBC中使用的Connec">
-<meta property="og:updated_time" content="2018-02-05T10:28:13.438Z">
+<meta property="og:updated_time" content="2018-02-06T01:03:16.606Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mybatis-1">
 <meta name="twitter:description" content="[TOC]   idea mybatis 学习路径别人的博客 好的博客springbootgit地址 mybatis中几个基本的组件 SqlSessionFactoryBuilder这是一个SqlSessionFactory的构造器，它根据我们的xml配置文件或者Java代码来生成SqlSessionFactory SqlSessionFactory这个有点类似于我们在JDBC中使用的Connec">
@@ -122,11 +122,26 @@
 <p>用类注册引入映射器<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;mappers&gt;</span><br><span class="line">    &lt;mapper class=&quot;com.test.model.LoginLogMapper&quot;/&gt;</span><br><span class="line">&lt;/mappers&gt;</span><br></pre></td></tr></table></figure></p>
 </blockquote>
 <p>用userMapper引入映射器<br>路径对应的是网络上了某个文件，注意file:// 前缀 +路径+文件名<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;mappers&gt; </span><br><span class="line">&lt;mapper url=&quot;file://001.Mybatis环境搭建/src/com/test/model/LoginLogMapper.xml&quot;/&gt; </span><br><span class="line">&lt;/mappers&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="返回列表"><a href="#返回列表" class="headerlink" title="返回列表"></a>返回列表</h2><!-- 为了返回list 类型而定义的returnMap -->
+<pre><code>&lt;resultMap type=&quot;User&quot; id=&quot;resultListUser&quot;&gt;
+    &lt;id column=&quot;id&quot; property=&quot;id&quot; /&gt;
+    &lt;result column=&quot;userName&quot; property=&quot;userName&quot; /&gt;
+    &lt;result column=&quot;userAge&quot; property=&quot;userAge&quot; /&gt;
+    &lt;result column=&quot;userAddress&quot; property=&quot;userAddress&quot; /&gt;
+&lt;/resultMap&gt;
+
+&lt;!-- 返回list 的select 语句，注意 resultMap 的值是指向前面定义好的 --&gt;
+&lt;select id=&quot;selectUsers&quot; parameterType=&quot;string&quot; resultMap=&quot;resultListUser&quot;&gt;
+    select * from user where userName like #{userName}
+&lt;/select&gt;
+</code></pre><h2 id="用mybatis-增加数据"><a href="#用mybatis-增加数据" class="headerlink" title="用mybatis 增加数据"></a>用mybatis 增加数据</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--执行增加操作的SQL语句。</span><br><span class="line">       id和parameterType分别与IUserOperation接口中的addUser方法的名字和参数类型一致。</span><br><span class="line">       以#&#123;name&#125;的形式引用Student参数的name属性，MyBatis将使用反射读取Student参数的此属性。</span><br><span class="line">       #&#123;name&#125;中name大小写敏感。引用其他 的gender等属性与此一致。</span><br><span class="line">       useGeneratedKeys设置 为&quot;true&quot;表明要MyBatis获取由数据库自动生成的主 键；</span><br><span class="line">       keyProperty=&quot;id&quot;指定把获取到的主键值注入 到Student的id属性--&gt; </span><br><span class="line">    &lt;insert id=&quot;addUser&quot; parameterType=&quot;User&quot; </span><br><span class="line">        useGeneratedKeys=&quot;true&quot; keyProperty=&quot;id&quot;&gt; </span><br><span class="line">        insert into user(userName,userAge,userAddress)  </span><br><span class="line">             values(#&#123;userName&#125;,#&#123;userAge&#125;,#&#123;userAddress&#125;)  </span><br><span class="line">    &lt;/insert&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="用mybatis-更新数据"><a href="#用mybatis-更新数据" class="headerlink" title="用mybatis 更新数据"></a>用mybatis 更新数据</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;update id=&quot;updateUser&quot; parameterType=&quot;User&quot; &gt;</span><br><span class="line">        update user set userName=#&#123;userName&#125;,userAge=#&#123;userAge&#125;,userAddress=#&#123;userAddress&#125; where id=#&#123;id&#125;</span><br><span class="line">    &lt;/update&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="用mybatis-删除数据"><a href="#用mybatis-删除数据" class="headerlink" title="用mybatis 删除数据"></a>用mybatis 删除数据</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;delete id=&quot;deleteUser&quot; parameterType=&quot;int&quot;&gt;</span><br><span class="line">        delete from user where id=#&#123;id&#125;</span><br><span class="line">    &lt;/delete&gt;</span><br></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/19/mybatis-1/" data-id="cjda2qdr10008kcnv9s1xf2ky" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/01/19/mybatis-1/" data-id="cjdcvn5uw000ec0nvscggvh6b" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
@@ -207,6 +222,14 @@
       <ul>
         
           <li>
+            <a href="/2018/02/07/java学习/">java学习</a>
+          </li>
+        
+          <li>
+            <a href="/2018/02/07/Python爬虫技巧之设置代理IP/">Python爬虫技巧之设置代理IP</a>
+          </li>
+        
+          <li>
             <a href="/2018/02/02/Sortable-js拖拽排序使用方法/">Sortable.js拖拽排序使用方法</a>
           </li>
         
@@ -216,14 +239,6 @@
         
           <li>
             <a href="/2018/02/01/知乎登录/">知乎登录</a>
-          </li>
-        
-          <li>
-            <a href="/2018/01/24/spring-boot-mybaits-xml-xml版本/">spring-boot-mybaits-xml-xml版本</a>
-          </li>
-        
-          <li>
-            <a href="/2018/01/23/MyBatis入门/">MyBatis入门</a>
           </li>
         
       </ul>

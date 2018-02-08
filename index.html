@@ -50,7 +50,7 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -60,6 +60,66 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-SpringBoot整合Swagger2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/02/08/SpringBoot整合Swagger2/" class="article-date">
+  <time datetime="2018-02-08T06:53:50.000Z" itemprop="datePublished">2018-02-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/02/08/SpringBoot整合Swagger2/">SpringBoot整合Swagger2</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="在pom-xml中引入依赖"><a href="#在pom-xml中引入依赖" class="headerlink" title="在pom.xml中引入依赖"></a>在pom.xml中引入依赖</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;io.springfox&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;springfox-swagger2&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.7.0&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;io.springfox&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;springfox-swagger-ui&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.7.0&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="添加配置类"><a href="#添加配置类" class="headerlink" title="添加配置类"></a>添加配置类</h1><h2 id="在Main同一级添加一个类"><a href="#在Main同一级添加一个类" class="headerlink" title="在Main同一级添加一个类"></a>在Main同一级添加一个类</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line">package com.maimai.mybatisApp.controller;</span><br><span class="line"></span><br><span class="line">import com.fasterxml.jackson.annotation.JsonFormat;</span><br><span class="line">import com.github.pagehelper.PageHelper;</span><br><span class="line">import com.maimai.mybatisApp.Bean.Grade;</span><br><span class="line">import com.maimai.mybatisApp.Bean.Person;</span><br><span class="line">import com.maimai.mybatisApp.service.GradeService;</span><br><span class="line">import io.swagger.annotations.*;</span><br><span class="line">import org.springframework.beans.factory.annotation.Value;</span><br><span class="line">import org.springframework.ui.ModelMap;</span><br><span class="line">import org.springframework.web.bind.annotation.*;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">import javax.annotation.Resource;</span><br><span class="line">import java.util.Date;</span><br><span class="line">import java.util.List;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * Created by maimai on 2018-02-05.</span><br><span class="line"> */</span><br><span class="line">@RestController</span><br><span class="line">@Api(value = &quot;1111&quot;,tags = &quot;标签&quot;,produces = &quot;生产者&quot;,consumes = &quot;消费者&quot;,protocols = &quot;协议&quot;,description = &quot;描述&quot;)</span><br><span class="line">public class GradeController &#123;</span><br><span class="line">    @Resource</span><br><span class="line">    private GradeService gradeService;</span><br><span class="line">    @ApiOperation(value=&quot;获取用户详细信息&quot;, notes=&quot;根据url的id来获取用户详细信息&quot;)</span><br><span class="line">    @ApiImplicitParam(name = &quot;name&quot;, value = &quot;用户name&quot;, required = true, dataType = &quot;String&quot;, paramType = &quot;path&quot;)</span><br><span class="line">    @RequestMapping(&quot;/getByGradeNm&quot;)</span><br><span class="line">    public List&lt;Grade&gt; getByGradeNm(String name)&#123;</span><br><span class="line">        return gradeService.getByGradeNm(name);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @RequestMapping(&quot;/getByGradeNm2&quot;)</span><br><span class="line">    public List&lt;Grade&gt; getByGradeNm2(String name, int pageIndex, int pageSize)&#123;</span><br><span class="line">        PageHelper.startPage(pageIndex,pageSize);  //显示第一页2条数据</span><br><span class="line">        return gradeService.getByGradeNm(name);</span><br><span class="line">    &#125;</span><br><span class="line">    @Value(&quot;$&#123;maimai.name&#125;&quot;)</span><br><span class="line">    private  String name;</span><br><span class="line">    @RequestMapping(value =&quot;api/getName&quot;, method = &#123;RequestMethod.GET,RequestMethod.PATCH&#125;)</span><br><span class="line">    @ResponseBody()</span><br><span class="line">    public String getName()&#123;</span><br><span class="line">        return name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    @ApiOperation(value = &quot;网点挂靠&quot;, notes = &quot;嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻&quot;, response = String.class)</span><br><span class="line">    @ApiResponses(value = &#123;</span><br><span class="line">            @ApiResponse(code = 200, message = &quot;Successful — 请求已完成&quot;),</span><br><span class="line">            @ApiResponse(code = 400, message = &quot;请求中有语法问题，或不能满足请求&quot;),</span><br><span class="line">            @ApiResponse(code = 401, message = &quot;未授权客户机访问数据&quot;),</span><br><span class="line">            @ApiResponse(code = 404, message = &quot;服务器找不到给定的资源；文档不存在&quot;),</span><br><span class="line">            @ApiResponse(code = 500, message = &quot;服务器不能完成请求&quot;)&#125;</span><br><span class="line">    )</span><br><span class="line">    @ResponseBody</span><br><span class="line">    @RequestMapping(value = &quot;api/change_rentalshop&quot;, method = &#123;RequestMethod.PUT,RequestMethod.PATCH&#125;)</span><br><span class="line">    public ModelMap changeRentalShop(@RequestBody Person parameter)</span><br><span class="line">            throws Exception &#123;</span><br><span class="line">        ModelMap map = new ModelMap();</span><br><span class="line">        map.addAttribute(&quot;网点挂靠&quot;, new Date());</span><br><span class="line"></span><br><span class="line">        return map;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="过滤接口-只要api下面的接口"><a href="#过滤接口-只要api下面的接口" class="headerlink" title="过滤接口//只要api下面的接口"></a>过滤接口//只要api下面的接口</h1><p>.paths(or(regex(“/api/.*”)))//</p>
+<h1 id="只要get-请求"><a href="#只要get-请求" class="headerlink" title="只要get 请求"></a>只要get 请求</h1><p>@RequestMapping(value =”api/getName”, method = {RequestMethod.GET,RequestMethod.PATCH})<br>//我针对RestController注解的类和ResponseBody注解的方法才生成Swaager的API，并且排除了特定的类<br>        Predicate<requesthandler> predicate = new Predicate<requesthandler>() {<br>            @Override<br>            public boolean apply(RequestHandler input) {<br>                Class&lt;?&gt; declaringClass = input.declaringClass();<br>                if (declaringClass == BasicErrorController.class)// 排除<br>                    return false;<br>                if (declaringClass.isAnnotationPresent(RestController.class)) // 被注解的类<br>                    return true;<br>                if (input.isAnnotatedWith(ResponseBody.class)) // 被注解的方法<br>                    return true;<br>                return false;<br>            }<br>        };</requesthandler></requesthandler></p>
+<h1 id="基本完事，详情就是添加注解"><a href="#基本完事，详情就是添加注解" class="headerlink" title="基本完事，详情就是添加注解"></a>基本完事，详情就是添加注解</h1><h1 id="将swagger-ui中的界面配置至spring-boot环境-目前没用到"><a href="#将swagger-ui中的界面配置至spring-boot环境-目前没用到" class="headerlink" title="将swagger-ui中的界面配置至spring-boot环境  目前没用到"></a>将swagger-ui中的界面配置至spring-boot环境  目前没用到</h1><blockquote>
+<p>spring-boot有自己的一套web端拦截机制，若需要看到swagger发布的api文档界面，需要做一些特殊的配置，将springfox-swagger-ui包中的ui界面暴露给spring-boot资源环境。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">public class WebMvcConfig extends WebMvcConfigurerAdapter &#123;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void addResourceHandlers(ResourceHandlerRegistry registry) &#123;</span><br><span class="line">        registry.addResourceHandler(&quot;/js/**&quot;).addResourceLocations(&quot;classpath:/js/&quot;);</span><br><span class="line">        registry.addResourceHandler(&quot;swagger-ui.html&quot;)</span><br><span class="line">                .addResourceLocations(&quot;classpath:/META-INF/resources/&quot;);</span><br><span class="line">        registry.addResourceHandler(&quot;/webjars/**&quot;)</span><br><span class="line">                .addResourceLocations(&quot;classpath:/META-INF/resources/webjars/&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p>/**</p>
+<pre><code>* SpringBoot默认已经将classpath:/META-INF/resources/和classpath:/META-INF/resources/webjars/映射
+* 所以该方法不需要重写，如果在SpringMVC中，可能需要重写定义（我没有尝试）
+* 重写该方法需要 extends WebMvcConfigurerAdapter
+* 
+*/
+</code></pre><p>//    @Override<br>//    public void addResourceHandlers(ResourceHandlerRegistry registry) {<br>//        registry.addResourceHandler(“swagger-ui.html”)<br>//                .addResourceLocations(“classpath:/META-INF/resources/“);<br>//<br>//        registry.addResourceHandler(“/webjars/**”)<br>//                .addResourceLocations(“classpath:/META-INF/resources/webjars/“);<br>//    }</p>
+<h1 id="spring-boot-swagger2-使用手册"><a href="#spring-boot-swagger2-使用手册" class="headerlink" title="spring-boot-swagger2 使用手册"></a>spring-boot-swagger2 使用手册</h1><h2 id="在项目中常用的注解说明"><a href="#在项目中常用的注解说明" class="headerlink" title="在项目中常用的注解说明"></a>在项目中常用的注解说明</h2><p><code><br>@Api(value = “1111”,tags = “标签”,produces = “生产者”,consumes = “消费者”,protocols = “协议”,description = “描述”)  </code></p>
+<p>@ApiOperation(value=”获取用户详细信息”, notes=”根据url的id来获取用户详细信息”)  </p>
+<p>@ApiImplicitParam(name = “name”, value = “用户name”, required = true, dataType = “String”, paramType = “path”)<br>&lt;/code<br>多个参数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@ApiImplicitParams(&#123;  </span><br><span class="line">          @ApiImplicitParam(name = &quot;username&quot;, value = &quot;用户名&quot;, required = true ,dataType = &quot;string&quot;), </span><br><span class="line">          @ApiImplicitParam(name = &quot;passwd&quot;, value = &quot;密码&quot;, required = true ,dataType = &quot;string&quot;)</span><br><span class="line">    &#125;)</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@ApiResponses(value = &#123;</span><br><span class="line">            @ApiResponse(code = 200, message = &quot;Successful — 请求已完成&quot;),</span><br><span class="line">            @ApiResponse(code = 400, message = &quot;请求中有语法问题，或不能满足请求&quot;),</span><br><span class="line">            @ApiResponse(code = 401, message = &quot;未授权客户机访问数据&quot;),</span><br><span class="line">            @ApiResponse(code = 404, message = &quot;服务器找不到给定的资源；文档不存在&quot;),</span><br><span class="line">            @ApiResponse(code = 500, message = &quot;服务器不能完成请求&quot;)&#125;</span><br><span class="line">    )</span><br></pre></td></tr></table></figure>
+<table><thead><tr><th><span>注解</span></th><br><th><span>属性</span></th><br><th><span>值</span></th><br><th><span>备注</span></th><br></tr></thead><tbody><tr><td><code>@Api</code></td><br><td>value</td><br><td>字符串</td><br><td>可用在<code>class</code>头上,<code>class</code>描述</td><br></tr><tr><td>&nbsp;</td><br><td>description</td><br><td>字符串</td><br><td>&nbsp;</td><br></tr><tr><td>&nbsp;</td><br><td>&nbsp;</td><br><td>&nbsp;</td><br><td><code>@Api</code>(value = “xxx”, description = “xxx”)</td><br></tr><tr><td><code>@ApiOperation</code></td><br><td>value</td><br><td>字符串</td><br><td>可用在方法头上.参数的描述容器</td><br></tr><tr><td>&nbsp;</td><br><td>notes</td><br><td>字符串</td><br><td>&nbsp;</td><br></tr><tr><td>&nbsp;</td><br><td>&nbsp;</td><br><td>&nbsp;</td><br><td><code>@ApiOperation</code>(value = “xxx”, notes = “xxx”)</td><br></tr><tr><td><code>@ApiImplicitParams</code></td><br><td>{}</td><br><td><code>@ApiImplicitParam</code>数组</td><br><td>可用在方法头上.参数的描述容器</td><br></tr><tr><td>&nbsp;</td><br><td>&nbsp;</td><br><td>&nbsp;</td><br><td><code>@ApiImplicitParams</code>({<code>@ApiImplicitParam1</code>,<code>@ApiImplicitParam2</code>,…})</td><br></tr><tr><td><code>@ApiImplicitParam</code></td><br><td>name</td><br><td>字符串 与参数命名对应</td><br><td>可用在<code>@ApiImplicitParams</code>里</td><br></tr><tr><td>&nbsp;</td><br><td>value</td><br><td>字符串</td><br><td>参数中文描述</td><br></tr><tr><td>&nbsp;</td><br><td>required</td><br><td>布尔值</td><br><td>true/false</td><br></tr><tr><td>&nbsp;</td><br><td>dataType</td><br><td>字符串</td><br><td>参数类型</td><br></tr><tr><td>&nbsp;</td><br><td>paramType</td><br><td>字符串</td><br><td>参数请求方式:query/path</td><br></tr><tr><td>&nbsp;</td><br><td>&nbsp;</td><br><td>&nbsp;</td><br><td>query:对应<code>@RequestParam</code>?传递</td><br></tr><tr><td>&nbsp;</td><br><td>&nbsp;</td><br><td>&nbsp;</td><br><td>path: 对应<code>@PathVariable</code>{}path传递</td><br></tr><tr><td>&nbsp;</td><br><td>defaultValue</td><br><td>字符串</td><br><td>在api测试中默认值</td><br></tr><tr><td>&nbsp;</td><br><td>&nbsp;</td><br><td>&nbsp;</td><br><td>用例参见项目中的设置</td><br></tr><tr><td><code>@ApiResponses</code></td><br><td>{}</td><br><td><code>@ApiResponse</code>数组</td><br><td>可用在方法头上.参数的描述容器</td><br></tr><tr><td>&nbsp;</td><br><td>&nbsp;</td><br><td>&nbsp;</td><br><td><code>@ApiResponses</code>({<code>@ApiResponse1</code>,<code>@ApiResponse2</code>,…})</td><br></tr><tr><td><code>@ApiResponse</code></td><br><td>code</td><br><td>整形</td><br><td>可用在<code>@ApiResponses</code>里</td><br></tr><tr><td>&nbsp;</td><br><td>message</td><br><td>字符串</td><br><td>错误描述</td><br></tr><tr><td>&nbsp;</td><br><td>&nbsp;</td><br><td>&nbsp;</td><br><td><code>@ApiResponse</code>(code = 200, message = “Successful”)</td><br></tr></tbody></table>
+
+<h1 id="最常用的5个注解"><a href="#最常用的5个注解" class="headerlink" title="最常用的5个注解"></a>最常用的5个注解</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@Api：修饰整个类，描述Controller的作用</span><br><span class="line">@ApiOperation：描述一个类的一个方法，或者说一个接口</span><br><span class="line">@ApiParam：单个参数描述</span><br><span class="line">@ApiModel：用对象来接收参数</span><br><span class="line">@ApiProperty：用对象接收参数时，描述对象的一个字段</span><br></pre></td></tr></table></figure>
+<h1 id="其它若干"><a href="#其它若干" class="headerlink" title="其它若干"></a>其它若干</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">ApiResponse：HTTP响应其中1个描述</span><br><span class="line">@ApiResponses：HTTP响应整体描述</span><br><span class="line">@ApiIgnore：使用该注解忽略这个API </span><br><span class="line"></span><br><span class="line">@ApiClass</span><br><span class="line">@ApiError</span><br><span class="line">@ApiErrors</span><br><span class="line"></span><br><span class="line">@ApiParamImplicit</span><br><span class="line">@ApiParamsImplicit</span><br></pre></td></tr></table></figure>
+<p>参考链接  </p>
+<p><a href="http://blog.csdn.net/catoop/article/details/50668896" target="_blank" rel="noopener"> Spring Boot 集成Swagger</a><br><a href="http://blog.csdn.net/switch513/article/details/53910633" target="_blank" rel="noopener">spring-boot-swagger2 使用手册</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/02/08/SpringBoot整合Swagger2/" data-id="cjde98bfs0004xknvd2vc7z6t" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-java学习" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -83,11 +143,12 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>Java 后端自学之路<br><a href="http://objcoding.com/2018/02/07/javaweb-learning/" target="_blank" rel="noopener">http://objcoding.com/2018/02/07/javaweb-learning/</a><br><a href="https://juejin.im/entry/5a7a9a13f265da4e865a578c?utm_source=gold_browser_extension" target="_blank" rel="noopener">https://juejin.im/entry/5a7a9a13f265da4e865a578c?utm_source=gold_browser_extension</a></p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/02/07/java学习/" data-id="cjdcvn5ug0005c0nvyrifazan" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/02/07/java学习/" data-id="cjde98bg20007xknvkrpox7iy" class="article-share-link">Share</a>
       
       
     </footer>
@@ -134,7 +195,7 @@ resp = urllib.request.urlopen(req, timeout=5)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/02/07/Python爬虫技巧之设置代理IP/" data-id="cjdcvn5w7000lc0nvsa94v13m" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/02/07/Python爬虫技巧之设置代理IP/" data-id="cjde98bfp0002xknv4oq58t55" class="article-share-link">Share</a>
       
       
     </footer>
@@ -186,7 +247,7 @@ resp = urllib.request.urlopen(req, timeout=5)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/02/02/Sortable-js拖拽排序使用方法/" data-id="cjdcvn5ug000ac0nvzkbbxvu7" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/02/02/Sortable-js拖拽排序使用方法/" data-id="cjde98bg6000cxknvyx5pxdf5" class="article-share-link">Share</a>
       
       
     </footer>
@@ -233,7 +294,7 @@ resp = urllib.request.urlopen(req, timeout=5)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/02/01/fiddler试用/" data-id="cjdcvn5ug0009c0nvhtrkc38d" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/02/01/fiddler试用/" data-id="cjde98bg10006xknvllzozgay" class="article-share-link">Share</a>
       
       
     </footer>
@@ -273,7 +334,7 @@ resp = urllib.request.urlopen(req, timeout=5)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/02/01/知乎登录/" data-id="cjdcvn5uw000ic0nvskp4bemd" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/02/01/知乎登录/" data-id="cjde98bhm000hxknvm17aq8ci" class="article-share-link">Share</a>
       
       
     </footer>
@@ -321,7 +382,7 @@ resp = urllib.request.urlopen(req, timeout=5)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/24/spring-boot-mybaits-xml-xml版本/" data-id="cjdcvn5uw000gc0nvvi7xbnwx" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/01/24/spring-boot-mybaits-xml-xml版本/" data-id="cjde98bhg000exknv7jdt7mua" class="article-share-link">Share</a>
       
       
     </footer>
@@ -363,7 +424,7 @@ resp = urllib.request.urlopen(req, timeout=5)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/23/MyBatis入门/" data-id="cjdcvn5u10001c0nvo75lf6z3" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/01/23/MyBatis入门/" data-id="cjde98bee0000xknvdczm5wdh" class="article-share-link">Share</a>
       
       
     </footer>
@@ -446,11 +507,16 @@ resp = urllib.request.urlopen(req, timeout=5)
 </code></pre><h2 id="用mybatis-增加数据"><a href="#用mybatis-增加数据" class="headerlink" title="用mybatis 增加数据"></a>用mybatis 增加数据</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--执行增加操作的SQL语句。</span><br><span class="line">       id和parameterType分别与IUserOperation接口中的addUser方法的名字和参数类型一致。</span><br><span class="line">       以#&#123;name&#125;的形式引用Student参数的name属性，MyBatis将使用反射读取Student参数的此属性。</span><br><span class="line">       #&#123;name&#125;中name大小写敏感。引用其他 的gender等属性与此一致。</span><br><span class="line">       useGeneratedKeys设置 为&quot;true&quot;表明要MyBatis获取由数据库自动生成的主 键；</span><br><span class="line">       keyProperty=&quot;id&quot;指定把获取到的主键值注入 到Student的id属性--&gt; </span><br><span class="line">    &lt;insert id=&quot;addUser&quot; parameterType=&quot;User&quot; </span><br><span class="line">        useGeneratedKeys=&quot;true&quot; keyProperty=&quot;id&quot;&gt; </span><br><span class="line">        insert into user(userName,userAge,userAddress)  </span><br><span class="line">             values(#&#123;userName&#125;,#&#123;userAge&#125;,#&#123;userAddress&#125;)  </span><br><span class="line">    &lt;/insert&gt;</span><br></pre></td></tr></table></figure>
 <h2 id="用mybatis-更新数据"><a href="#用mybatis-更新数据" class="headerlink" title="用mybatis 更新数据"></a>用mybatis 更新数据</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;update id=&quot;updateUser&quot; parameterType=&quot;User&quot; &gt;</span><br><span class="line">        update user set userName=#&#123;userName&#125;,userAge=#&#123;userAge&#125;,userAddress=#&#123;userAddress&#125; where id=#&#123;id&#125;</span><br><span class="line">    &lt;/update&gt;</span><br></pre></td></tr></table></figure>
 <h2 id="用mybatis-删除数据"><a href="#用mybatis-删除数据" class="headerlink" title="用mybatis 删除数据"></a>用mybatis 删除数据</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;delete id=&quot;deleteUser&quot; parameterType=&quot;int&quot;&gt;</span><br><span class="line">        delete from user where id=#&#123;id&#125;</span><br><span class="line">    &lt;/delete&gt;</span><br></pre></td></tr></table></figure>
-
+<blockquote>
+<p>这样，所有增删改查都完成了，注意在增加，更改，删除的时候要调用session.commit()，这样才会真正对数据库进行操作，否则是没有提交的。</p>
+</blockquote>
+<h2 id="多对一的实现-方法1"><a href="#多对一的实现-方法1" class="headerlink" title="多对一的实现 方法1"></a>多对一的实现 方法1</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public class Article &#123;</span><br><span class="line">    </span><br><span class="line">    private int id;</span><br><span class="line">    private User user;</span><br><span class="line">    private String title;</span><br><span class="line">    private String content;</span><br><span class="line">    ....</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>association<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- User 联合文章进行查询 方法之一的配置 (多对一的方式)  --&gt;    </span><br><span class="line">    &lt;resultMap id=&quot;resultUserArticleList&quot; type=&quot;Article&quot;&gt;</span><br><span class="line">        &lt;id property=&quot;id&quot; column=&quot;aid&quot; /&gt;</span><br><span class="line">        &lt;result property=&quot;title&quot; column=&quot;title&quot; /&gt;</span><br><span class="line">        &lt;result property=&quot;content&quot; column=&quot;content&quot; /&gt;</span><br><span class="line">        </span><br><span class="line">        &lt;association property=&quot;user&quot; javaType=&quot;User&quot;&gt;</span><br><span class="line">            &lt;id property=&quot;id&quot; column=&quot;id&quot; /&gt;</span><br><span class="line">            &lt;result property=&quot;userName&quot; column=&quot;userName&quot; /&gt;</span><br><span class="line">            &lt;result property=&quot;userAddress&quot; column=&quot;userAddress&quot; /&gt;            </span><br><span class="line">        &lt;/association&gt;        </span><br><span class="line">    &lt;/resultMap&gt;</span><br><span class="line"></span><br><span class="line">&lt;select id=&quot;getUserArticles&quot; parameterType=&quot;int&quot; resultMap=&quot;resultUserArticleList&quot;&gt;</span><br><span class="line">       select user.id,user.userName,user.userAddress,article.id aid,article.title,article.content from user,article </span><br><span class="line">              where user.id=article.userid and user.id=#&#123;id&#125;</span><br><span class="line">    &lt;/select&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="多对一的实现-方法2-复用"><a href="#多对一的实现-方法2-复用" class="headerlink" title="多对一的实现 方法2  复用"></a>多对一的实现 方法2  复用</h2><h3 id="还有另外一种处理方式，可以复用我们前面已经定义好的-resultMap-前面我们定义过一个-resultListUser-看这第二种方法如何实现"><a href="#还有另外一种处理方式，可以复用我们前面已经定义好的-resultMap-前面我们定义过一个-resultListUser-看这第二种方法如何实现" class="headerlink" title="还有另外一种处理方式，可以复用我们前面已经定义好的 resultMap ,前面我们定义过一个 resultListUser ,看这第二种方法如何实现:"></a>还有另外一种处理方式，可以复用我们前面已经定义好的 resultMap ,前面我们定义过一个 resultListUser ,看这第二种方法如何实现:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;resultMap type=&quot;User&quot; id=&quot;resultListUser&quot;&gt;</span><br><span class="line">        &lt;id column=&quot;id&quot; property=&quot;id&quot; /&gt;</span><br><span class="line">        &lt;result column=&quot;userName&quot; property=&quot;userName&quot; /&gt;</span><br><span class="line">        &lt;result column=&quot;userAge&quot; property=&quot;userAge&quot; /&gt;</span><br><span class="line">        &lt;result column=&quot;userAddress&quot; property=&quot;userAddress&quot; /&gt;</span><br><span class="line">    &lt;/resultMap&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- User 联合文章进行查询 方法之二的配置 (多对一的方式) --&gt;    </span><br><span class="line">    &lt;resultMap id=&quot;resultUserArticleList-2&quot; type=&quot;Article&quot;&gt;</span><br><span class="line">        &lt;id property=&quot;id&quot; column=&quot;aid&quot; /&gt;</span><br><span class="line">        &lt;result property=&quot;title&quot; column=&quot;title&quot; /&gt;</span><br><span class="line">        &lt;result property=&quot;content&quot; column=&quot;content&quot; /&gt;        </span><br><span class="line">        &lt;association property=&quot;user&quot; javaType=&quot;User&quot; resultMap=&quot;resultListUser&quot; /&gt;             </span><br><span class="line">    &lt;/resultMap&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;select id=&quot;getUserArticles&quot; parameterType=&quot;int&quot; resultMap=&quot;resultUserArticleList&quot;&gt;</span><br><span class="line">       select user.id,user.userName,user.userAddress,article.id aid,article.title,article.content from user,article </span><br><span class="line">              where user.id=article.userid and user.id=#&#123;id&#125;</span><br><span class="line">    &lt;/select&gt;</span><br></pre></td></tr></table></figure>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/19/mybatis-1/" data-id="cjdcvn5uw000ec0nvscggvh6b" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/01/19/mybatis-1/" data-id="cjde98bic000lxknvouh3zxsq" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
@@ -505,59 +571,10 @@ resp = urllib.request.urlopen(req, timeout=5)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/18/spring-boot-mybaits-annotation-注解版本/" data-id="cjdcvn5uw000dc0nvazbs4j03" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/01/18/spring-boot-mybaits-annotation-注解版本/" data-id="cjde98bg8000dxknv5p8xf9an" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spring-boot/">spring-boot</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-SpringBoot" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/01/12/SpringBoot/" class="article-date">
-  <time datetime="2018-01-12T08:11:24.000Z" itemprop="datePublished">2018-01-12</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/java/">java</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/01/12/SpringBoot/">学习SpringBoot</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="配置Spring-boot-的哪一个main方法去执行"><a href="#配置Spring-boot-的哪一个main方法去执行" class="headerlink" title="配置Spring-boot 的哪一个main方法去执行"></a>配置Spring-boot 的哪一个main方法去执行</h1><p>修改pom.xml</p>
-<p><properties><br>    <!-- The main class to start by executing java -jar --><br>    <start-class>com.yihaomen.SpringBootWebApplication</start-class><br></properties><br>Spring-boot-maven插件中配置</p>
-<p><build><br>    <plugins><br>        <plugin><br>            <groupid>org.springframework.boot</groupid><br>            <artifactid>spring-boot-maven-plugin</artifactid><br>            <configuration><br>                <mainclass>com.yihaomen.SpringBootWebApplication</mainclass><br>            </configuration><br>        </plugin><br>    </plugins><br></build><br>
-        
-          <p class="article-more-link">
-            <a href="/2018/01/12/SpringBoot/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/12/SpringBoot/" data-id="cjdcvn5ug0004c0nvzyd0sw8m" class="article-share-link">Teilen</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
 
     </footer>
   </div>
@@ -570,7 +587,7 @@ resp = urllib.request.urlopen(req, timeout=5)
 
   <nav id="page-nav">
     
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">weiter &raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -579,7 +596,7 @@ resp = urllib.request.urlopen(req, timeout=5)
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Kategorien</h3>
+    <h3 class="widget-title">Categories</h3>
     <div class="widget">
       <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a></li></ul>
     </div>
@@ -608,7 +625,7 @@ resp = urllib.request.urlopen(req, timeout=5)
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archiv</h3>
+    <h3 class="widget-title">Archives</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li></ul>
     </div>
@@ -618,9 +635,13 @@ resp = urllib.request.urlopen(req, timeout=5)
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">letzter Beitrag</h3>
+    <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2018/02/08/SpringBoot整合Swagger2/">SpringBoot整合Swagger2</a>
+          </li>
         
           <li>
             <a href="/2018/02/07/java学习/">java学习</a>
@@ -636,10 +657,6 @@ resp = urllib.request.urlopen(req, timeout=5)
         
           <li>
             <a href="/2018/02/01/fiddler试用/">fiddler试用</a>
-          </li>
-        
-          <li>
-            <a href="/2018/02/01/知乎登录/">知乎登录</a>
           </li>
         
       </ul>

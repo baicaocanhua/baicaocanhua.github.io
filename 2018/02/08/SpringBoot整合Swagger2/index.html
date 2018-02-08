@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>SpringBoot整合Swagger2 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="在pom.xml中引入依赖12345678910&amp;lt;dependency&amp;gt;    &amp;lt;groupId&amp;gt;io.springfox&amp;lt;/groupId&amp;gt;    &amp;lt;artifactId&amp;gt;springfox-swagger2&amp;lt;/artifactId&amp;gt;    &amp;lt;version&amp;gt;2.7.0&amp;lt;/version&amp;gt;&amp;lt;/depende">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringBoot整合Swagger2">
+<meta property="og:url" content="http://yoursite.com/2018/02/08/SpringBoot整合Swagger2/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="在pom.xml中引入依赖12345678910&amp;lt;dependency&amp;gt;    &amp;lt;groupId&amp;gt;io.springfox&amp;lt;/groupId&amp;gt;    &amp;lt;artifactId&amp;gt;springfox-swagger2&amp;lt;/artifactId&amp;gt;    &amp;lt;version&amp;gt;2.7.0&amp;lt;/version&amp;gt;&amp;lt;/depende">
+<meta property="og:updated_time" content="2018-02-08T08:41:27.585Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SpringBoot整合Swagger2">
+<meta name="twitter:description" content="在pom.xml中引入依赖12345678910&amp;lt;dependency&amp;gt;    &amp;lt;groupId&amp;gt;io.springfox&amp;lt;/groupId&amp;gt;    &amp;lt;artifactId&amp;gt;springfox-swagger2&amp;lt;/artifactId&amp;gt;    &amp;lt;version&amp;gt;2.7.0&amp;lt;/version&amp;gt;&amp;lt;/depende">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-SpringBoot整合Swagger2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/02/08/SpringBoot整合Swagger2/" class="article-date">
+  <time datetime="2018-02-08T06:53:50.000Z" itemprop="datePublished">2018-02-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      SpringBoot整合Swagger2
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="在pom-xml中引入依赖"><a href="#在pom-xml中引入依赖" class="headerlink" title="在pom.xml中引入依赖"></a>在pom.xml中引入依赖</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;io.springfox&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;springfox-swagger2&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.7.0&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;io.springfox&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;springfox-swagger-ui&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.7.0&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="添加配置类"><a href="#添加配置类" class="headerlink" title="添加配置类"></a>添加配置类</h1><h2 id="在Main同一级添加一个类"><a href="#在Main同一级添加一个类" class="headerlink" title="在Main同一级添加一个类"></a>在Main同一级添加一个类</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line">package com.maimai.mybatisApp.controller;</span><br><span class="line"></span><br><span class="line">import com.fasterxml.jackson.annotation.JsonFormat;</span><br><span class="line">import com.github.pagehelper.PageHelper;</span><br><span class="line">import com.maimai.mybatisApp.Bean.Grade;</span><br><span class="line">import com.maimai.mybatisApp.Bean.Person;</span><br><span class="line">import com.maimai.mybatisApp.service.GradeService;</span><br><span class="line">import io.swagger.annotations.*;</span><br><span class="line">import org.springframework.beans.factory.annotation.Value;</span><br><span class="line">import org.springframework.ui.ModelMap;</span><br><span class="line">import org.springframework.web.bind.annotation.*;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">import javax.annotation.Resource;</span><br><span class="line">import java.util.Date;</span><br><span class="line">import java.util.List;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * Created by maimai on 2018-02-05.</span><br><span class="line"> */</span><br><span class="line">@RestController</span><br><span class="line">@Api(value = &quot;1111&quot;,tags = &quot;标签&quot;,produces = &quot;生产者&quot;,consumes = &quot;消费者&quot;,protocols = &quot;协议&quot;,description = &quot;描述&quot;)</span><br><span class="line">public class GradeController &#123;</span><br><span class="line">    @Resource</span><br><span class="line">    private GradeService gradeService;</span><br><span class="line">    @ApiOperation(value=&quot;获取用户详细信息&quot;, notes=&quot;根据url的id来获取用户详细信息&quot;)</span><br><span class="line">    @ApiImplicitParam(name = &quot;name&quot;, value = &quot;用户name&quot;, required = true, dataType = &quot;String&quot;, paramType = &quot;path&quot;)</span><br><span class="line">    @RequestMapping(&quot;/getByGradeNm&quot;)</span><br><span class="line">    public List&lt;Grade&gt; getByGradeNm(String name)&#123;</span><br><span class="line">        return gradeService.getByGradeNm(name);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @RequestMapping(&quot;/getByGradeNm2&quot;)</span><br><span class="line">    public List&lt;Grade&gt; getByGradeNm2(String name, int pageIndex, int pageSize)&#123;</span><br><span class="line">        PageHelper.startPage(pageIndex,pageSize);  //显示第一页2条数据</span><br><span class="line">        return gradeService.getByGradeNm(name);</span><br><span class="line">    &#125;</span><br><span class="line">    @Value(&quot;$&#123;maimai.name&#125;&quot;)</span><br><span class="line">    private  String name;</span><br><span class="line">    @RequestMapping(value =&quot;api/getName&quot;, method = &#123;RequestMethod.GET,RequestMethod.PATCH&#125;)</span><br><span class="line">    @ResponseBody()</span><br><span class="line">    public String getName()&#123;</span><br><span class="line">        return name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    @ApiOperation(value = &quot;网点挂靠&quot;, notes = &quot;嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻&quot;, response = String.class)</span><br><span class="line">    @ApiResponses(value = &#123;</span><br><span class="line">            @ApiResponse(code = 200, message = &quot;Successful — 请求已完成&quot;),</span><br><span class="line">            @ApiResponse(code = 400, message = &quot;请求中有语法问题，或不能满足请求&quot;),</span><br><span class="line">            @ApiResponse(code = 401, message = &quot;未授权客户机访问数据&quot;),</span><br><span class="line">            @ApiResponse(code = 404, message = &quot;服务器找不到给定的资源；文档不存在&quot;),</span><br><span class="line">            @ApiResponse(code = 500, message = &quot;服务器不能完成请求&quot;)&#125;</span><br><span class="line">    )</span><br><span class="line">    @ResponseBody</span><br><span class="line">    @RequestMapping(value = &quot;api/change_rentalshop&quot;, method = &#123;RequestMethod.PUT,RequestMethod.PATCH&#125;)</span><br><span class="line">    public ModelMap changeRentalShop(@RequestBody Person parameter)</span><br><span class="line">            throws Exception &#123;</span><br><span class="line">        ModelMap map = new ModelMap();</span><br><span class="line">        map.addAttribute(&quot;网点挂靠&quot;, new Date());</span><br><span class="line"></span><br><span class="line">        return map;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="过滤接口-只要api下面的接口"><a href="#过滤接口-只要api下面的接口" class="headerlink" title="过滤接口//只要api下面的接口"></a>过滤接口//只要api下面的接口</h1><p>.paths(or(regex(“/api/.*”)))//</p>
+<h1 id="只要get-请求"><a href="#只要get-请求" class="headerlink" title="只要get 请求"></a>只要get 请求</h1><p>@RequestMapping(value =”api/getName”, method = {RequestMethod.GET,RequestMethod.PATCH})<br>//我针对RestController注解的类和ResponseBody注解的方法才生成Swaager的API，并且排除了特定的类<br>        Predicate<requesthandler> predicate = new Predicate<requesthandler>() {<br>            @Override<br>            public boolean apply(RequestHandler input) {<br>                Class&lt;?&gt; declaringClass = input.declaringClass();<br>                if (declaringClass == BasicErrorController.class)// 排除<br>                    return false;<br>                if (declaringClass.isAnnotationPresent(RestController.class)) // 被注解的类<br>                    return true;<br>                if (input.isAnnotatedWith(ResponseBody.class)) // 被注解的方法<br>                    return true;<br>                return false;<br>            }<br>        };</requesthandler></requesthandler></p>
+<h1 id="基本完事，详情就是添加注解"><a href="#基本完事，详情就是添加注解" class="headerlink" title="基本完事，详情就是添加注解"></a>基本完事，详情就是添加注解</h1><h1 id="将swagger-ui中的界面配置至spring-boot环境-目前没用到"><a href="#将swagger-ui中的界面配置至spring-boot环境-目前没用到" class="headerlink" title="将swagger-ui中的界面配置至spring-boot环境  目前没用到"></a>将swagger-ui中的界面配置至spring-boot环境  目前没用到</h1><blockquote>
+<p>spring-boot有自己的一套web端拦截机制，若需要看到swagger发布的api文档界面，需要做一些特殊的配置，将springfox-swagger-ui包中的ui界面暴露给spring-boot资源环境。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">public class WebMvcConfig extends WebMvcConfigurerAdapter &#123;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void addResourceHandlers(ResourceHandlerRegistry registry) &#123;</span><br><span class="line">        registry.addResourceHandler(&quot;/js/**&quot;).addResourceLocations(&quot;classpath:/js/&quot;);</span><br><span class="line">        registry.addResourceHandler(&quot;swagger-ui.html&quot;)</span><br><span class="line">                .addResourceLocations(&quot;classpath:/META-INF/resources/&quot;);</span><br><span class="line">        registry.addResourceHandler(&quot;/webjars/**&quot;)</span><br><span class="line">                .addResourceLocations(&quot;classpath:/META-INF/resources/webjars/&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p>/**</p>
+<pre><code>* SpringBoot默认已经将classpath:/META-INF/resources/和classpath:/META-INF/resources/webjars/映射
+* 所以该方法不需要重写，如果在SpringMVC中，可能需要重写定义（我没有尝试）
+* 重写该方法需要 extends WebMvcConfigurerAdapter
+* 
+*/
+</code></pre><p>//    @Override<br>//    public void addResourceHandlers(ResourceHandlerRegistry registry) {<br>//        registry.addResourceHandler(“swagger-ui.html”)<br>//                .addResourceLocations(“classpath:/META-INF/resources/“);<br>//<br>//        registry.addResourceHandler(“/webjars/**”)<br>//                .addResourceLocations(“classpath:/META-INF/resources/webjars/“);<br>//    }</p>
+<h1 id="spring-boot-swagger2-使用手册"><a href="#spring-boot-swagger2-使用手册" class="headerlink" title="spring-boot-swagger2 使用手册"></a>spring-boot-swagger2 使用手册</h1><h2 id="在项目中常用的注解说明"><a href="#在项目中常用的注解说明" class="headerlink" title="在项目中常用的注解说明"></a>在项目中常用的注解说明</h2><p><code><br>@Api(value = “1111”,tags = “标签”,produces = “生产者”,consumes = “消费者”,protocols = “协议”,description = “描述”)  </code></p>
+<p>@ApiOperation(value=”获取用户详细信息”, notes=”根据url的id来获取用户详细信息”)  </p>
+<p>@ApiImplicitParam(name = “name”, value = “用户name”, required = true, dataType = “String”, paramType = “path”)<br>&lt;/code<br>多个参数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@ApiImplicitParams(&#123;  </span><br><span class="line">          @ApiImplicitParam(name = &quot;username&quot;, value = &quot;用户名&quot;, required = true ,dataType = &quot;string&quot;), </span><br><span class="line">          @ApiImplicitParam(name = &quot;passwd&quot;, value = &quot;密码&quot;, required = true ,dataType = &quot;string&quot;)</span><br><span class="line">    &#125;)</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@ApiResponses(value = &#123;</span><br><span class="line">            @ApiResponse(code = 200, message = &quot;Successful — 请求已完成&quot;),</span><br><span class="line">            @ApiResponse(code = 400, message = &quot;请求中有语法问题，或不能满足请求&quot;),</span><br><span class="line">            @ApiResponse(code = 401, message = &quot;未授权客户机访问数据&quot;),</span><br><span class="line">            @ApiResponse(code = 404, message = &quot;服务器找不到给定的资源；文档不存在&quot;),</span><br><span class="line">            @ApiResponse(code = 500, message = &quot;服务器不能完成请求&quot;)&#125;</span><br><span class="line">    )</span><br></pre></td></tr></table></figure>
+<table><thead><tr><th><span>注解</span></th><br><th><span>属性</span></th><br><th><span>值</span></th><br><th><span>备注</span></th><br></tr></thead><tbody><tr><td><code>@Api</code></td><br><td>value</td><br><td>字符串</td><br><td>可用在<code>class</code>头上,<code>class</code>描述</td><br></tr><tr><td>&nbsp;</td><br><td>description</td><br><td>字符串</td><br><td>&nbsp;</td><br></tr><tr><td>&nbsp;</td><br><td>&nbsp;</td><br><td>&nbsp;</td><br><td><code>@Api</code>(value = “xxx”, description = “xxx”)</td><br></tr><tr><td><code>@ApiOperation</code></td><br><td>value</td><br><td>字符串</td><br><td>可用在方法头上.参数的描述容器</td><br></tr><tr><td>&nbsp;</td><br><td>notes</td><br><td>字符串</td><br><td>&nbsp;</td><br></tr><tr><td>&nbsp;</td><br><td>&nbsp;</td><br><td>&nbsp;</td><br><td><code>@ApiOperation</code>(value = “xxx”, notes = “xxx”)</td><br></tr><tr><td><code>@ApiImplicitParams</code></td><br><td>{}</td><br><td><code>@ApiImplicitParam</code>数组</td><br><td>可用在方法头上.参数的描述容器</td><br></tr><tr><td>&nbsp;</td><br><td>&nbsp;</td><br><td>&nbsp;</td><br><td><code>@ApiImplicitParams</code>({<code>@ApiImplicitParam1</code>,<code>@ApiImplicitParam2</code>,…})</td><br></tr><tr><td><code>@ApiImplicitParam</code></td><br><td>name</td><br><td>字符串 与参数命名对应</td><br><td>可用在<code>@ApiImplicitParams</code>里</td><br></tr><tr><td>&nbsp;</td><br><td>value</td><br><td>字符串</td><br><td>参数中文描述</td><br></tr><tr><td>&nbsp;</td><br><td>required</td><br><td>布尔值</td><br><td>true/false</td><br></tr><tr><td>&nbsp;</td><br><td>dataType</td><br><td>字符串</td><br><td>参数类型</td><br></tr><tr><td>&nbsp;</td><br><td>paramType</td><br><td>字符串</td><br><td>参数请求方式:query/path</td><br></tr><tr><td>&nbsp;</td><br><td>&nbsp;</td><br><td>&nbsp;</td><br><td>query:对应<code>@RequestParam</code>?传递</td><br></tr><tr><td>&nbsp;</td><br><td>&nbsp;</td><br><td>&nbsp;</td><br><td>path: 对应<code>@PathVariable</code>{}path传递</td><br></tr><tr><td>&nbsp;</td><br><td>defaultValue</td><br><td>字符串</td><br><td>在api测试中默认值</td><br></tr><tr><td>&nbsp;</td><br><td>&nbsp;</td><br><td>&nbsp;</td><br><td>用例参见项目中的设置</td><br></tr><tr><td><code>@ApiResponses</code></td><br><td>{}</td><br><td><code>@ApiResponse</code>数组</td><br><td>可用在方法头上.参数的描述容器</td><br></tr><tr><td>&nbsp;</td><br><td>&nbsp;</td><br><td>&nbsp;</td><br><td><code>@ApiResponses</code>({<code>@ApiResponse1</code>,<code>@ApiResponse2</code>,…})</td><br></tr><tr><td><code>@ApiResponse</code></td><br><td>code</td><br><td>整形</td><br><td>可用在<code>@ApiResponses</code>里</td><br></tr><tr><td>&nbsp;</td><br><td>message</td><br><td>字符串</td><br><td>错误描述</td><br></tr><tr><td>&nbsp;</td><br><td>&nbsp;</td><br><td>&nbsp;</td><br><td><code>@ApiResponse</code>(code = 200, message = “Successful”)</td><br></tr></tbody></table>
+
+<h1 id="最常用的5个注解"><a href="#最常用的5个注解" class="headerlink" title="最常用的5个注解"></a>最常用的5个注解</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@Api：修饰整个类，描述Controller的作用</span><br><span class="line">@ApiOperation：描述一个类的一个方法，或者说一个接口</span><br><span class="line">@ApiParam：单个参数描述</span><br><span class="line">@ApiModel：用对象来接收参数</span><br><span class="line">@ApiProperty：用对象接收参数时，描述对象的一个字段</span><br></pre></td></tr></table></figure>
+<h1 id="其它若干"><a href="#其它若干" class="headerlink" title="其它若干"></a>其它若干</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">ApiResponse：HTTP响应其中1个描述</span><br><span class="line">@ApiResponses：HTTP响应整体描述</span><br><span class="line">@ApiIgnore：使用该注解忽略这个API </span><br><span class="line"></span><br><span class="line">@ApiClass</span><br><span class="line">@ApiError</span><br><span class="line">@ApiErrors</span><br><span class="line"></span><br><span class="line">@ApiParamImplicit</span><br><span class="line">@ApiParamsImplicit</span><br></pre></td></tr></table></figure>
+<p>参考链接  </p>
+<p><a href="http://blog.csdn.net/catoop/article/details/50668896" target="_blank" rel="noopener"> Spring Boot 集成Swagger</a><br><a href="http://blog.csdn.net/switch513/article/details/53910633" target="_blank" rel="noopener">spring-boot-swagger2 使用手册</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/02/08/SpringBoot整合Swagger2/" data-id="cjde98bfs0004xknvd2vc7z6t" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/02/07/java学习/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">java学习</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/">blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring-boot/">spring-boot</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/spring-boot/" style="font-size: 10px;">spring-boot</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/02/08/SpringBoot整合Swagger2/">SpringBoot整合Swagger2</a>
+          </li>
+        
+          <li>
+            <a href="/2018/02/07/java学习/">java学习</a>
+          </li>
+        
+          <li>
+            <a href="/2018/02/07/Python爬虫技巧之设置代理IP/">Python爬虫技巧之设置代理IP</a>
+          </li>
+        
+          <li>
+            <a href="/2018/02/02/Sortable-js拖拽排序使用方法/">Sortable.js拖拽排序使用方法</a>
+          </li>
+        
+          <li>
+            <a href="/2018/02/01/fiddler试用/">fiddler试用</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

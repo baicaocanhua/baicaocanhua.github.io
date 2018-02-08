@@ -14,7 +14,7 @@
 <meta property="og:url" content="http://yoursite.com/2018/01/19/mybatis-1/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="[TOC]   idea mybatis 学习路径别人的博客 好的博客springbootgit地址 mybatis中几个基本的组件 SqlSessionFactoryBuilder这是一个SqlSessionFactory的构造器，它根据我们的xml配置文件或者Java代码来生成SqlSessionFactory SqlSessionFactory这个有点类似于我们在JDBC中使用的Connec">
-<meta property="og:updated_time" content="2018-02-06T01:03:16.606Z">
+<meta property="og:updated_time" content="2018-02-07T09:34:31.073Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mybatis-1">
 <meta name="twitter:description" content="[TOC]   idea mybatis 学习路径别人的博客 好的博客springbootgit地址 mybatis中几个基本的组件 SqlSessionFactoryBuilder这是一个SqlSessionFactory的构造器，它根据我们的xml配置文件或者Java代码来生成SqlSessionFactory SqlSessionFactory这个有点类似于我们在JDBC中使用的Connec">
@@ -55,7 +55,7 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -137,11 +137,16 @@
 </code></pre><h2 id="用mybatis-增加数据"><a href="#用mybatis-增加数据" class="headerlink" title="用mybatis 增加数据"></a>用mybatis 增加数据</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--执行增加操作的SQL语句。</span><br><span class="line">       id和parameterType分别与IUserOperation接口中的addUser方法的名字和参数类型一致。</span><br><span class="line">       以#&#123;name&#125;的形式引用Student参数的name属性，MyBatis将使用反射读取Student参数的此属性。</span><br><span class="line">       #&#123;name&#125;中name大小写敏感。引用其他 的gender等属性与此一致。</span><br><span class="line">       useGeneratedKeys设置 为&quot;true&quot;表明要MyBatis获取由数据库自动生成的主 键；</span><br><span class="line">       keyProperty=&quot;id&quot;指定把获取到的主键值注入 到Student的id属性--&gt; </span><br><span class="line">    &lt;insert id=&quot;addUser&quot; parameterType=&quot;User&quot; </span><br><span class="line">        useGeneratedKeys=&quot;true&quot; keyProperty=&quot;id&quot;&gt; </span><br><span class="line">        insert into user(userName,userAge,userAddress)  </span><br><span class="line">             values(#&#123;userName&#125;,#&#123;userAge&#125;,#&#123;userAddress&#125;)  </span><br><span class="line">    &lt;/insert&gt;</span><br></pre></td></tr></table></figure>
 <h2 id="用mybatis-更新数据"><a href="#用mybatis-更新数据" class="headerlink" title="用mybatis 更新数据"></a>用mybatis 更新数据</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;update id=&quot;updateUser&quot; parameterType=&quot;User&quot; &gt;</span><br><span class="line">        update user set userName=#&#123;userName&#125;,userAge=#&#123;userAge&#125;,userAddress=#&#123;userAddress&#125; where id=#&#123;id&#125;</span><br><span class="line">    &lt;/update&gt;</span><br></pre></td></tr></table></figure>
 <h2 id="用mybatis-删除数据"><a href="#用mybatis-删除数据" class="headerlink" title="用mybatis 删除数据"></a>用mybatis 删除数据</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;delete id=&quot;deleteUser&quot; parameterType=&quot;int&quot;&gt;</span><br><span class="line">        delete from user where id=#&#123;id&#125;</span><br><span class="line">    &lt;/delete&gt;</span><br></pre></td></tr></table></figure>
-
+<blockquote>
+<p>这样，所有增删改查都完成了，注意在增加，更改，删除的时候要调用session.commit()，这样才会真正对数据库进行操作，否则是没有提交的。</p>
+</blockquote>
+<h2 id="多对一的实现-方法1"><a href="#多对一的实现-方法1" class="headerlink" title="多对一的实现 方法1"></a>多对一的实现 方法1</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public class Article &#123;</span><br><span class="line">    </span><br><span class="line">    private int id;</span><br><span class="line">    private User user;</span><br><span class="line">    private String title;</span><br><span class="line">    private String content;</span><br><span class="line">    ....</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>association<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- User 联合文章进行查询 方法之一的配置 (多对一的方式)  --&gt;    </span><br><span class="line">    &lt;resultMap id=&quot;resultUserArticleList&quot; type=&quot;Article&quot;&gt;</span><br><span class="line">        &lt;id property=&quot;id&quot; column=&quot;aid&quot; /&gt;</span><br><span class="line">        &lt;result property=&quot;title&quot; column=&quot;title&quot; /&gt;</span><br><span class="line">        &lt;result property=&quot;content&quot; column=&quot;content&quot; /&gt;</span><br><span class="line">        </span><br><span class="line">        &lt;association property=&quot;user&quot; javaType=&quot;User&quot;&gt;</span><br><span class="line">            &lt;id property=&quot;id&quot; column=&quot;id&quot; /&gt;</span><br><span class="line">            &lt;result property=&quot;userName&quot; column=&quot;userName&quot; /&gt;</span><br><span class="line">            &lt;result property=&quot;userAddress&quot; column=&quot;userAddress&quot; /&gt;            </span><br><span class="line">        &lt;/association&gt;        </span><br><span class="line">    &lt;/resultMap&gt;</span><br><span class="line"></span><br><span class="line">&lt;select id=&quot;getUserArticles&quot; parameterType=&quot;int&quot; resultMap=&quot;resultUserArticleList&quot;&gt;</span><br><span class="line">       select user.id,user.userName,user.userAddress,article.id aid,article.title,article.content from user,article </span><br><span class="line">              where user.id=article.userid and user.id=#&#123;id&#125;</span><br><span class="line">    &lt;/select&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="多对一的实现-方法2-复用"><a href="#多对一的实现-方法2-复用" class="headerlink" title="多对一的实现 方法2  复用"></a>多对一的实现 方法2  复用</h2><h3 id="还有另外一种处理方式，可以复用我们前面已经定义好的-resultMap-前面我们定义过一个-resultListUser-看这第二种方法如何实现"><a href="#还有另外一种处理方式，可以复用我们前面已经定义好的-resultMap-前面我们定义过一个-resultListUser-看这第二种方法如何实现" class="headerlink" title="还有另外一种处理方式，可以复用我们前面已经定义好的 resultMap ,前面我们定义过一个 resultListUser ,看这第二种方法如何实现:"></a>还有另外一种处理方式，可以复用我们前面已经定义好的 resultMap ,前面我们定义过一个 resultListUser ,看这第二种方法如何实现:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;resultMap type=&quot;User&quot; id=&quot;resultListUser&quot;&gt;</span><br><span class="line">        &lt;id column=&quot;id&quot; property=&quot;id&quot; /&gt;</span><br><span class="line">        &lt;result column=&quot;userName&quot; property=&quot;userName&quot; /&gt;</span><br><span class="line">        &lt;result column=&quot;userAge&quot; property=&quot;userAge&quot; /&gt;</span><br><span class="line">        &lt;result column=&quot;userAddress&quot; property=&quot;userAddress&quot; /&gt;</span><br><span class="line">    &lt;/resultMap&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- User 联合文章进行查询 方法之二的配置 (多对一的方式) --&gt;    </span><br><span class="line">    &lt;resultMap id=&quot;resultUserArticleList-2&quot; type=&quot;Article&quot;&gt;</span><br><span class="line">        &lt;id property=&quot;id&quot; column=&quot;aid&quot; /&gt;</span><br><span class="line">        &lt;result property=&quot;title&quot; column=&quot;title&quot; /&gt;</span><br><span class="line">        &lt;result property=&quot;content&quot; column=&quot;content&quot; /&gt;        </span><br><span class="line">        &lt;association property=&quot;user&quot; javaType=&quot;User&quot; resultMap=&quot;resultListUser&quot; /&gt;             </span><br><span class="line">    &lt;/resultMap&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;select id=&quot;getUserArticles&quot; parameterType=&quot;int&quot; resultMap=&quot;resultUserArticleList&quot;&gt;</span><br><span class="line">       select user.id,user.userName,user.userAddress,article.id aid,article.title,article.content from user,article </span><br><span class="line">              where user.id=article.userid and user.id=#&#123;id&#125;</span><br><span class="line">    &lt;/select&gt;</span><br></pre></td></tr></table></figure>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/19/mybatis-1/" data-id="cjdcvn5uw000ec0nvscggvh6b" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/01/19/mybatis-1/" data-id="cjde98bic000lxknvouh3zxsq" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
@@ -153,7 +158,7 @@
 <nav id="article-nav">
   
     <a href="/2018/01/23/MyBatis入门/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Neuer</strong>
+      <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
           MyBatis入门
@@ -163,7 +168,7 @@
   
   
     <a href="/2018/01/18/spring-boot-mybaits-annotation-注解版本/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Älter</strong>
+      <strong class="article-nav-caption">Older</strong>
       <div class="article-nav-title">spring-boot-mybaits-annotation-注解版本</div>
     </a>
   
@@ -178,7 +183,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Kategorien</h3>
+    <h3 class="widget-title">Categories</h3>
     <div class="widget">
       <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a></li></ul>
     </div>
@@ -207,7 +212,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archiv</h3>
+    <h3 class="widget-title">Archives</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li></ul>
     </div>
@@ -217,9 +222,13 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">letzter Beitrag</h3>
+    <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2018/02/08/SpringBoot整合Swagger2/">SpringBoot整合Swagger2</a>
+          </li>
         
           <li>
             <a href="/2018/02/07/java学习/">java学习</a>
@@ -235,10 +244,6 @@
         
           <li>
             <a href="/2018/02/01/fiddler试用/">fiddler试用</a>
-          </li>
-        
-          <li>
-            <a href="/2018/02/01/知乎登录/">知乎登录</a>
           </li>
         
       </ul>

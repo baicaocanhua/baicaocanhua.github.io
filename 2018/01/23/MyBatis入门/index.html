@@ -13,7 +13,7 @@
 <meta property="og:url" content="http://yoursite.com/2018/01/23/MyBatis入门/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="别名123&amp;lt;typeAliases&amp;gt;  &amp;lt;package name=&amp;quot;domain.blog&amp;quot;/&amp;gt;&amp;lt;/typeAliases&amp;gt;  别名：包中的JavaBean会使用首字母小写类名作为别名，domain.blog.Author 的别名为 author；若有注解，则别名为其注解值。看下面的例子：1234@Alias(&amp;quot;author&amp;q">
-<meta property="og:updated_time" content="2018-01-23T06:28:22.560Z">
+<meta property="og:updated_time" content="2018-02-10T07:47:03.194Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MyBatis入门">
 <meta name="twitter:description" content="别名123&amp;lt;typeAliases&amp;gt;  &amp;lt;package name=&amp;quot;domain.blog&amp;quot;/&amp;gt;&amp;lt;/typeAliases&amp;gt;  别名：包中的JavaBean会使用首字母小写类名作为别名，domain.blog.Author 的别名为 author；若有注解，则别名为其注解值。看下面的例子：1234@Alias(&amp;quot;author&amp;q">
@@ -92,10 +92,52 @@
 <blockquote>
 <h2 id="映射器（mappers）"><a href="#映射器（mappers）" class="headerlink" title="映射器（mappers）"></a>映射器（mappers）</h2></blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;mappers&gt;</span><br><span class="line">  &lt;package name=&quot;org.mybatis.builder&quot;/&gt;</span><br><span class="line">&lt;/mappers&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="定义公共字段"><a href="#定义公共字段" class="headerlink" title="定义公共字段"></a>定义公共字段</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;sql id=&quot;Base_Column_List&quot; &gt;  </span><br><span class="line">    id, car_dept_name, car_maker_name, icon,car_maker_py,hot_type  </span><br><span class="line">  &lt;/sql&gt;  </span><br><span class="line">  &lt;select id=&quot;selectByPrimaryKey&quot; resultMap=&quot;BaseResultMap&quot; parameterType=&quot;java.lang.Long&quot; &gt;  </span><br><span class="line">    select   </span><br><span class="line">    &lt;include refid=&quot;Base_Column_List&quot; /&gt;  </span><br><span class="line">    from common_car_make  </span><br><span class="line">    where id = #&#123;id,jdbcType=BIGINT&#125;  </span><br><span class="line">  &lt;/select&gt;</span><br></pre></td></tr></table></figure>
+<p><a href="http://blog.csdn.net/u010235716/article/details/51698422" target="_blank" rel="noopener">MyBatis的传入参数parameterType类型</a></p>
+<h1 id="MyBatis的传入参数parameterType类型"><a href="#MyBatis的传入参数parameterType类型" class="headerlink" title="MyBatis的传入参数parameterType类型"></a>MyBatis的传入参数parameterType类型</h1><ol>
+<li><p>MyBatis的传入参数parameterType类型分两种</p>
+<ol>
+<li><ol>
+<li>基本数据类型：int,string,long,Date;</li>
+</ol>
+</li>
+<li><ol>
+<li>复杂数据类型：类和Map  </li>
+</ol>
+</li>
+<li>如何获取参数中的值:</li>
+</ol>
+<p>2.1  基本数据类型：#{参数} 获取参数中的值</p>
+<p>2.2  复杂数据类型：#{属性名}  ，map中则是#{key}  </p>
+</li>
+</ol>
+<h1 id="基本数据类型案例"><a href="#基本数据类型案例" class="headerlink" title="基本数据类型案例"></a>基本数据类型案例</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;sql id=&quot;Base_Column_List&quot; &gt;  </span><br><span class="line">    id, car_dept_name, car_maker_name, icon,car_maker_py,hot_type  </span><br><span class="line">  &lt;/sql&gt;  </span><br><span class="line">  &lt;select id=&quot;selectByPrimaryKey&quot; resultMap=&quot;BaseResultMap&quot; parameterType=&quot;java.lang.Long&quot; &gt;  </span><br><span class="line">    select   </span><br><span class="line">    &lt;include refid=&quot;Base_Column_List&quot; /&gt;  </span><br><span class="line">    from common_car_make  </span><br><span class="line">    where id = #&#123;id,jdbcType=BIGINT&#125;  </span><br><span class="line">  &lt;/select&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="复杂类型–map类型"><a href="#复杂类型–map类型" class="headerlink" title="复杂类型–map类型"></a>复杂类型–map类型</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=&quot;queryCarMakerList&quot; resultMap=&quot;BaseResultMap&quot; parameterType=&quot;java.util.Map&quot;&gt;  </span><br><span class="line">        select  </span><br><span class="line">        &lt;include refid=&quot;Base_Column_List&quot; /&gt;  </span><br><span class="line">        from common_car_make cm  </span><br><span class="line">        where 1=1  </span><br><span class="line">        &lt;if test=&quot;id != null&quot;&gt;  </span><br><span class="line">            and  cm.id = #&#123;id,jdbcType=DECIMAL&#125;  </span><br><span class="line">        &lt;/if&gt;  </span><br><span class="line">        &lt;if test=&quot;carDeptName != null&quot;&gt;  </span><br><span class="line">            and  cm.car_dept_name = #&#123;carDeptName,jdbcType=VARCHAR&#125;  </span><br><span class="line">        &lt;/if&gt;  </span><br><span class="line">        &lt;if test=&quot;carMakerName != null&quot;&gt;  </span><br><span class="line">            and  cm.car_maker_name = #&#123;carMakerName,jdbcType=VARCHAR&#125;  </span><br><span class="line">        &lt;/if&gt;  </span><br><span class="line">        &lt;if test=&quot;hotType != null&quot; &gt;  </span><br><span class="line">           and  cm.hot_type = #&#123;hotType,jdbcType=BIGINT&#125;  </span><br><span class="line">        &lt;/if&gt;  </span><br><span class="line">        ORDER BY cm.id  </span><br><span class="line">    &lt;/select&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="复杂类型–类类型"><a href="#复杂类型–类类型" class="headerlink" title="复杂类型–类类型"></a>复杂类型–类类型</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;update id=&quot;updateByPrimaryKeySelective&quot; parameterType=&quot;com.epeit.api.model.CommonCarMake&quot; &gt;  </span><br><span class="line">   update common_car_make  </span><br><span class="line">   &lt;set &gt;  </span><br><span class="line">     &lt;if test=&quot;carDeptName != null&quot; &gt;  </span><br><span class="line">       car_dept_name = #&#123;carDeptName,jdbcType=VARCHAR&#125;,  </span><br><span class="line">     &lt;/if&gt;  </span><br><span class="line">     &lt;if test=&quot;carMakerName != null&quot; &gt;  </span><br><span class="line">       car_maker_name = #&#123;carMakerName,jdbcType=VARCHAR&#125;,  </span><br><span class="line">     &lt;/if&gt;  </span><br><span class="line">     &lt;if test=&quot;icon != null&quot; &gt;  </span><br><span class="line">       icon = #&#123;icon,jdbcType=VARCHAR&#125;,  </span><br><span class="line">     &lt;/if&gt;  </span><br><span class="line">     &lt;if test=&quot;carMakerPy != null&quot; &gt;  </span><br><span class="line">           car_maker_py = #&#123;carMakerPy,jdbcType=VARCHAR&#125;,  </span><br><span class="line">     &lt;/if&gt;  </span><br><span class="line">     &lt;if test=&quot;hotType != null&quot; &gt;  </span><br><span class="line">           hot_type = #&#123;hotType,jdbcType=BIGINT&#125;,  </span><br><span class="line">     &lt;/if&gt;  </span><br><span class="line">   &lt;/set&gt;  </span><br><span class="line">   where id = #&#123;id,jdbcType=BIGINT&#125;  </span><br><span class="line"> &lt;/update&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="复杂类型–map中包含数组的情况"><a href="#复杂类型–map中包含数组的情况" class="headerlink" title="复杂类型–map中包含数组的情况"></a>复杂类型–map中包含数组的情况</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=&quot;selectProOrderByOrderId&quot; resultType=&quot;com.epeit.api.model.ProOrder&quot; parameterType=&quot;java.util.HashMap&quot; &gt;  </span><br><span class="line">        select sum(pro_order_num) proOrderNum,product_id productId,promotion_id promotionId  </span><br><span class="line">        from pro_order  </span><br><span class="line">        where 1=1  </span><br><span class="line">        &lt;if test=&quot;orderIds != null&quot;&gt;  </span><br><span class="line">          and  </span><br><span class="line">            &lt;foreach collection=&quot;orderIds&quot; item=&quot;item&quot; open=&quot;order_id IN(&quot; separator=&quot;,&quot; close=&quot;)&quot;&gt;  </span><br><span class="line">                #&#123;item,jdbcType=BIGINT&#125;  </span><br><span class="line">            &lt;/foreach&gt;  </span><br><span class="line">        &lt;/if&gt;  </span><br><span class="line">        GROUP BY product_id,promotion_id  </span><br><span class="line">    &lt;/select&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="注解-Param：这个比较特殊，但是很好理解"><a href="#注解-Param：这个比较特殊，但是很好理解" class="headerlink" title="注解@Param：这个比较特殊，但是很好理解"></a>注解@Param：这个比较特殊，但是很好理解</h1><p>案例一：</p>
+<p>@Param(value=”startdate”) String startDate ：注解单一属性；这个类似于将参数重命名了一次</p>
+<p>如调用mybatis的*mapper.xml中配置sql语句（DAO层）</p>
+<p>List<string> selectIdBySortTime(@Param(value=”startdate”)String startDate);  </string></p>
+<p>4.注解@Param：这个比较特殊，但是很好理解</p>
+<p>案例一：</p>
+<p>@Param(value=”startdate”) String startDate ：注解单一属性；这个类似于将参数重命名了一次</p>
+<p>如调用mybatis的*mapper.xml中配置sql语句（DAO层）</p>
+<p>List<string> selectIdBySortTime(@Param(value=”startdate”)String startDate);<br>则xml中的语句，需要配合@param括号中的内容:参数为startdate</string></p>
+<select id="selectIdBySortTime" resulttype="java.lang.String" parametertype="java.lang.String"><br>    select distinct ajlcid from ebd_fh_ajlc where sorttime &gt;= to_date(#{startdate,jdbcType=VARCHAR},’YYYY-MM-DD’) and created_date=updated_date<br>    and keyvalue in (select  distinct companyname from ebd_fh_company_list where isupdate=’0’)<br>  </select><br>案例二：<br>注解javaBean,@Param(value=”dateVo”) DateVo dateVo；则需要注意编写的参数<br><br><br>List<string> selectIds(@Param(value=”dateVo”)DateVo dateVo);<br>对应的mapping文件<br><br><select id="selectIds" resulttype="java.lang.String" parametertype="com.api.entity.DateVo"><br>    select distinct ajlcid from ebd_fh_ajlc where sorttime &gt;= to_date(#       {dateVo.startDate,jdbcType=VARCHAR},’YYYY-MM-DD’) and created_date=updated_date<br>    and keyvalue in (select  distinct companyname from ebd_fh_company_list where isupdate=’0’)<br> </select>  
+
+
+<p> List<commodity> getCommodityByMap(Map<string, object=""> params);</string,></commodity></p>
+<p>  List<commodity> getCommodityByAnnation(@Param(“name”) String name, @Param(“price”) Double price);<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=&quot;getCommodityByMap&quot; parameterType=&quot;map&quot; resultType=&quot;com.model.Commodity&quot;&gt;</span><br><span class="line">        SELECT * FROM commodity WHERE name like &apos;%$&#123;name&#125;%&apos; AND price&amp;lt;#&#123;price&#125;</span><br><span class="line">    &lt;/select&gt;</span><br><span class="line">    &lt;select id=&quot;getCommodityByAnnation&quot; parameterType=&quot;com.model.Commodity&quot; resultType=&quot;com.model.Commodity&quot;&gt;</span><br><span class="line">        SELECT * FROM commodity WHERE name like &apos;%$&#123;name&#125;%&apos; AND price&amp;lt;#&#123;price&#125;</span><br><span class="line">    &lt;/select&gt;</span><br></pre></td></tr></table></figure></commodity></p>
+<h1 id="Mybatis学习笔记（5）-高级映射之多对多映射"><a href="#Mybatis学习笔记（5）-高级映射之多对多映射" class="headerlink" title="Mybatis学习笔记（5）-高级映射之多对多映射"></a>Mybatis学习笔记（5）-高级映射之多对多映射</h1><p><a href="https://juejin.im/post/5a76ab665188257a6e4005ac" target="_blank" rel="noopener">https://juejin.im/post/5a76ab665188257a6e4005ac</a></p>
+<p>纯洁的微笑<br>springboot(三)：Spring boot中Redis的使用<br><a href="http://www.ityouknow.com/springboot/2016/03/06/springboot(%E4%B8%89)-Spring-Boot%E4%B8%ADRedis%E7%9A%84%E4%BD%BF%E7%94%A8.html" target="_blank" rel="noopener">http://www.ityouknow.com/springboot/2016/03/06/springboot(%E4%B8%89)-Spring-Boot%E4%B8%ADRedis%E7%9A%84%E4%BD%BF%E7%94%A8.html</a></p>
+<p>嘟嘟独立博客<br><a href="http://tengj.top/2017/04/23/springboot9/" target="_blank" rel="noopener">http://tengj.top/2017/04/23/springboot9/</a></p>
+<p><a href="https://gitee.com/didispace/SpringBoot-Learning" target="_blank" rel="noopener">https://gitee.com/didispace/SpringBoot-Learning</a></p>
+</string>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/23/MyBatis入门/" data-id="cjde9c2740002fonvl80futr9" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/01/23/MyBatis入门/" data-id="cje3yfhfe0001qgnvy9ylxcbl" class="article-share-link">Teilen</a>
       
       
     </footer>
@@ -174,6 +216,10 @@
       <ul>
         
           <li>
+            <a href="/2018/02/26/2018student/">2018student</a>
+          </li>
+        
+          <li>
             <a href="/2018/02/08/SpringBoot整合Swagger2/">SpringBoot整合Swagger2</a>
           </li>
         
@@ -187,10 +233,6 @@
         
           <li>
             <a href="/2018/02/02/Sortable-js拖拽排序使用方法/">Sortable.js拖拽排序使用方法</a>
-          </li>
-        
-          <li>
-            <a href="/2018/02/01/fiddler试用/">fiddler试用</a>
           </li>
         
       </ul>

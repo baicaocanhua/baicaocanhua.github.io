@@ -50,7 +50,7 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -60,6 +60,114 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-sql语句的执行顺序" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/02/27/sql语句的执行顺序/" class="article-date">
+  <time datetime="2018-02-27T01:18:08.000Z" itemprop="datePublished">2018-02-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/02/27/sql语句的执行顺序/">sql语句的执行顺序</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>今天思考on，where，having的执行顺序，联想到了整个sql语句的执行顺序。</p>
+<p>sql语句的执行顺序为</p>
+<p>(1) from<br>(2) on<br>(3) join<br>(4) where<br>(5) group by, count, sum, avg<br>(6) having<br>(7) select<br>(8) distinct<br>(9) order by<br>(10)top</p>
+<p>从这个顺序中我们可以看出所有的查询语句都是从from开始执行的，在执行过程中，每个步骤都会生成一个虚拟表，这个虚拟表将作为下一个执行步骤的输入表。</p>
+<ol>
+<li><p>from后如果存在多张表，那么先取出前两张表，以行数较小的表为基础表，两张表执行笛卡尔积，生成结果表vtb1</p>
+</li>
+<li><p>将on中的逻辑表达式将应用到vtb1上，以筛选出满足逻辑表达式的行，生成结果表vtb2<br>一般的sql编辑器都要求join和on搭配使用，因为如果没有on，将生成笛卡尔积。如果你就是想要笛卡尔积作为结果的话，那么on后的表达式可以写1=1这种恒等式，来绕过join，on必须搭配的限制</p>
+</li>
+<li><p>如果使用的是outer join，那么就需要添加外部行，left outer jion将左表在第二步中过滤的行添加进来，反之将右表在第二步中过滤的行添加进来，生成虚拟表vtb3。<br>如果from后的表的数量大于2，那么将vtb3作为第一张表，继续重复执行前三步，得到最终的vtb3。</p>
+</li>
+<li><p>将where中的逻辑表达式将应用到vtb3上，以筛选出满足逻辑表达式的行，生成结果表vtb4</p>
+</li>
+<li><p>将group by后字段中的唯一的值组合成为一组，得到虚拟表vtb5。之后的count，sum，avg等聚合操作都是针对组的</p>
+</li>
+<li><p>将having中的逻辑表达式将应用到vtb5上，以筛选出满足逻辑表达式的行，生成vtb6。(having筛选器是唯一应用到已分组数据的筛选器)</p>
+</li>
+<li><p>将select的列从vtb6中筛选出来。生成vtb7</p>
+</li>
+<li><p>依据distinct语句，将vtb7中相同的行移除，生成vtb8。如果使用了group by那么就无需使用distinct，因为group by的结果中所有的行都不相同</p>
+</li>
+<li><p>按照order_by指定的列排序vtb8，生成vtb9。排序是很消耗资源的，除非对结果有顺序要求，否则建议不使用order by</p>
+</li>
+</ol>
+<p>10.根据top的列数返回给</p>
+<p>在网上看到一张图片，可以直观的展示sql语句执行顺序，希望对大家有所帮助<br><img src="https://images2018.cnblogs.com/blog/1317562/201802/1317562-20180227002951495-501851711.png" alt="sql语句执行顺序"></p>
+<h1 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h1><h2 id="整型"><a href="#整型" class="headerlink" title="整型"></a>整型</h2><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>存储空间</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TINYINT</td>
+<td>8</td>
+</tr>
+<tr>
+<td>SMALLINT</td>
+<td>16</td>
+</tr>
+<tr>
+<td>MEDIUMINT</td>
+<td>24</td>
+</tr>
+<tr>
+<td>INT</td>
+<td>32</td>
+</tr>
+<tr>
+<td>BIGINT</td>
+<td>64</td>
+</tr>
+</tbody>
+</table>
+<h2 id="浮点数"><a href="#浮点数" class="headerlink" title="浮点数"></a>浮点数</h2><p>FLOAT 和 DOUBLE 为浮点类型，DECIMAL 为高精度小数类型。CPU 原生支持浮点运算，但是不支持 DECIMAl 类型的计算，因此 DECIMAL 的计算比浮点类型需要更高的代价。</p>
+<p>FLOAT、DOUBLE 和 DECIMAL 都可以指定列宽，例如 DECIMAL(18, 9) 表示总共 18 位，取 9 位存储小数部分，剩下 9 位存储整数部分。</p>
+<h1 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h1><p>主要有 CHAR 和 VARCHAR 两种类型，一种是定长的，一种是变长的。</p>
+<p>VARCHAR 这种变长类型能够节省空间，因为只需要存储必要的内容。但是在执行 UPDATE 时可能会使行变得比原来长，当超出一个页所能容纳的大小时，就要执行额外的操作，MyISAM 会将行拆成不同的片段存储，而 InnoDB 则需要分裂页来使行放进页内。</p>
+<p>VARCHAR 会保留字符串末尾的空格，而 CHAR 会删除。</p>
+<h1 id="时间和日期"><a href="#时间和日期" class="headerlink" title="时间和日期"></a>时间和日期</h1><p>MySQL 提供了两种相似的日期时间类型：DATATIME 和 TIMESTAMP。</p>
+<p>DATATIME</p>
+<p>能够保存从 1001 年到 9999 年的日期和时间，精度为秒，使用 8 字节的存储空间。</p>
+<p>它与时区无关。</p>
+<p>默认情况下，MySQL 以一种可排序的、无歧义的格式显示 DATATIME 值，例如“2008-01016 22:37:08”，这是 ANSI 标准定义的日期和时间表示方法。</p>
+<p>TIMESTAMP</p>
+<p>和 UNIX 时间戳相同，保存从 1970 年 1 月 1 日午夜（格林威治时间）以来的秒数，使用 4 个字节，只能表示从 1970 年 到 2038 年。</p>
+<p>它和时区有关。</p>
+<p>MySQL 提供了 FROM_UNIXTIME() 函数把 Unxi 时间戳转换为日期，并提供了 UNIX_TIMESTAMP() 函数把日期转换为 Unix 时间戳。</p>
+<p>默认情况下，如果插入时没有指定 TIMESTAMP 列的值，会将这个值设置为当前时间。</p>
+<p>应该尽量使用 TIMESTAMP，因为它比 DATETIME 空间效率更高。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/02/27/sql语句的执行顺序/" data-id="cje5ghaj1000gmgnvt5ooeqbs" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-2018student" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -84,11 +192,32 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="2018-02-26"><a href="#2018-02-26" class="headerlink" title="2018-02-26"></a>2018-02-26</h1><p><a href="http://www.cnblogs.com/sunkaixuan/archive/2018/02/21/8454844.html" target="_blank" rel="noopener">SqlSugar ORM 入门到精通【一】入门篇</a><br><a href="http://www.cnblogs.com/OMango/archive/2018/02/22/8460092.html" target="_blank" rel="noopener">.NET Core使用swagger进行API接口文档管理</a><br><a href="http://www.cnblogs.com/penghuwan/archive/2018/02/23/8461293.html" target="_blank" rel="noopener">【Java】多线程初探</a><br><a href="http://www.cnblogs.com/chiangchou/archive/2018/02/23/sunny-1.html#_label0" target="_blank" rel="noopener">使用Spring Boot搭建应用开发框架(一) —— 基础架构</a><br><a href="http://www.cnblogs.com/nnngu/p/8471043.html?utm_source=gold_browser_extension#autoid-45-0-0" target="_blank" rel="noopener">Java面试题库及答案解析</a></p>
+<h1 id="Error-java-无效的源发行版-1-8"><a href="#Error-java-无效的源发行版-1-8" class="headerlink" title="Error:java: 无效的源发行版: 1.8"></a>Error:java: 无效的源发行版: 1.8</h1><p><code><br>如果file -&gt; settings -&gt; build,exception,deployment -&gt; compiler -&gt; java compiler 中如果将模块的target bytecode version改为1.8，则会出现这个错误提示：无效的目标发行版：1.8。应改为小于等于安装的版本号。<br></code></p>
+<table>
+<thead>
+<tr>
+<th>Group</th>
+<th>Artifact</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>项目组织唯一的标识符，实际对应JAVA的包的结构，是main目录里java的目录结构</td>
+<td>就是项目的唯一的标识符，实际对应项目的名称，就是项目根目录的名称。</td>
+</tr>
+<tr>
+<td>包名</td>
+<td>工程名</td>
+</tr>
+</tbody>
+</table>
+<h1 id="创建maven项目是其中的group-id和artifact-id怎么填写"><a href="#创建maven项目是其中的group-id和artifact-id怎么填写" class="headerlink" title="创建maven项目是其中的group id和artifact id怎么填写"></a>创建maven项目是其中的group id和artifact id怎么填写</h1><p><code><br>groupid和artifactId被统称为“坐标”是为了保证项目唯一性而提出的，如果你要把你项目弄到maven本地仓库去，你想要找到你的项目就必须根据这两个id去查找。<br>　　groupId一般分为多个段，这里我只说两段，第一段为域，第二段为公司名称。域又分为org、com、cn等等许多，其中org为非营利组织，com为商业组织。举个apache公司的tomcat项目例子：这个项目的groupId是org.apache，它的域是org（因为tomcat是非营利项目），公司名称是apache，artigactId是tomcat。<br>　　比如我创建一个项目，我一般会将groupId设置为cn.pq，cn表示域为中国，pq是我个人姓名缩写，artifactId设置为testProj，表示你这个项目的名称是testProj，依照这个设置，你的包结构最好是cn.pq.testProj打头的，如果有个StudentPeng，它的全路径就是cn.pq.testProj.StudentPeng</code></p>
+<p>MyBatis 通用 Mapper4<br><a href="https://gitee.com/free/Mapper/wikis/Home" target="_blank" rel="noopener">https://gitee.com/free/Mapper/wikis/Home</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/02/26/2018student/" data-id="cje40g03x000004nvhwse8j02" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/02/26/2018student/" data-id="cje5ghafs0000mgnvi703qc9k" class="article-share-link">Share</a>
       
       
     </footer>
@@ -148,7 +277,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/02/08/SpringBoot整合Swagger2/" data-id="cje40g046000304nv1jg748bf" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/02/08/SpringBoot整合Swagger2/" data-id="cje5ghahr000dmgnvo3vdegfq" class="article-share-link">Share</a>
       
       
     </footer>
@@ -185,7 +314,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/02/07/java学习/" data-id="cje40g04e000804nvp99ebh3l" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/02/07/java学习/" data-id="cje5ghahn000bmgnvv0h9xjb7" class="article-share-link">Share</a>
       
       
     </footer>
@@ -232,7 +361,7 @@ resp = urllib.request.urlopen(req, timeout=5)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/02/07/Python爬虫技巧之设置代理IP/" data-id="cje40g05e000n04nvhodqgbpf" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/02/07/Python爬虫技巧之设置代理IP/" data-id="cje5ghagx0005mgnvktg7ufwa" class="article-share-link">Share</a>
       
       
     </footer>
@@ -284,7 +413,7 @@ resp = urllib.request.urlopen(req, timeout=5)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/02/02/Sortable-js拖拽排序使用方法/" data-id="cje40g044000204nvuf7sd179" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/02/02/Sortable-js拖拽排序使用方法/" data-id="cje5ghahu000emgnv22vbtwye" class="article-share-link">Share</a>
       
       
     </footer>
@@ -331,7 +460,7 @@ resp = urllib.request.urlopen(req, timeout=5)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/02/01/fiddler试用/" data-id="cje40g049000504nvyhso7uac" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/02/01/fiddler试用/" data-id="cje5ghaj8000imgnvutp3blvo" class="article-share-link">Share</a>
       
       
     </footer>
@@ -371,7 +500,7 @@ resp = urllib.request.urlopen(req, timeout=5)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/02/01/知乎登录/" data-id="cje40g053000k04nvgckk9wtv" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/02/01/知乎登录/" data-id="cje5ghajr000omgnvzwfh45nr" class="article-share-link">Share</a>
       
       
     </footer>
@@ -419,7 +548,7 @@ resp = urllib.request.urlopen(req, timeout=5)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/24/spring-boot-mybaits-xml-xml版本/" data-id="cje40g04l000c04nv1ku6y7e3" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/01/24/spring-boot-mybaits-xml-xml版本/" data-id="cje5ghajd000jmgnv6dirms3x" class="article-share-link">Share</a>
       
       
     </footer>
@@ -503,103 +632,9 @@ resp = urllib.request.urlopen(req, timeout=5)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/23/MyBatis入门/" data-id="cje40g042000104nvdsw9v06p" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/01/23/MyBatis入门/" data-id="cje5ghagm0001mgnvmc53n7c2" class="article-share-link">Share</a>
       
       
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-mybatis-1" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/01/19/mybatis-1/" class="article-date">
-  <time datetime="2018-01-19T02:41:38.000Z" itemprop="datePublished">2018-01-19</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/01/19/mybatis-1/">mybatis-1</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]  </p>
-<p><a href="http://blog.csdn.net/u012702547/article/details/54425130" target="_blank" rel="noopener">idea mybatis 学习路径</a><br><a href="https://github.com/lenve/JavaEETest" target="_blank" rel="noopener">别人的博客</a></p>
-<p>好的博客<br><a href="http://www.ityouknow.com/spring-boot.html" target="_blank" rel="noopener">springboot</a><br><a href="https://github.com/ityouknow/spring-boot-examples" target="_blank" rel="noopener">git地址</a></p>
-<h2 id="mybatis中几个基本的组件"><a href="#mybatis中几个基本的组件" class="headerlink" title="mybatis中几个基本的组件"></a>mybatis中几个基本的组件</h2><ol>
-<li>SqlSessionFactoryBuilder<br>这是一个SqlSessionFactory的构造器，它根据我们的xml配置文件或者Java代码来生成SqlSessionFactory</li>
-<li>SqlSessionFactory<br>这个有点类似于我们在JDBC中使用的Connection，我们到时候要根据SqlSessionFactory来生成是一个会话，也就是SqlSession。</li>
-<li>SqlSession<br>它可以发送一条SQL语句去执行，并返回结果，从这个角度来说，它有点类似于PrepareStatement，当然，我们也可以利用SqlSession获取Mapper的接口，这个算是SqlSession的一个核心用法了。</li>
-<li>Mapper<br>Mapper也可以发送一条SQL语句并返回执行结果，Mapper由两部分组成，一部分是Java接口，另一部分是XML配置文件或者注解。</li>
-</ol>
-<h2 id="idea-控制台应用程序-mybatis"><a href="#idea-控制台应用程序-mybatis" class="headerlink" title="idea 控制台应用程序  mybatis"></a>idea 控制台应用程序  mybatis</h2><ol>
-<li>File 》New》Project,左边选择java,右边选择Java EE,Next,勾选Create project from template,选择Command Line App，Next</li>
-<li>选择项目，右键选择 Add FrameWork Support,勾选Maven</li>
-</ol>
-<p>在pom.xml 添加依赖<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependencies&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.mybatis&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;mybatis&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;3.4.2&lt;/version&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;junit&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;junit&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;4.12&lt;/version&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;mysql&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;5.1.40&lt;/version&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">    &lt;/dependencies&gt;</span><br></pre></td></tr></table></figure></p>
-<ol>
-<li>配置信息<br>所有的配置文件我们都放在resources文件夹下</li>
-</ol>
-<ul>
-<li><p>创建数据库信息 db.propertie</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">driver=com.mysql.jdbc.Driver</span><br><span class="line">url=jdbc:mysql://localhost:3306/mybatis</span><br><span class="line">username=root</span><br><span class="line">password=sang</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>mybatis的配置文件 mybatis-conf.xml</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span><br><span class="line">&lt;!DOCTYPE configuration</span><br><span class="line">        PUBLIC &quot;-//mybatis.org//DTD Config 3.0//EN&quot;</span><br><span class="line">        &quot;http://mybatis.org/dtd/mybatis-3-config.dtd&quot;&gt;</span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;properties resource=&quot;db.properties&quot;/&gt;</span><br><span class="line">    &lt;typeAliases&gt;</span><br><span class="line">        &lt;typeAlias type=&quot;org.sang.bean.User&quot; alias=&quot;user&quot;/&gt;</span><br><span class="line">    &lt;/typeAliases&gt;</span><br><span class="line">    &lt;environments default=&quot;development&quot;&gt;</span><br><span class="line">        &lt;environment id=&quot;development&quot;&gt;</span><br><span class="line">            &lt;transactionManager type=&quot;JDBC&quot;/&gt;</span><br><span class="line">            &lt;dataSource type=&quot;POOLED&quot;&gt;</span><br><span class="line">                &lt;property name=&quot;driver&quot; value=&quot;$&#123;driver&#125;&quot;/&gt;</span><br><span class="line">                &lt;property name=&quot;url&quot; value=&quot;$&#123;url&#125;&quot;/&gt;</span><br><span class="line">                &lt;property name=&quot;username&quot; value=&quot;$&#123;username&#125;&quot;/&gt;</span><br><span class="line">                &lt;property name=&quot;password&quot; value=&quot;$&#123;password&#125;&quot;/&gt;</span><br><span class="line">            &lt;/dataSource&gt;</span><br><span class="line">        &lt;/environment&gt;</span><br><span class="line">    &lt;/environments&gt;</span><br><span class="line">    &lt;mappers&gt;</span><br><span class="line">        &lt;mapper resource=&quot;userMapper.xml&quot;/&gt;</span><br><span class="line">    &lt;/mappers&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>说明：<br>我们引入刚刚创建的db.properties文件，方便我们在配置数据库的时候通过${XXX}来直接引用其中的值</p>
-<p>起别名：<br>bean包下有许多实体类，一个一个的取别名显然太麻烦<br>注册一个包下所有的实体类<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;typeAliases&gt;</span><br><span class="line">    &lt;package name=&quot;org.sang.bean&quot;/&gt;</span><br><span class="line">&lt;/typeAliases&gt;</span><br></pre></td></tr></table></figure></p>
-<p>默认的别名即类名，只不过首字母变为小写</p>
-<p>引入映射器的方法</p>
-<blockquote>
-<p>使用文件路径引入映射器<br>路径为xml映射文件的路径包名+文件名<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;mappers&gt;</span><br><span class="line">    &lt;mapper resource=&quot;com/test/model/LoginLogMapper.xml&quot;&gt;&lt;/mapper&gt;</span><br><span class="line">&lt;/mappers&gt;</span><br></pre></td></tr></table></figure></p>
-<p>使用包名引入映射器<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;mappers&gt;</span><br><span class="line">    &lt;package name=&quot;com.test.model&quot;/&gt;</span><br><span class="line">&lt;/mappers&gt;</span><br></pre></td></tr></table></figure></p>
-<p>使用扫描方式引入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- mybatis的Mapper的扫描器 MapperScannerConfigure  会自动扫描</span><br><span class="line">         mapper包下的所有接口自动生成代理对象: 对象名字为Mapper接口类名(首字母小写)</span><br><span class="line">     --&gt;</span><br><span class="line">    &lt;bean id=&quot;mapperScanConfig&quot; class=&quot;org.mybatis.spring.mapper.MapperScannerConfigurer&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;sqlSessionFactoryBeanName&quot; value=&quot;sqlSessionFactory&quot;/&gt;</span><br><span class="line">        &lt;property name=&quot;basePackage&quot; value=&quot;com.huitong.dao&quot;/&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br></pre></td></tr></table></figure></p>
-<p>用类注册引入映射器<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;mappers&gt;</span><br><span class="line">    &lt;mapper class=&quot;com.test.model.LoginLogMapper&quot;/&gt;</span><br><span class="line">&lt;/mappers&gt;</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<p>用userMapper引入映射器<br>路径对应的是网络上了某个文件，注意file:// 前缀 +路径+文件名<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;mappers&gt; </span><br><span class="line">&lt;mapper url=&quot;file://001.Mybatis环境搭建/src/com/test/model/LoginLogMapper.xml&quot;/&gt; </span><br><span class="line">&lt;/mappers&gt;</span><br></pre></td></tr></table></figure></p>
-<h2 id="返回列表"><a href="#返回列表" class="headerlink" title="返回列表"></a>返回列表</h2><!-- 为了返回list 类型而定义的returnMap -->
-<pre><code>&lt;resultMap type=&quot;User&quot; id=&quot;resultListUser&quot;&gt;
-    &lt;id column=&quot;id&quot; property=&quot;id&quot; /&gt;
-    &lt;result column=&quot;userName&quot; property=&quot;userName&quot; /&gt;
-    &lt;result column=&quot;userAge&quot; property=&quot;userAge&quot; /&gt;
-    &lt;result column=&quot;userAddress&quot; property=&quot;userAddress&quot; /&gt;
-&lt;/resultMap&gt;
-
-&lt;!-- 返回list 的select 语句，注意 resultMap 的值是指向前面定义好的 --&gt;
-&lt;select id=&quot;selectUsers&quot; parameterType=&quot;string&quot; resultMap=&quot;resultListUser&quot;&gt;
-    select * from user where userName like #{userName}
-&lt;/select&gt;
-</code></pre><h2 id="用mybatis-增加数据"><a href="#用mybatis-增加数据" class="headerlink" title="用mybatis 增加数据"></a>用mybatis 增加数据</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--执行增加操作的SQL语句。</span><br><span class="line">       id和parameterType分别与IUserOperation接口中的addUser方法的名字和参数类型一致。</span><br><span class="line">       以#&#123;name&#125;的形式引用Student参数的name属性，MyBatis将使用反射读取Student参数的此属性。</span><br><span class="line">       #&#123;name&#125;中name大小写敏感。引用其他 的gender等属性与此一致。</span><br><span class="line">       useGeneratedKeys设置 为&quot;true&quot;表明要MyBatis获取由数据库自动生成的主 键；</span><br><span class="line">       keyProperty=&quot;id&quot;指定把获取到的主键值注入 到Student的id属性--&gt; </span><br><span class="line">    &lt;insert id=&quot;addUser&quot; parameterType=&quot;User&quot; </span><br><span class="line">        useGeneratedKeys=&quot;true&quot; keyProperty=&quot;id&quot;&gt; </span><br><span class="line">        insert into user(userName,userAge,userAddress)  </span><br><span class="line">             values(#&#123;userName&#125;,#&#123;userAge&#125;,#&#123;userAddress&#125;)  </span><br><span class="line">    &lt;/insert&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="用mybatis-更新数据"><a href="#用mybatis-更新数据" class="headerlink" title="用mybatis 更新数据"></a>用mybatis 更新数据</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;update id=&quot;updateUser&quot; parameterType=&quot;User&quot; &gt;</span><br><span class="line">        update user set userName=#&#123;userName&#125;,userAge=#&#123;userAge&#125;,userAddress=#&#123;userAddress&#125; where id=#&#123;id&#125;</span><br><span class="line">    &lt;/update&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="用mybatis-删除数据"><a href="#用mybatis-删除数据" class="headerlink" title="用mybatis 删除数据"></a>用mybatis 删除数据</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;delete id=&quot;deleteUser&quot; parameterType=&quot;int&quot;&gt;</span><br><span class="line">        delete from user where id=#&#123;id&#125;</span><br><span class="line">    &lt;/delete&gt;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>这样，所有增删改查都完成了，注意在增加，更改，删除的时候要调用session.commit()，这样才会真正对数据库进行操作，否则是没有提交的。</p>
-</blockquote>
-<h2 id="多对一的实现-方法1"><a href="#多对一的实现-方法1" class="headerlink" title="多对一的实现 方法1"></a>多对一的实现 方法1</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public class Article &#123;</span><br><span class="line">    </span><br><span class="line">    private int id;</span><br><span class="line">    private User user;</span><br><span class="line">    private String title;</span><br><span class="line">    private String content;</span><br><span class="line">    ....</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>association<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- User 联合文章进行查询 方法之一的配置 (多对一的方式)  --&gt;    </span><br><span class="line">    &lt;resultMap id=&quot;resultUserArticleList&quot; type=&quot;Article&quot;&gt;</span><br><span class="line">        &lt;id property=&quot;id&quot; column=&quot;aid&quot; /&gt;</span><br><span class="line">        &lt;result property=&quot;title&quot; column=&quot;title&quot; /&gt;</span><br><span class="line">        &lt;result property=&quot;content&quot; column=&quot;content&quot; /&gt;</span><br><span class="line">        </span><br><span class="line">        &lt;association property=&quot;user&quot; javaType=&quot;User&quot;&gt;</span><br><span class="line">            &lt;id property=&quot;id&quot; column=&quot;id&quot; /&gt;</span><br><span class="line">            &lt;result property=&quot;userName&quot; column=&quot;userName&quot; /&gt;</span><br><span class="line">            &lt;result property=&quot;userAddress&quot; column=&quot;userAddress&quot; /&gt;            </span><br><span class="line">        &lt;/association&gt;        </span><br><span class="line">    &lt;/resultMap&gt;</span><br><span class="line"></span><br><span class="line">&lt;select id=&quot;getUserArticles&quot; parameterType=&quot;int&quot; resultMap=&quot;resultUserArticleList&quot;&gt;</span><br><span class="line">       select user.id,user.userName,user.userAddress,article.id aid,article.title,article.content from user,article </span><br><span class="line">              where user.id=article.userid and user.id=#&#123;id&#125;</span><br><span class="line">    &lt;/select&gt;</span><br></pre></td></tr></table></figure></p>
-<h2 id="多对一的实现-方法2-复用"><a href="#多对一的实现-方法2-复用" class="headerlink" title="多对一的实现 方法2  复用"></a>多对一的实现 方法2  复用</h2><h3 id="还有另外一种处理方式，可以复用我们前面已经定义好的-resultMap-前面我们定义过一个-resultListUser-看这第二种方法如何实现"><a href="#还有另外一种处理方式，可以复用我们前面已经定义好的-resultMap-前面我们定义过一个-resultListUser-看这第二种方法如何实现" class="headerlink" title="还有另外一种处理方式，可以复用我们前面已经定义好的 resultMap ,前面我们定义过一个 resultListUser ,看这第二种方法如何实现:"></a>还有另外一种处理方式，可以复用我们前面已经定义好的 resultMap ,前面我们定义过一个 resultListUser ,看这第二种方法如何实现:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;resultMap type=&quot;User&quot; id=&quot;resultListUser&quot;&gt;</span><br><span class="line">        &lt;id column=&quot;id&quot; property=&quot;id&quot; /&gt;</span><br><span class="line">        &lt;result column=&quot;userName&quot; property=&quot;userName&quot; /&gt;</span><br><span class="line">        &lt;result column=&quot;userAge&quot; property=&quot;userAge&quot; /&gt;</span><br><span class="line">        &lt;result column=&quot;userAddress&quot; property=&quot;userAddress&quot; /&gt;</span><br><span class="line">    &lt;/resultMap&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- User 联合文章进行查询 方法之二的配置 (多对一的方式) --&gt;    </span><br><span class="line">    &lt;resultMap id=&quot;resultUserArticleList-2&quot; type=&quot;Article&quot;&gt;</span><br><span class="line">        &lt;id property=&quot;id&quot; column=&quot;aid&quot; /&gt;</span><br><span class="line">        &lt;result property=&quot;title&quot; column=&quot;title&quot; /&gt;</span><br><span class="line">        &lt;result property=&quot;content&quot; column=&quot;content&quot; /&gt;        </span><br><span class="line">        &lt;association property=&quot;user&quot; javaType=&quot;User&quot; resultMap=&quot;resultListUser&quot; /&gt;             </span><br><span class="line">    &lt;/resultMap&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;select id=&quot;getUserArticles&quot; parameterType=&quot;int&quot; resultMap=&quot;resultUserArticleList&quot;&gt;</span><br><span class="line">       select user.id,user.userName,user.userAddress,article.id aid,article.title,article.content from user,article </span><br><span class="line">              where user.id=article.userid and user.id=#&#123;id&#125;</span><br><span class="line">    &lt;/select&gt;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/19/mybatis-1/" data-id="cje40g04g000904nvlpggetcy" class="article-share-link">Teilen</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
-
     </footer>
   </div>
   
@@ -611,7 +646,7 @@ resp = urllib.request.urlopen(req, timeout=5)
 
   <nav id="page-nav">
     
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">weiter &raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -620,7 +655,7 @@ resp = urllib.request.urlopen(req, timeout=5)
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Kategorien</h3>
+    <h3 class="widget-title">Categories</h3>
     <div class="widget">
       <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a></li></ul>
     </div>
@@ -649,7 +684,7 @@ resp = urllib.request.urlopen(req, timeout=5)
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archiv</h3>
+    <h3 class="widget-title">Archives</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li></ul>
     </div>
@@ -659,9 +694,13 @@ resp = urllib.request.urlopen(req, timeout=5)
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">letzter Beitrag</h3>
+    <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2018/02/27/sql语句的执行顺序/">sql语句的执行顺序</a>
+          </li>
         
           <li>
             <a href="/2018/02/26/2018student/">2018student</a>
@@ -677,10 +716,6 @@ resp = urllib.request.urlopen(req, timeout=5)
         
           <li>
             <a href="/2018/02/07/Python爬虫技巧之设置代理IP/">Python爬虫技巧之设置代理IP</a>
-          </li>
-        
-          <li>
-            <a href="/2018/02/02/Sortable-js拖拽排序使用方法/">Sortable.js拖拽排序使用方法</a>
           </li>
         
       </ul>

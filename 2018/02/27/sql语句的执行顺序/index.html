@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>sql语句的执行顺序 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="今天思考on，where，having的执行顺序，联想到了整个sql语句的执行顺序。 sql语句的执行顺序为 (1) from(2) on(3) join(4) where(5) group by, count, sum, avg(6) having(7) select(8) distinct(9) order by(10)top 从这个顺序中我们可以看出所有的查询语句都是从from开始执行的，在">
+<meta property="og:type" content="article">
+<meta property="og:title" content="sql语句的执行顺序">
+<meta property="og:url" content="http://yoursite.com/2018/02/27/sql语句的执行顺序/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="今天思考on，where，having的执行顺序，联想到了整个sql语句的执行顺序。 sql语句的执行顺序为 (1) from(2) on(3) join(4) where(5) group by, count, sum, avg(6) having(7) select(8) distinct(9) order by(10)top 从这个顺序中我们可以看出所有的查询语句都是从from开始执行的，在">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/1317562/201802/1317562-20180227002951495-501851711.png">
+<meta property="og:updated_time" content="2018-02-27T09:34:02.450Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="sql语句的执行顺序">
+<meta name="twitter:description" content="今天思考on，where，having的执行顺序，联想到了整个sql语句的执行顺序。 sql语句的执行顺序为 (1) from(2) on(3) join(4) where(5) group by, count, sum, avg(6) having(7) select(8) distinct(9) order by(10)top 从这个顺序中我们可以看出所有的查询语句都是从from开始执行的，在">
+<meta name="twitter:image" content="https://images2018.cnblogs.com/blog/1317562/201802/1317562-20180227002951495-501851711.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-sql语句的执行顺序" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/02/27/sql语句的执行顺序/" class="article-date">
+  <time datetime="2018-02-27T01:18:08.000Z" itemprop="datePublished">2018-02-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      sql语句的执行顺序
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>今天思考on，where，having的执行顺序，联想到了整个sql语句的执行顺序。</p>
+<p>sql语句的执行顺序为</p>
+<p>(1) from<br>(2) on<br>(3) join<br>(4) where<br>(5) group by, count, sum, avg<br>(6) having<br>(7) select<br>(8) distinct<br>(9) order by<br>(10)top</p>
+<p>从这个顺序中我们可以看出所有的查询语句都是从from开始执行的，在执行过程中，每个步骤都会生成一个虚拟表，这个虚拟表将作为下一个执行步骤的输入表。</p>
+<ol>
+<li><p>from后如果存在多张表，那么先取出前两张表，以行数较小的表为基础表，两张表执行笛卡尔积，生成结果表vtb1</p>
+</li>
+<li><p>将on中的逻辑表达式将应用到vtb1上，以筛选出满足逻辑表达式的行，生成结果表vtb2<br>一般的sql编辑器都要求join和on搭配使用，因为如果没有on，将生成笛卡尔积。如果你就是想要笛卡尔积作为结果的话，那么on后的表达式可以写1=1这种恒等式，来绕过join，on必须搭配的限制</p>
+</li>
+<li><p>如果使用的是outer join，那么就需要添加外部行，left outer jion将左表在第二步中过滤的行添加进来，反之将右表在第二步中过滤的行添加进来，生成虚拟表vtb3。<br>如果from后的表的数量大于2，那么将vtb3作为第一张表，继续重复执行前三步，得到最终的vtb3。</p>
+</li>
+<li><p>将where中的逻辑表达式将应用到vtb3上，以筛选出满足逻辑表达式的行，生成结果表vtb4</p>
+</li>
+<li><p>将group by后字段中的唯一的值组合成为一组，得到虚拟表vtb5。之后的count，sum，avg等聚合操作都是针对组的</p>
+</li>
+<li><p>将having中的逻辑表达式将应用到vtb5上，以筛选出满足逻辑表达式的行，生成vtb6。(having筛选器是唯一应用到已分组数据的筛选器)</p>
+</li>
+<li><p>将select的列从vtb6中筛选出来。生成vtb7</p>
+</li>
+<li><p>依据distinct语句，将vtb7中相同的行移除，生成vtb8。如果使用了group by那么就无需使用distinct，因为group by的结果中所有的行都不相同</p>
+</li>
+<li><p>按照order_by指定的列排序vtb8，生成vtb9。排序是很消耗资源的，除非对结果有顺序要求，否则建议不使用order by</p>
+</li>
+</ol>
+<p>10.根据top的列数返回给</p>
+<p>在网上看到一张图片，可以直观的展示sql语句执行顺序，希望对大家有所帮助<br><img src="https://images2018.cnblogs.com/blog/1317562/201802/1317562-20180227002951495-501851711.png" alt="sql语句执行顺序"></p>
+<h1 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h1><h2 id="整型"><a href="#整型" class="headerlink" title="整型"></a>整型</h2><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>存储空间</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TINYINT</td>
+<td>8</td>
+</tr>
+<tr>
+<td>SMALLINT</td>
+<td>16</td>
+</tr>
+<tr>
+<td>MEDIUMINT</td>
+<td>24</td>
+</tr>
+<tr>
+<td>INT</td>
+<td>32</td>
+</tr>
+<tr>
+<td>BIGINT</td>
+<td>64</td>
+</tr>
+</tbody>
+</table>
+<h2 id="浮点数"><a href="#浮点数" class="headerlink" title="浮点数"></a>浮点数</h2><p>FLOAT 和 DOUBLE 为浮点类型，DECIMAL 为高精度小数类型。CPU 原生支持浮点运算，但是不支持 DECIMAl 类型的计算，因此 DECIMAL 的计算比浮点类型需要更高的代价。</p>
+<p>FLOAT、DOUBLE 和 DECIMAL 都可以指定列宽，例如 DECIMAL(18, 9) 表示总共 18 位，取 9 位存储小数部分，剩下 9 位存储整数部分。</p>
+<h1 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h1><p>主要有 CHAR 和 VARCHAR 两种类型，一种是定长的，一种是变长的。</p>
+<p>VARCHAR 这种变长类型能够节省空间，因为只需要存储必要的内容。但是在执行 UPDATE 时可能会使行变得比原来长，当超出一个页所能容纳的大小时，就要执行额外的操作，MyISAM 会将行拆成不同的片段存储，而 InnoDB 则需要分裂页来使行放进页内。</p>
+<p>VARCHAR 会保留字符串末尾的空格，而 CHAR 会删除。</p>
+<h1 id="时间和日期"><a href="#时间和日期" class="headerlink" title="时间和日期"></a>时间和日期</h1><p>MySQL 提供了两种相似的日期时间类型：DATATIME 和 TIMESTAMP。</p>
+<p>DATATIME</p>
+<p>能够保存从 1001 年到 9999 年的日期和时间，精度为秒，使用 8 字节的存储空间。</p>
+<p>它与时区无关。</p>
+<p>默认情况下，MySQL 以一种可排序的、无歧义的格式显示 DATATIME 值，例如“2008-01016 22:37:08”，这是 ANSI 标准定义的日期和时间表示方法。</p>
+<p>TIMESTAMP</p>
+<p>和 UNIX 时间戳相同，保存从 1970 年 1 月 1 日午夜（格林威治时间）以来的秒数，使用 4 个字节，只能表示从 1970 年 到 2038 年。</p>
+<p>它和时区有关。</p>
+<p>MySQL 提供了 FROM_UNIXTIME() 函数把 Unxi 时间戳转换为日期，并提供了 UNIX_TIMESTAMP() 函数把日期转换为 Unix 时间戳。</p>
+<p>默认情况下，如果插入时没有指定 TIMESTAMP 列的值，会将这个值设置为当前时间。</p>
+<p>应该尽量使用 TIMESTAMP，因为它比 DATETIME 空间效率更高。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/02/27/sql语句的执行顺序/" data-id="cje5ghaj1000gmgnvt5ooeqbs" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/02/26/2018student/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">2018student</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/">blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring-boot/">spring-boot</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/spring-boot/" style="font-size: 10px;">spring-boot</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/02/27/sql语句的执行顺序/">sql语句的执行顺序</a>
+          </li>
+        
+          <li>
+            <a href="/2018/02/26/2018student/">2018student</a>
+          </li>
+        
+          <li>
+            <a href="/2018/02/08/SpringBoot整合Swagger2/">SpringBoot整合Swagger2</a>
+          </li>
+        
+          <li>
+            <a href="/2018/02/07/java学习/">java学习</a>
+          </li>
+        
+          <li>
+            <a href="/2018/02/07/Python爬虫技巧之设置代理IP/">Python爬虫技巧之设置代理IP</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

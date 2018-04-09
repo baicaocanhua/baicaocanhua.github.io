@@ -50,7 +50,7 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -60,6 +60,225 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-fiddler试用" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/02/01/fiddler试用/" class="article-date">
+  <time datetime="2018-02-01T03:38:16.000Z" itemprop="datePublished">2018-02-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/02/01/fiddler试用/">fiddler试用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="http://www.cnblogs.com/TankXiao/archive/2012/02/06/2337728.html" target="_blank" rel="noopener">http://www.cnblogs.com/TankXiao/archive/2012/02/06/2337728.html</a></p>
+<p>拦截请求<br>bpu 要连接的网址，然后回车,如： bpu <a href="http://baidu.com" target="_blank" rel="noopener">http://baidu.com</a><br>拦截响应<br> bpafter www.baidu.com<br>命令框输入“select script”</p>
+<p>接着把这个请求拖动到“AutoResponder”面板.</p>
+<p>拖动之前记得先勾上 “Enable automatic responses”和 “Permit passthrough for unmatched requests”.</p>
+<p>Fiddler (四) 实现手机的抓包 - 小坦克<br>1：配置Fiddler,  允许”远程连接”<br>打开Fiddler,   Tools-&gt; Fiddler Options 。  （配置完后记得要重启Fiddler）.</p>
+<ol>
+<li>在HTTPS，选中”Decrpt HTTPS traffic”,    Fiddler就可以截获HTTPS请求  </li>
+<li>在connectios，选中”Allow remote computers to connect”.  是允许别的机器把HTTP/HTTPS请求发送到Fiddler上来</li>
+</ol>
+<p>本机ip，192.168.20.58<br>打开iphone的浏览器，打开192.168.20.58:8888,点”FiddlerRoot certificate” 然后安装证书</p>
+<p>Phone上配置Fiddler为代理<br>配置代理，手动<br>服务器 192.168.20.58<br>端口 8888</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/02/01/fiddler试用/" data-id="cjfs1hwrg000n6wnvxurp7jf8" class="article-share-link">Teilen</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-知乎登录" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/02/01/知乎登录/" class="article-date">
+  <time datetime="2018-02-01T03:18:10.000Z" itemprop="datePublished">2018-02-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/02/01/知乎登录/">知乎登录</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>1.找到header<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">accept:application/json, text/plain, */*</span><br><span class="line">Accept-Encoding:gzip, deflate, br</span><br><span class="line">Accept-Language:zh-CN,zh;q=0.9</span><br><span class="line">authorization:oauth c3cef7c66a1843f8b3a9e6a1e3160e20</span><br><span class="line">Connection:keep-alive</span><br><span class="line">Content-Length:1234</span><br><span class="line">Content-Type:multipart/form-data; boundary=----WebKitFormBoundarysb9OkKceBnwatObN</span><br><span class="line">Cookie:aliyungf_tc=AQAAAAbrBFEkNAMAB5tydRIHGKpf3Y8i; d_c0=&quot;AAAtAcHkEw2PTvvqvsmx7PXyZrCTY2he-Pw=|1517453334&quot;; _xsrf=d17f5e9d-0abd-4488-a2cb-a36ace177a9c; q_c1=ecf80c69aa564c8e802cfc61d104db10|1517453334000|1517453334000; _zap=0786fb99-927a-4f08-a939-9c77f5c10ef5; capsion_ticket=&quot;2|1:0|10:1517453428|14:capsion_ticket|44:ODkzYjQ0OGQ0M2QwNDkwOWFhYmNlYTllMjE4YjM0YmM=|83ad98f45adf416d046efcaffced35b109b2cc8db6b4f73a669484ed96ac4564&quot;</span><br><span class="line">Host:www.zhihu.com</span><br><span class="line">Origin:https://www.zhihu.com</span><br><span class="line">Referer:https://www.zhihu.com/signup?next=%2F</span><br><span class="line">User-Agent:Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.119 Safari/537.36</span><br><span class="line">X-UDID:AAAtAcHkEw2PTvvqvsmx7PXyZrCTY2he-Pw=</span><br><span class="line">X-Xsrftoken:d17f5e9d-0abd-4488-a2cb-a36ace177a9c</span><br></pre></td></tr></table></figure></p>
+<p>2.找到data<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">------WebKitFormBoundarysb9OkKceBnwatObN</span><br><span class="line">Content-Disposition: form-data; name=&quot;client_id&quot;</span><br><span class="line"></span><br><span class="line">c3cef7c66a1843f8b3a9e6a1e3160e20</span><br><span class="line">------WebKitFormBoundarysb9OkKceBnwatObN</span><br><span class="line">Content-Disposition: form-data; name=&quot;grant_type&quot;</span><br><span class="line"></span><br><span class="line">password</span><br><span class="line">------WebKitFormBoundarysb9OkKceBnwatObN</span><br><span class="line">Content-Disposition: form-data; name=&quot;timestamp&quot;</span><br><span class="line"></span><br><span class="line">1517453479552</span><br><span class="line">------WebKitFormBoundarysb9OkKceBnwatObN</span><br><span class="line">Content-Disposition: form-data; name=&quot;source&quot;</span><br><span class="line"></span><br><span class="line">com.zhihu.web</span><br><span class="line">------WebKitFormBoundarysb9OkKceBnwatObN</span><br><span class="line">Content-Disposition: form-data; name=&quot;signature&quot;</span><br><span class="line"></span><br><span class="line">c12a2eb4cba06ba1637f3262bc3bb144d33b3e2c</span><br><span class="line">------WebKitFormBoundarysb9OkKceBnwatObN</span><br><span class="line">Content-Disposition: form-data; name=&quot;username&quot;</span><br><span class="line"></span><br><span class="line">330557864@qq.com</span><br><span class="line">------WebKitFormBoundarysb9OkKceBnwatObN</span><br><span class="line">Content-Disposition: form-data; name=&quot;password&quot;</span><br><span class="line"></span><br><span class="line">maimai55661</span><br><span class="line">------WebKitFormBoundarysb9OkKceBnwatObN</span><br><span class="line">Content-Disposition: form-data; name=&quot;captcha&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">------WebKitFormBoundarysb9OkKceBnwatObN</span><br><span class="line">Content-Disposition: form-data; name=&quot;lang&quot;</span><br><span class="line"></span><br><span class="line">en</span><br><span class="line">------WebKitFormBoundarysb9OkKceBnwatObN</span><br><span class="line">Content-Disposition: form-data; name=&quot;ref_source&quot;</span><br><span class="line"></span><br><span class="line">homepage</span><br><span class="line">------WebKitFormBoundarysb9OkKceBnwatObN</span><br><span class="line">Content-Disposition: form-data; name=&quot;utm_source&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">------WebKitFormBoundarysb9OkKceBnwatObN--</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/02/01/知乎登录/" data-id="cjfs1hwri000o6wnvtui93eeb" class="article-share-link">Teilen</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-spring-boot-mybaits-xml-xml版本" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/01/24/spring-boot-mybaits-xml-xml版本/" class="article-date">
+  <time datetime="2018-01-24T03:06:11.000Z" itemprop="datePublished">2018-01-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/01/24/spring-boot-mybaits-xml-xml版本/">spring-boot-mybaits-xml-xml版本</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="编写Dao层的代码"><a href="#编写Dao层的代码" class="headerlink" title="编写Dao层的代码"></a>编写Dao层的代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">package com.maimai.mybatisApp.dao;</span><br><span class="line"></span><br><span class="line">import com.maimai.mybatisApp.Bean.Grade;</span><br><span class="line">import org.apache.ibatis.annotations.Mapper;</span><br><span class="line"></span><br><span class="line">import java.util.List;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * Created by maimai on 2018-02-05.</span><br><span class="line"> */</span><br><span class="line">@Mapper</span><br><span class="line">public class xmlGradeController &#123;</span><br><span class="line">    public List&lt;Grade&gt; getByGradeNm(String name);</span><br><span class="line">    public void save(Grade grade);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="修改application-properties-配置文件"><a href="#修改application-properties-配置文件" class="headerlink" title="修改application.properties 配置文件"></a>修改application.properties 配置文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mybatis.type-aliases-package=com.maimai.mybatisApp.Bean</span><br><span class="line">mybatis.mapper-locations=classpath:mapper/*.xml</span><br></pre></td></tr></table></figure>
+<h3 id="在resources里面-创建mapper文件夹，再创建-GradeMapper-xml"><a href="#在resources里面-创建mapper文件夹，再创建-GradeMapper-xml" class="headerlink" title="在resources里面 创建mapper文件夹，再创建 GradeMapper.xml"></a>在resources里面 创建mapper文件夹，再创建 GradeMapper.xml</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span><br><span class="line">&lt;!DOCTYPE mapper</span><br><span class="line">        PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;</span><br><span class="line">        &quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;</span><br><span class="line">&lt;mapper namespace=&quot;com.maimai.mybatisApp.dao.GradeMapper&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;resultMap type=&quot;Grade&quot; id=&quot;resultListUser&quot;&gt;</span><br><span class="line">        &lt;id column=&quot;id&quot; property=&quot;id&quot; /&gt;</span><br><span class="line">        &lt;result column=&quot;grade_nm&quot; property=&quot;gradeNm&quot; /&gt;</span><br><span class="line">        &lt;result column=&quot;teacher_id&quot; property=&quot;teacherId&quot; /&gt;</span><br><span class="line"></span><br><span class="line">    &lt;/resultMap&gt;</span><br><span class="line"></span><br><span class="line">    &lt;select id=&quot;getByGradeNm&quot; resultType=&quot;Grade&quot; parameterType=&quot;String&quot;&gt;</span><br><span class="line">        select * from grade where grade_nm=#&#123;name&#125;</span><br><span class="line">    &lt;/select&gt;</span><br><span class="line">    &lt;insert id=&quot;save&quot; parameterType=&quot;grade&quot;&gt;</span><br><span class="line">        INSERT INTO user(username,password,address) VALUES (#&#123;username&#125;,#&#123;password&#125;,#&#123;address&#125;)</span><br><span class="line">    &lt;/insert&gt;</span><br><span class="line"></span><br><span class="line">&lt;/mapper&gt;</span><br></pre></td></tr></table></figure>
+<p>mybatis.config-locations=classpath:mybatis/mybatis-config.xml<br>mybatis.mapper-locations=classpath:mybatis/mapper/*.xml</p>
+<p>in check_header_validity<br> if not pat.match(value):<br> TypeError: expected string or bytes-like object</p>
+<p> 爬虫的header里面不能有数字<br> ‘Upgrade-Insecure-Requests’: 1,<br> 改为<br> ‘Upgrade-Insecure-Requests’: str(1),</p>
+<p>mybatis.type-aliases-package:com.chinac.ccs.mirror.pojo<br>mybatis.mapper-locations:classpath:/com/chinac/ccs/mirror/mapper/mapper*.xml</p>
+<p>或者：</p>
+<p>#mybatis配置</p>
+<p>#Mapper.xml所在的位置<br>mybatis.mapper-locations=classpath<em>:mappers/</em>Mapper.xml</p>
+<p>#entity扫描的包名<br>mybatis.type-aliases-package=com.example.entity</p>
+<p>SpringBoot_集成MyBatis（XML方式）<br><a href="https://www.jianshu.com/p/a811a89d1b28" target="_blank" rel="noopener">https://www.jianshu.com/p/a811a89d1b28</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/01/24/spring-boot-mybaits-xml-xml版本/" data-id="cjfs1hwr9000h6wnvdjaqj4uv" class="article-share-link">Teilen</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-MyBatis入门" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/01/23/MyBatis入门/" class="article-date">
+  <time datetime="2018-01-23T05:57:36.000Z" itemprop="datePublished">2018-01-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/01/23/MyBatis入门/">MyBatis入门</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<h2 id="别名"><a href="#别名" class="headerlink" title="别名"></a>别名</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;typeAliases&gt;</span><br><span class="line">  &lt;package name=&quot;domain.blog&quot;/&gt;</span><br><span class="line">&lt;/typeAliases&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>别名：包中的JavaBean会使用首字母小写类名作为别名，<br>domain.blog.Author 的别名为 author；<br>若有注解，则别名为其注解值。看下面的例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@Alias(&quot;author&quot;)</span><br><span class="line">public class Author &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<h2 id="映射器（mappers）"><a href="#映射器（mappers）" class="headerlink" title="映射器（mappers）"></a>映射器（mappers）</h2></blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;mappers&gt;</span><br><span class="line">  &lt;package name=&quot;org.mybatis.builder&quot;/&gt;</span><br><span class="line">&lt;/mappers&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="定义公共字段"><a href="#定义公共字段" class="headerlink" title="定义公共字段"></a>定义公共字段</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;sql id=&quot;Base_Column_List&quot; &gt;  </span><br><span class="line">    id, car_dept_name, car_maker_name, icon,car_maker_py,hot_type  </span><br><span class="line">  &lt;/sql&gt;  </span><br><span class="line">  &lt;select id=&quot;selectByPrimaryKey&quot; resultMap=&quot;BaseResultMap&quot; parameterType=&quot;java.lang.Long&quot; &gt;  </span><br><span class="line">    select   </span><br><span class="line">    &lt;include refid=&quot;Base_Column_List&quot; /&gt;  </span><br><span class="line">    from common_car_make  </span><br><span class="line">    where id = #&#123;id,jdbcType=BIGINT&#125;  </span><br><span class="line">  &lt;/select&gt;</span><br></pre></td></tr></table></figure>
+<p><a href="http://blog.csdn.net/u010235716/article/details/51698422" target="_blank" rel="noopener">MyBatis的传入参数parameterType类型</a></p>
+<h1 id="MyBatis的传入参数parameterType类型"><a href="#MyBatis的传入参数parameterType类型" class="headerlink" title="MyBatis的传入参数parameterType类型"></a>MyBatis的传入参数parameterType类型</h1><ol>
+<li><p>MyBatis的传入参数parameterType类型分两种</p>
+<ol>
+<li><ol>
+<li>基本数据类型：int,string,long,Date;</li>
+</ol>
+</li>
+<li><ol>
+<li>复杂数据类型：类和Map  </li>
+</ol>
+</li>
+<li>如何获取参数中的值:</li>
+</ol>
+<p>2.1  基本数据类型：#{参数} 获取参数中的值</p>
+<p>2.2  复杂数据类型：#{属性名}  ，map中则是#{key}  </p>
+</li>
+</ol>
+<h1 id="基本数据类型案例"><a href="#基本数据类型案例" class="headerlink" title="基本数据类型案例"></a>基本数据类型案例</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;sql id=&quot;Base_Column_List&quot; &gt;  </span><br><span class="line">    id, car_dept_name, car_maker_name, icon,car_maker_py,hot_type  </span><br><span class="line">  &lt;/sql&gt;  </span><br><span class="line">  &lt;select id=&quot;selectByPrimaryKey&quot; resultMap=&quot;BaseResultMap&quot; parameterType=&quot;java.lang.Long&quot; &gt;  </span><br><span class="line">    select   </span><br><span class="line">    &lt;include refid=&quot;Base_Column_List&quot; /&gt;  </span><br><span class="line">    from common_car_make  </span><br><span class="line">    where id = #&#123;id,jdbcType=BIGINT&#125;  </span><br><span class="line">  &lt;/select&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="复杂类型–map类型"><a href="#复杂类型–map类型" class="headerlink" title="复杂类型–map类型"></a>复杂类型–map类型</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=&quot;queryCarMakerList&quot; resultMap=&quot;BaseResultMap&quot; parameterType=&quot;java.util.Map&quot;&gt;  </span><br><span class="line">        select  </span><br><span class="line">        &lt;include refid=&quot;Base_Column_List&quot; /&gt;  </span><br><span class="line">        from common_car_make cm  </span><br><span class="line">        where 1=1  </span><br><span class="line">        &lt;if test=&quot;id != null&quot;&gt;  </span><br><span class="line">            and  cm.id = #&#123;id,jdbcType=DECIMAL&#125;  </span><br><span class="line">        &lt;/if&gt;  </span><br><span class="line">        &lt;if test=&quot;carDeptName != null&quot;&gt;  </span><br><span class="line">            and  cm.car_dept_name = #&#123;carDeptName,jdbcType=VARCHAR&#125;  </span><br><span class="line">        &lt;/if&gt;  </span><br><span class="line">        &lt;if test=&quot;carMakerName != null&quot;&gt;  </span><br><span class="line">            and  cm.car_maker_name = #&#123;carMakerName,jdbcType=VARCHAR&#125;  </span><br><span class="line">        &lt;/if&gt;  </span><br><span class="line">        &lt;if test=&quot;hotType != null&quot; &gt;  </span><br><span class="line">           and  cm.hot_type = #&#123;hotType,jdbcType=BIGINT&#125;  </span><br><span class="line">        &lt;/if&gt;  </span><br><span class="line">        ORDER BY cm.id  </span><br><span class="line">    &lt;/select&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="复杂类型–类类型"><a href="#复杂类型–类类型" class="headerlink" title="复杂类型–类类型"></a>复杂类型–类类型</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;update id=&quot;updateByPrimaryKeySelective&quot; parameterType=&quot;com.epeit.api.model.CommonCarMake&quot; &gt;  </span><br><span class="line">   update common_car_make  </span><br><span class="line">   &lt;set &gt;  </span><br><span class="line">     &lt;if test=&quot;carDeptName != null&quot; &gt;  </span><br><span class="line">       car_dept_name = #&#123;carDeptName,jdbcType=VARCHAR&#125;,  </span><br><span class="line">     &lt;/if&gt;  </span><br><span class="line">     &lt;if test=&quot;carMakerName != null&quot; &gt;  </span><br><span class="line">       car_maker_name = #&#123;carMakerName,jdbcType=VARCHAR&#125;,  </span><br><span class="line">     &lt;/if&gt;  </span><br><span class="line">     &lt;if test=&quot;icon != null&quot; &gt;  </span><br><span class="line">       icon = #&#123;icon,jdbcType=VARCHAR&#125;,  </span><br><span class="line">     &lt;/if&gt;  </span><br><span class="line">     &lt;if test=&quot;carMakerPy != null&quot; &gt;  </span><br><span class="line">           car_maker_py = #&#123;carMakerPy,jdbcType=VARCHAR&#125;,  </span><br><span class="line">     &lt;/if&gt;  </span><br><span class="line">     &lt;if test=&quot;hotType != null&quot; &gt;  </span><br><span class="line">           hot_type = #&#123;hotType,jdbcType=BIGINT&#125;,  </span><br><span class="line">     &lt;/if&gt;  </span><br><span class="line">   &lt;/set&gt;  </span><br><span class="line">   where id = #&#123;id,jdbcType=BIGINT&#125;  </span><br><span class="line"> &lt;/update&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="复杂类型–map中包含数组的情况"><a href="#复杂类型–map中包含数组的情况" class="headerlink" title="复杂类型–map中包含数组的情况"></a>复杂类型–map中包含数组的情况</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=&quot;selectProOrderByOrderId&quot; resultType=&quot;com.epeit.api.model.ProOrder&quot; parameterType=&quot;java.util.HashMap&quot; &gt;  </span><br><span class="line">        select sum(pro_order_num) proOrderNum,product_id productId,promotion_id promotionId  </span><br><span class="line">        from pro_order  </span><br><span class="line">        where 1=1  </span><br><span class="line">        &lt;if test=&quot;orderIds != null&quot;&gt;  </span><br><span class="line">          and  </span><br><span class="line">            &lt;foreach collection=&quot;orderIds&quot; item=&quot;item&quot; open=&quot;order_id IN(&quot; separator=&quot;,&quot; close=&quot;)&quot;&gt;  </span><br><span class="line">                #&#123;item,jdbcType=BIGINT&#125;  </span><br><span class="line">            &lt;/foreach&gt;  </span><br><span class="line">        &lt;/if&gt;  </span><br><span class="line">        GROUP BY product_id,promotion_id  </span><br><span class="line">    &lt;/select&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="注解-Param：这个比较特殊，但是很好理解"><a href="#注解-Param：这个比较特殊，但是很好理解" class="headerlink" title="注解@Param：这个比较特殊，但是很好理解"></a>注解@Param：这个比较特殊，但是很好理解</h1><p>案例一：</p>
+<p>@Param(value=”startdate”) String startDate ：注解单一属性；这个类似于将参数重命名了一次</p>
+<p>如调用mybatis的*mapper.xml中配置sql语句（DAO层）</p>
+<p>List<string> selectIdBySortTime(@Param(value=”startdate”)String startDate);  </string></p>
+<p>4.注解@Param：这个比较特殊，但是很好理解</p>
+<p>案例一：</p>
+<p>@Param(value=”startdate”) String startDate ：注解单一属性；这个类似于将参数重命名了一次</p>
+<p>如调用mybatis的*mapper.xml中配置sql语句（DAO层）</p>
+<p>List<string> selectIdBySortTime(@Param(value=”startdate”)String startDate);<br>则xml中的语句，需要配合@param括号中的内容:参数为startdate</string></p>
+<select id="selectIdBySortTime" resulttype="java.lang.String" parametertype="java.lang.String"><br>    select distinct ajlcid from ebd_fh_ajlc where sorttime &gt;= to_date(#{startdate,jdbcType=VARCHAR},’YYYY-MM-DD’) and created_date=updated_date<br>    and keyvalue in (select  distinct companyname from ebd_fh_company_list where isupdate=’0’)<br>  </select><br>案例二：<br>注解javaBean,@Param(value=”dateVo”) DateVo dateVo；则需要注意编写的参数<br><br><br>List<string> selectIds(@Param(value=”dateVo”)DateVo dateVo);<br>对应的mapping文件<br><br><select id="selectIds" resulttype="java.lang.String" parametertype="com.api.entity.DateVo"><br>    select distinct ajlcid from ebd_fh_ajlc where sorttime &gt;= to_date(#       {dateVo.startDate,jdbcType=VARCHAR},’YYYY-MM-DD’) and created_date=updated_date<br>    and keyvalue in (select  distinct companyname from ebd_fh_company_list where isupdate=’0’)<br> </select>  
+
+
+<p> List<commodity> getCommodityByMap(Map<string, object=""> params);</string,></commodity></p>
+<p>  List<commodity> getCommodityByAnnation(@Param(“name”) String name, @Param(“price”) Double price);<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=&quot;getCommodityByMap&quot; parameterType=&quot;map&quot; resultType=&quot;com.model.Commodity&quot;&gt;</span><br><span class="line">        SELECT * FROM commodity WHERE name like &apos;%$&#123;name&#125;%&apos; AND price&amp;lt;#&#123;price&#125;</span><br><span class="line">    &lt;/select&gt;</span><br><span class="line">    &lt;select id=&quot;getCommodityByAnnation&quot; parameterType=&quot;com.model.Commodity&quot; resultType=&quot;com.model.Commodity&quot;&gt;</span><br><span class="line">        SELECT * FROM commodity WHERE name like &apos;%$&#123;name&#125;%&apos; AND price&amp;lt;#&#123;price&#125;</span><br><span class="line">    &lt;/select&gt;</span><br></pre></td></tr></table></figure></commodity></p>
+<h1 id="Mybatis学习笔记（5）-高级映射之多对多映射"><a href="#Mybatis学习笔记（5）-高级映射之多对多映射" class="headerlink" title="Mybatis学习笔记（5）-高级映射之多对多映射"></a>Mybatis学习笔记（5）-高级映射之多对多映射</h1><p><a href="https://juejin.im/post/5a76ab665188257a6e4005ac" target="_blank" rel="noopener">https://juejin.im/post/5a76ab665188257a6e4005ac</a></p>
+<p>纯洁的微笑<br>springboot(三)：Spring boot中Redis的使用<br><a href="http://www.ityouknow.com/springboot/2016/03/06/springboot(%E4%B8%89)-Spring-Boot%E4%B8%ADRedis%E7%9A%84%E4%BD%BF%E7%94%A8.html" target="_blank" rel="noopener">http://www.ityouknow.com/springboot/2016/03/06/springboot(%E4%B8%89)-Spring-Boot%E4%B8%ADRedis%E7%9A%84%E4%BD%BF%E7%94%A8.html</a></p>
+<p>嘟嘟独立博客<br><a href="http://tengj.top/2017/04/23/springboot9/" target="_blank" rel="noopener">http://tengj.top/2017/04/23/springboot9/</a></p>
+<p><a href="https://gitee.com/didispace/SpringBoot-Learning" target="_blank" rel="noopener">https://gitee.com/didispace/SpringBoot-Learning</a></p>
+</string>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/01/23/MyBatis入门/" data-id="cjfs1hwrw000q6wnv70b7lv03" class="article-share-link">Teilen</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-mybatis-1" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -143,7 +362,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/19/mybatis-1/" data-id="cje5ghajj000mmgnvi76tzqzc" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/01/19/mybatis-1/" data-id="cjfs1hwr3000e6wnv4ekt9xly" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
@@ -198,7 +417,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/18/spring-boot-mybaits-annotation-注解版本/" data-id="cje5ghaiv000fmgnv4jdq3q6s" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/01/18/spring-boot-mybaits-annotation-注解版本/" data-id="cjfs1hwrz000s6wnv6l39ovmi" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spring-boot/">spring-boot</a></li></ul>
@@ -247,7 +466,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/12/SpringBoot/" data-id="cje5ghags0003mgnv0bgo0sg4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/01/12/SpringBoot/" data-id="cjfs1hwq800096wnv3y8n6mke" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
@@ -332,11 +551,19 @@ hexo new&quot;postName&quot; #新建文章
 <p><a href="http://rj.baidu.com/soft/detail/23493.html?ald" target="_blank" rel="noopener">http://rj.baidu.com/soft/detail/23493.html?ald</a>   PHPnow</p>
 <p><a href="http://www.qqzhtx.com/article/10/2015/201505313605.html" target="_blank" rel="noopener">http://www.qqzhtx.com/article/10/2015/201505313605.html</a></p>
 <p>源码<br><a href="https://pan.lanzou.com/737331" target="_blank" rel="noopener">https://pan.lanzou.com/737331</a><br><a href="http://www.lwg8.cn/post-492.html" target="_blank" rel="noopener">http://www.lwg8.cn/post-492.html</a><br><a href="http://www.lwg8.cn/download.php?id=492" target="_blank" rel="noopener">http://www.lwg8.cn/download.php?id=492</a></p>
+<h1 id="HTML-转-PDF-之-wkhtmltopdf-工具简介"><a href="#HTML-转-PDF-之-wkhtmltopdf-工具简介" class="headerlink" title="HTML 转 PDF 之 wkhtmltopdf 工具简介"></a>HTML 转 PDF 之 wkhtmltopdf 工具简介</h1><ol>
+<li><p>添加环境变量</p>
+</li>
+<li><blockquote>
+<p>把一个html文件转换成PDF<br>wkhtmltopdf xxx.html xxx.pdf<br>把一个 url 指向的网页转换成PDF<br>wkhtmltopdf url xxx.pdf</p>
+</blockquote>
+<h1 id="https-www-jianshu-com-p-4d65857ffe5e"><a href="#https-www-jianshu-com-p-4d65857ffe5e" class="headerlink" title="https://www.jianshu.com/p/4d65857ffe5e"></a><a href="https://www.jianshu.com/p/4d65857ffe5e" target="_blank" rel="noopener">https://www.jianshu.com/p/4d65857ffe5e</a></h1></li>
+</ol>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/10/Hello-World-0/" data-id="cje5ghagq0002mgnv43297vgy" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/01/10/Hello-World-0/" data-id="cjfs1hwpr00026wnveq7ldewa" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li></ul>
@@ -432,7 +659,7 @@ hexo new&quot;postName&quot; #新建文章
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/10/hello-world/" data-id="cje5ghajg000kmgnvb48wam2f" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/01/10/hello-world/" data-id="cjfs1hwqc000a6wnv9u1yf73a" class="article-share-link">Teilen</a>
       
       
     </footer>
@@ -446,7 +673,7 @@ hexo new&quot;postName&quot; #新建文章
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/">&laquo; zurück</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
   </nav>
 
 </section>
@@ -455,7 +682,7 @@ hexo new&quot;postName&quot; #新建文章
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
+    <h3 class="widget-title">Kategorien</h3>
     <div class="widget">
       <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a></li></ul>
     </div>
@@ -467,7 +694,7 @@ hexo new&quot;postName&quot; #新建文章
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/">blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring-boot/">spring-boot</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/">blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring-boot/">spring-boot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springBoot实战/">springBoot实战</a></li></ul>
     </div>
   </div>
 
@@ -477,16 +704,16 @@ hexo new&quot;postName&quot; #新建文章
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/spring-boot/" style="font-size: 10px;">spring-boot</a>
+      <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/spring-boot/" style="font-size: 10px;">spring-boot</a> <a href="/tags/springBoot实战/" style="font-size: 10px;">springBoot实战</a>
     </div>
   </div>
 
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
+    <h3 class="widget-title">Archiv</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li></ul>
     </div>
   </div>
 
@@ -494,28 +721,28 @@ hexo new&quot;postName&quot; #新建文章
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">letzter Beitrag</h3>
     <div class="widget">
       <ul>
         
           <li>
+            <a href="/2018/03/23/javaEE的颠覆者SpringBoot实战1/">javaEE的颠覆者SpringBoot实战1</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/14/c-多线程/">c#多线程</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/06/springBoot实战-01/">springBoot实战-01</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/02/Spring-Boot-Druid数据源配置/">Spring Boot Druid数据源配置</a>
+          </li>
+        
+          <li>
             <a href="/2018/02/27/sql语句的执行顺序/">sql语句的执行顺序</a>
-          </li>
-        
-          <li>
-            <a href="/2018/02/26/2018student/">2018student</a>
-          </li>
-        
-          <li>
-            <a href="/2018/02/08/SpringBoot整合Swagger2/">SpringBoot整合Swagger2</a>
-          </li>
-        
-          <li>
-            <a href="/2018/02/07/java学习/">java学习</a>
-          </li>
-        
-          <li>
-            <a href="/2018/02/07/Python爬虫技巧之设置代理IP/">Python爬虫技巧之设置代理IP</a>
           </li>
         
       </ul>

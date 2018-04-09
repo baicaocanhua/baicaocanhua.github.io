@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>c#多线程 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="#并发（concurrency）和并行（parallellism）是： 解释一：并行是指两个或者多个事件在同一时刻发生；而并发是指两个或多个事件在同一时间间隔发生。解释二：并行是在不同实体上的多个事件，并发是在同一实体上的多个事件。解释三：在一台处理器上“同时”处理多个任务，在多台处理器上同时处理多个任务。如hadoop分布式集群 你吃饭吃到一半，电话来了，你一直到吃完了以后才去接，这就说明你不支">
+<meta property="og:type" content="article">
+<meta property="og:title" content="c#多线程">
+<meta property="og:url" content="http://yoursite.com/2018/03/14/c-多线程/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="#并发（concurrency）和并行（parallellism）是： 解释一：并行是指两个或者多个事件在同一时刻发生；而并发是指两个或多个事件在同一时间间隔发生。解释二：并行是在不同实体上的多个事件，并发是在同一实体上的多个事件。解释三：在一台处理器上“同时”处理多个任务，在多台处理器上同时处理多个任务。如hadoop分布式集群 你吃饭吃到一半，电话来了，你一直到吃完了以后才去接，这就说明你不支">
+<meta property="og:updated_time" content="2018-03-14T05:57:48.320Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="c#多线程">
+<meta name="twitter:description" content="#并发（concurrency）和并行（parallellism）是： 解释一：并行是指两个或者多个事件在同一时刻发生；而并发是指两个或多个事件在同一时间间隔发生。解释二：并行是在不同实体上的多个事件，并发是在同一实体上的多个事件。解释三：在一台处理器上“同时”处理多个任务，在多台处理器上同时处理多个任务。如hadoop分布式集群 你吃饭吃到一半，电话来了，你一直到吃完了以后才去接，这就说明你不支">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-c-多线程" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/03/14/c-多线程/" class="article-date">
+  <time datetime="2018-03-14T00:58:06.000Z" itemprop="datePublished">2018-03-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      c#多线程
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>#并发（concurrency）和并行（parallellism）是：</p>
+<p>解释一：并行是指两个或者多个事件在同一时刻发生；而并发是指两个或多个事件在同一时间间隔发生。<br>解释二：并行是在不同实体上的多个事件，并发是在同一实体上的多个事件。<br>解释三：在一台处理器上“同时”处理多个任务，在多台处理器上同时处理多个任务。如hadoop分布式集群</p>
+<p>你吃饭吃到一半，电话来了，你一直到吃完了以后才去接，这就说明你不支持并发也不支持并行。<br>你吃饭吃到一半，电话来了，你停了下来接了电话，接完后继续吃饭，这说明你支持并发。<br>你吃饭吃到一半，电话来了，你一边打电话一边吃饭，这说明你支持并行。<br>并发的关键是你有处理多个任务的能力，不一定要同时。<br>并行的关键是你有同时处理多个任务的能力。<br>所以我认为它们最关键的点就是：是否是『同时』。</p>
+<p>并行—-同时</p>
+<p><a href="http://blog.csdn.net/java_zero2one/article/details/51477791" target="_blank" rel="noopener">http://blog.csdn.net/java_zero2one/article/details/51477791</a></p>
+<h1 id="1-System-Threading"><a href="#1-System-Threading" class="headerlink" title="1.System.Threading"></a>1.System.Threading</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">//主线程入口</span><br><span class="line"> static void Main(string[] args)</span><br><span class="line"> &#123;</span><br><span class="line">     Console.WriteLine(&quot;主线程开始！&quot;);</span><br><span class="line"></span><br><span class="line">     //创建前台工作线程</span><br><span class="line">     //Thread t1 = new Thread(new ThreadStart(Task1));</span><br><span class="line">     Thread t1 = new Thread(Task1);</span><br><span class="line">     t1.Start();</span><br><span class="line"></span><br><span class="line">     //创建后台工作线程</span><br><span class="line">     Thread t2= new Thread(new ParameterizedThreadStart(Task2));</span><br><span class="line">     t2.IsBackground = true;//设置为后台线程</span><br><span class="line">     t2.Start(&quot;传参&quot;);</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> private static void Task1()</span><br><span class="line"> &#123;</span><br><span class="line">     Thread.Sleep(1000);//模拟耗时操作，睡眠1s</span><br><span class="line">     Console.WriteLine(&quot;前台线程被调用！&quot;);</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> private static void Task2(object data)</span><br><span class="line"> &#123;</span><br><span class="line">     Thread.Sleep(2000);//模拟耗时操作，睡眠2s</span><br><span class="line">     Console.WriteLine(&quot;后台线程被调用！&quot; + data);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>多线程<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Thread[] t=new Thread[4];</span><br><span class="line">for(int i=0;i&lt;t.length;i++)</span><br><span class="line">&#123;</span><br><span class="line">    Thread[i]=new Thread(new ParameterizedThreadStart(Task2));</span><br><span class="line">    Thread[i].Start(&quot;传参&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h1 id="2-ThreadPool（线程池）"><a href="#2-ThreadPool（线程池）" class="headerlink" title="2.ThreadPool（线程池）"></a>2.ThreadPool（线程池）</h1><h2 id="减少了创建和销毁线程所需的时间"><a href="#减少了创建和销毁线程所需的时间" class="headerlink" title="减少了创建和销毁线程所需的时间"></a>减少了创建和销毁线程所需的时间</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Console.WriteLine(&quot;主线程开始！&quot;);</span><br><span class="line">//创建要执行的任务</span><br><span class="line">WaitCallback workItem = state =&gt; Console.WriteLine(&quot;当前线程Id为：&quot; + Thread.CurrentThread.ManagedThreadId);</span><br><span class="line">//WaitCallback workItem2=Task2;//带参数</span><br><span class="line">//重复调用10次</span><br><span class="line">for (int i = 0; i &lt; 10; i++)</span><br><span class="line">&#123;</span><br><span class="line">    ThreadPool.QueueUserWorkItem(workItem);</span><br><span class="line">&#125;</span><br><span class="line">Console.ReadLine();</span><br></pre></td></tr></table></figure>
+<h1 id="3-System-Threading-Tasks"><a href="#3-System-Threading-Tasks" class="headerlink" title="3.System.Threading.Tasks"></a>3.System.Threading.Tasks</h1><h2 id="任务并行库（TPL）"><a href="#任务并行库（TPL）" class="headerlink" title="任务并行库（TPL）"></a>任务并行库（TPL）</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">class Program</span><br><span class="line">    &#123;</span><br><span class="line">        static void Main(string[] args)</span><br><span class="line">        &#123;</span><br><span class="line">            List&lt;Action&gt; actions = new List&lt;Action&gt;() &#123; Credit, Email &#125;;</span><br><span class="line"></span><br><span class="line">            var result = Parallel.For(0, actions.Count, (i) =&gt;</span><br><span class="line">            &#123;</span><br><span class="line">                actions[i]();</span><br><span class="line">            &#125;);</span><br><span class="line"></span><br><span class="line">            Console.WriteLine(&quot;执行状态:&quot; + result.IsCompleted);</span><br><span class="line"></span><br><span class="line">            Console.Read();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        static void Credit()</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(&quot;******************  发起信用卡扣款中  ******************&quot;);</span><br><span class="line"></span><br><span class="line">            Thread.Sleep(2000);</span><br><span class="line"></span><br><span class="line">            Console.WriteLine(&quot;扣款成功！&quot;);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        static void Email()</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(&quot;******************  发送邮件确认单！*****************&quot;);</span><br><span class="line"></span><br><span class="line">            Thread.Sleep(3000);</span><br><span class="line"></span><br><span class="line">            Console.WriteLine(&quot;email发送成功！&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="PLINQ（并行LINQ查询）"><a href="#PLINQ（并行LINQ查询）" class="headerlink" title="PLINQ（并行LINQ查询）"></a>PLINQ（并行LINQ查询）</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">int[] modThreeIsZero = (from num in source.AsParallel()</span><br><span class="line">                        where num % 3 == 0</span><br><span class="line">                        orderby num descending</span><br><span class="line">                        select num).ToArray();</span><br></pre></td></tr></table></figure>
+<h2 id="Task"><a href="#Task" class="headerlink" title="Task"></a>Task</h2><blockquote>
+<p>1<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Task t =new Task(() =&gt;</span><br><span class="line">&#123;</span><br><span class="line">Console.WriteLine(&quot;任务开始工作……&quot;);</span><br><span class="line">//模拟工作过程</span><br><span class="line">Thread.Sleep(5000);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>2<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Task t = Task.Run( () =&gt; &#123;</span><br><span class="line">                                 // Just loop.</span><br><span class="line">                                 int ctr = 0;</span><br><span class="line">                                 for (ctr = 0; ctr &lt;= 1000000; ctr++)</span><br><span class="line">                                 &#123;&#125;</span><br><span class="line">                                 Console.WriteLine(&quot;Finished &#123;0&#125; loop iterations&quot;,</span><br><span class="line">                                                   ctr);</span><br><span class="line">                              &#125; );</span><br><span class="line">     t.Wait();</span><br><span class="line"></span><br><span class="line">   Task&lt;string&gt; task = Task.Run(() =&gt;</span><br><span class="line">   &#123;</span><br><span class="line">       return Thread.CurrentThread.ManagedThreadId.ToString();</span><br><span class="line">   &#125;);;</span><br></pre></td></tr></table></figure></p>
+<p>3<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">taskList.Add(Task.Factory.StartNew(() =&gt;</span><br><span class="line">             &#123;</span><br><span class="line">                 // 假设i就是job id</span><br><span class="line">                 jobHelper.SubmitJob(temp);</span><br><span class="line">             &#125;));</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h1 id="地址"><a href="#地址" class="headerlink" title="地址"></a>地址</h1><p><a href="https://www.cnblogs.com/luxiaoxun/p/3280146.html" target="_blank" rel="noopener">https://www.cnblogs.com/luxiaoxun/p/3280146.html</a><br><a href="https://www.cnblogs.com/dotnet261010/p/6159984.html" target="_blank" rel="noopener">https://www.cnblogs.com/dotnet261010/p/6159984.html</a></p>
+<p>可以不用reset<br>private Stopwatch stopWatch = new Stopwatch();</p>
+<pre><code>stopWatch.Start();//1
+Parallel.Invoke(Run1, Run2);
+stopWatch.Stop();//2
+Console.WriteLine(&quot;Parallel run &quot; + stopWatch.ElapsedMilliseconds + &quot; ms.&quot;);
+
+stopWatch.Restart();//3
+Run1();
+Run2();
+stopWatch.Stop();//4
+Console.WriteLine(&quot;Normal run &quot; + stopWatch.ElapsedMilliseconds + &quot; ms.&quot;);
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/03/14/c-多线程/" data-id="cjfs1hwq500076wnvp7x0m31n" class="article-share-link">Teilen</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/03/23/javaEE的颠覆者SpringBoot实战1/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          javaEE的颠覆者SpringBoot实战1
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/03/06/springBoot实战-01/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">springBoot实战-01</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Kategorien</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/">blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring-boot/">spring-boot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springBoot实战/">springBoot实战</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/spring-boot/" style="font-size: 10px;">spring-boot</a> <a href="/tags/springBoot实战/" style="font-size: 10px;">springBoot实战</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/03/23/javaEE的颠覆者SpringBoot实战1/">javaEE的颠覆者SpringBoot实战1</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/14/c-多线程/">c#多线程</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/06/springBoot实战-01/">springBoot实战-01</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/02/Spring-Boot-Druid数据源配置/">Spring Boot Druid数据源配置</a>
+          </li>
+        
+          <li>
+            <a href="/2018/02/27/sql语句的执行顺序/">sql语句的执行顺序</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
